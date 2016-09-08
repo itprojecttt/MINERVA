@@ -15,6 +15,7 @@ MINERVA is a project based on Velta's partially-finished work involving plotting
 
 
 Project Goals
+
 Below are the 3 sub-sections in which this section is divided into.
 
 Goals
