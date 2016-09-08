@@ -18,12 +18,15 @@ Project Goals
 Below are the 3 sub-sections in which this section is divided into.
 
 Goals
+
 MINERVA should be able to act as a tool in helping adults monitor their children's capabilities. MINERVA should be simple and easy to use. Visual elements should be easily understandable by users and prompted inputs should be straightforward. [Maybe write down some features we want to implement here? Exa: Log-in]
 
 User Target
+
 Parents(more specifically busy parents who are not able to monitor their children most of the time) and legal guardians who want to know their childrens capabilities. 
 
 Expected Outcome
+
 MINERVA should be able to yield a easy-to-understand visual demonstration(in the form of a chart, diagram and descriptions) showing the user the levels of their children's capabilities based on determining educatinal factors and sectors. 
 
 
