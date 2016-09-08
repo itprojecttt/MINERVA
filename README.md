@@ -11,20 +11,20 @@ Group Members:
 
 Introduction:
 
-This project is based on a semi - finished work by Velta who was working on gathering information regarding toddler education. We plan on creating a friendly web application to help parents/guardians track the progress of their children so that they know what their children excels and lacks of. Minerva displays this information throught visual charts and descriptions that is determined from user inputs. 
+MINERVA is a project based on Velta's partially-finished work involving plotting a child's early education information and visually displaying it through charts, diagrams and descriptions. MINERVA is planned to be a easy-to-use web-based application which allow the users to get visual results through prompted inputs. MINERVA is designed to aid parents/guardians track the process of their children so that they know where their children excel and lack in. We plan on creating a friendly simple web-application that functions as a purposeful tool in assisting parents/guardians in reaching a higher potential for their children. 
 
 
 Project Goals
-[This section should describe the goals of your project.  This section is divided into three sub-section]
+Below are the 3 sub-sections in which this section is divided into.
 
 Goals
-[This section should describe the goals of your project]
+MINERVA should be able to act as a tool in helping adults monitor their children's capabilities. MINERVA should be simple and easy to use. Visual elements should be easily understandable by users and prompted inputs should be straightforward. [Maybe write down some features we want to implement here? Exa: Log-in]
 
 User Target
-[This section should describe the user target that you aim for using your application]
+Parents(more specifically busy parents who are not able to monitor their children most of the time) and legal guardians who want to know their childrens capabilities. 
 
 Expected Outcome
-[This section should describe the expected outcome from your application such as the ability of the applicaiton]
+MINERVA should be able to yield a easy-to-understand visual demonstration(in the form of a chart, diagram and descriptions) showing the user the levels of their children's capabilities based on determining educatinal factors and sectors. 
 
 
 Project Vision
