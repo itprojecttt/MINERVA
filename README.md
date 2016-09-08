@@ -36,7 +36,15 @@ Project Vision: Develop an easy to use and aesthetically pleasing online sales c
 
 
 SCRUM Core Team
+
+
 Product Owner: [write the name of your group member who is in charge as product owner]
+
+
 SCRUM Team: [write the name of your group members who are in charge for the following role]
+
+
 Front-end Developer: Agazsi N. Bahasoean, M. Raihan Saputra, Velta Azizah Destiana
+
+
 Back-end Developer: Bimo Prabowo Reksoprodjo, Kristofer Anandita
