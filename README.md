@@ -11,7 +11,7 @@ Group Members:
 
 Introduction:
 
-This project is based on a semi - finished work by Velta who was working on gathering info regarding toddler education. We plan to create a friendly application to help parents track the progress of their children so that they know what their children excels and lacks of.
+This project is based on a semi - finished work by Velta who was working on gathering information regarding toddler education. We plan on creating a friendly web application to help parents/guardians track the progress of their children so that they know what their children excels and lacks of. Minerva displays this information throught visual charts and descriptions that is determined from user inputs. 
 
 
 Project Goals
