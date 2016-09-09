@@ -74,10 +74,13 @@ A responsive website created from **React.js** (frontend) and **PHP/Python** fra
 SCRUM Core Team
 --------------------
 
-Product Owner | Scrum Master | Front-end | Back-end
------------- | ------------- | ------------- | ------------- 
-Raihan | Raihan | Velta | Kitto
-- | - | Agazsi | Bimo
+Member Name | Roles 
+------------ | ------------- 
+Raihan | Product Manager
+Velta | Frontend Developer
+Agazsi | Frontend Designer
+Bimo | Backend Developer
+Kitto | Backend Developer
 
 ```sequence
 Raihan -> Velta + Agazsi : Please create 'em mockup!
