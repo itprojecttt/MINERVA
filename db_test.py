@@ -1,9 +1,3 @@
-from pymongo import MongoClient
-client = MongoClient()
+import django
 
-db = client.test
-
-# db.child.insert({'age': 3})
-
-for i in db.child.find({}):
-    print(i)
+print(django.get_version())
