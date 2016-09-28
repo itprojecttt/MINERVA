@@ -1,3 +1,5 @@
 # spotlight
 
 .DS_Store
+.idea
+venv/
