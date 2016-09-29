@@ -1,6 +1,7 @@
 # Create your models here.
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 import datetime
 
 
@@ -14,8 +15,12 @@ class Question(models.Model):
 
     # Custom function
     def was_published_recently(self):
-        now = datetime.timezone.now()
+        now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently?'
 
 
 @python_2_unicode_compatible
