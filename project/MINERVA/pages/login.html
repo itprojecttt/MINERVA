@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>MINERVA</title>
-    <link rel="stylesheet" href="css/landio.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "/css/landio.css" %}">
   </head>
 
   <body class="bg-white">
@@ -131,6 +132,7 @@
         
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="js/landio.min.js"></script>
+    {% load static %}
+    <script src="{% static "js/landio.min.js" %}"></script>
   </body>
 </html>
