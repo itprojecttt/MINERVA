@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from .views import login, auth_view, loggedin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,3 +25,5 @@ urlpatterns = [
     url(r'^accounts/auth/$', auth_view),
     url(r'^accounts/loggedin/$', loggedin),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
