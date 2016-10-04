@@ -15,9 +15,15 @@ def auth_view(request):
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
 
-    auth.login(request, user)
-    return HttpResponseRedirect('/accounts/loggedin')
+    if user is not None:
+        auth.login(request, user)
+        return HttpResponseRedirect('/loggedin')
+    else:
+        return HttpResponseRedirect('/redirect')
 
 
 def loggedin(request):
     return render_to_response('loggedin.html', request.user.username)
+
+def redirect(request):
+    return render_to_response('redirect.html')
