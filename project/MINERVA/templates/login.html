@@ -1,143 +1,123 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MINERVA</title>
-    <link rel="stylesheet" href="{% static 'css/landio.css' %}">
-  </head>
-
-  <body class="bg-white">
-    
-   
-
-    <hr class="invisible">
-
-   
-
-    <div class="container">
-    <center><h2>
-    <b>Masuk</b> atau <b>Daftar</b><br>untuk melanjutkan</h2>
-    </center><br>
-
-    <hr class="invisible">
-    <hr class="invisible">
-      <div class="row">
-        <div class="col-md-6 col-xl-6">
-
-          <!-- Forms
-          ================================================== -->
-			<div class="row">
-				<div class="col-md-6 col-xl-6" style="padding-left:0;padding-right:5px;">
-	          <div class="form-group has-icon-left form-control-name">
-	            <label class="sr-only" for="inputNamaD">Nama Depan</label>
-	            <input type="text" class="form-control form-control-lg" id="inputNamaD" placeholder="Nama Depan">
-	          </div>
-		    </div>
-			<div class="col-md-6 col-xl-6" style="padding-left:5px;padding-right:0;">
-	             <div class="form-group has-icon-left form-control-name">
-            <label class="sr-only" for="inputNamaB">Nama Belakang</label>
-            <input type="text" class="form-control form-control-lg" id="inputNamaB" placeholder="Nama Belakang">
-          </div>
-	   		</div>
-		</div>
-		<div class="row">
-        <div class="form-group has-icon-left form-control-name">
-          <label class="sr-only" for="inputName">Username Anda</label>
-          <input type="username" class="form-control form-control-lg" id="inputName" placeholder="Username Anda" autocomplete="off">
-        </div>
-          <div class="form-group has-icon-left form-control-email">
-            <label class="sr-only" for="inputEmail">Alamat e-mail</label>
-            <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="Alamat e-mail" autocomplete="off">
-          </div>
-          <div class="form-group has-icon-left form-control-password">
-            <label class="sr-only" for="inputPassword">Masukkan password</label>
-            <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Masukkan password" autocomplete="off">
-          </div>
-          <div class="form-group has-icon-left form-control-password">
-            <label class="sr-only" for="inputPassword">Ketik ulang password</label>
-            <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Ketik ulang password" autocomplete="off">
-          </div>
-
-          <!-- Buttons
-          ================================================== -->
-
-          <button type="submit" class="btn btn-primary btn-block">DAFTAR</button>
-          <hr class="invisible">
-	  </div>
-        </div>
-        <div class="col-md-6 col-xl-6">
-	        <div class="form-group has-icon-left form-control-name">
-              {% block content %}
-              <form action="/auth/" method="post">{% csrf_token %}
-	            <label class="sr-only" for="inputName">Username Anda</label>
-	            <input type="username" class="form-control form-control-lg" id="username" placeholder="Username Anda" autocomplete="off">
-	        </div>
-          <div class="form-group has-icon-left form-control-password">
-                <label class="sr-only" for="inputPassword">Masukkan password</label>
-                <input type="password" class="form-control form-control-lg" id="password" placeholder="Masukkan password" autocomplete="off">
-
-
-
-          <a style="float: left; text-align: right" href="#"><br>Lupa password?</a>
-          <a style="float: right; text-align: right; margin-bottom: 12px" href="#"><br>Belum punya akun?</a>
-
-          </div>
-
-          <!-- Buttons
-          ================================================== -->
-
-          <input type="submit" class="btn btn-primary btn-block" value="login">Masuk</input>
-          </form>
-          {% endblock %}
-          <hr class="invisible">
-
-        </div>
-
-        <div class="clearfix hidden-xl-up"></div>
-
-        <div class="col-md-4">
-
-         </div>
-         </div>
-         </div>
-         <br><br>
-         <!-- DARK footer
-    ================================================== -->
-
-    <footer class="section-footer bg-inverse" role="contentinfo">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-5">
-            <div class="media">
-              <div class="media-left">
-                <span class="media-object icon-logo display-1"></span>
-              </div>
-              <small class="media-body media-bottom">
-                &copy; Land.io 2015. <br>
-                Designed by Peter Finlan, developed by Taty Grassini, exclusively for Codrops.
-              </small>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>MINERVA</title>
+        <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+    </head>
+    <body class="bg-white">
+        <hr class="invisible">
+        <div class="container">
+            <center>
+                <h2>
+                    <b>Masuk</b> atau <b>Daftar</b><br>untuk melanjutkan
+                </h2>
+            </center>
+            <br>
+            <hr class="invisible">
+            <hr class="invisible">
+            <div class="row">
+                <div class="col-md-6 col-xl-6">
+                    <!-- Forms
+                        ================================================== -->
+                    <div class="row">
+                        <div class="col-md-6 col-xl-6" style="padding-left:0;padding-right:5px;">
+                            <div class="form-group has-icon-left form-control-name">
+                                <form action="/register/" method="post">
+                                <label class="sr-only" for="firstname">Nama Depan</label>
+                                <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" placeholder="Nama Depan">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-6" style="padding-left:5px;padding-right:0;">
+                            <div class="form-group has-icon-left form-control-name">
+                                <label class="sr-only" for="lastname">Nama Belakang</label>
+                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Nama Belakang">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group has-icon-left form-control-name">
+                            <label class="sr-only" for="username_reg">Username Anda</label>
+                            <input type="username" class="form-control form-control-lg" id="username_reg" name="username_reg" placeholder="Username Anda" autocomplete="off">
+                        </div>
+                        <div class="form-group has-icon-left form-control-email">
+                            <label class="sr-only" for="email">Alamat e-mail</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Alamat e-mail" autocomplete="off">
+                        </div>
+                        <div class="form-group has-icon-left form-control-password">
+                            <label class="sr-only" for="password_reg">Masukkan password</label>
+                            <input type="password" class="form-control form-control-lg" id="password_reg" name="password_reg" placeholder="Masukkan password" autocomplete="off">
+                        </div>
+                        <div class="form-group has-icon-left form-control-password">
+                            <label class="sr-only" for="password2_reg">Ketik ulang password</label>
+                            <input type="password" class="form-control form-control-lg" id="password2_reg" name="password2_reg" placeholder="Ketik ulang password" autocomplete="off">
+                        </div>
+                        <!-- Buttons
+                            ================================================== -->
+                        <input type="submit" class="btn btn-primary btn-block">DAFTAR</input>
+                        </form>
+                        <hr class="invisible">
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-6">
+                    <div class="form-group has-icon-left form-control-name">
+                        {% block content %}
+                        <form action="/auth/" method="post">{% csrf_token %}
+                            <label class="sr-only" for="inputName">Username Anda</label>
+                            <input type="username" class="form-control form-control-lg" id="username" name="username" placeholder="Username Anda" autocomplete="off">
+                    </div>
+                    <div class="form-group has-icon-left form-control-password">
+                    <label class="sr-only" for="inputPassword">Masukkan password</label>
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Masukkan password" autocomplete="off">
+                    <a style="float: left; text-align: right" href="#"><br>Lupa password?</a>
+                    <a style="float: right; text-align: right; margin-bottom: 12px" href="#"><br>Belum punya akun?</a>
+                    </div>
+                    <!-- Buttons
+                        ================================================== -->
+                    <input type="submit" class="btn btn-primary btn-block" value="login">Masuk</input>
+                    </form>
+                    {% endblock %}
+                    <hr class="invisible">
+                </div>
+                <div class="clearfix hidden-xl-up"></div>
+                <div class="col-md-4">
+                </div>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-7">
-            <ul class="nav nav-inline">
-              <li class="nav-item">
-                <a class="nav-link" href="./index-carousel.html"><small>NEW</small> Slides<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active"><a class="nav-link" href="ui-elements.html">UI Kit</a></li>
-              <li class="nav-item"><a class="nav-link" href="https://github.com/tatygrassini/landio-html" target="_blank">GitHub</a></li>
-              <li class="nav-item"><a class="nav-link scroll-top" href="#totop">Back to top <span class="icon-caret-up"></span></a></li>
-            </ul>
-          </div>
         </div>
-      </div>
-    </footer>
-
-        
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="{% static 'js/landio.min.js' %}"></script>
-  </body>
+        <br><br>
+        <!-- DARK footer
+            ================================================== -->
+        <footer class="section-footer bg-inverse" role="contentinfo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="media">
+                            <div class="media-left">
+                                <span class="media-object icon-logo display-1"></span>
+                            </div>
+                            <small class="media-body media-bottom">
+                            &copy; Land.io 2015. <br>
+                            Designed by Peter Finlan, developed by Taty Grassini, exclusively for Codrops.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-7">
+                        <ul class="nav nav-inline">
+                            <li class="nav-item">
+                                <a class="nav-link" href="./index-carousel.html"><small>NEW</small> Slides<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active"><a class="nav-link" href="ui-elements.html">UI Kit</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://github.com/tatygrassini/landio-html" target="_blank">GitHub</a></li>
+                            <li class="nav-item"><a class="nav-link scroll-top" href="#totop">Back to top <span class="icon-caret-up"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="{% static 'js/landio.min.js' %}"></script>
+    </body>
 </html>

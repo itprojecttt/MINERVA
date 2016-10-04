@@ -42,22 +42,29 @@
               <input type="text" class="form-control form-control-lg" id="inputName" placeholder="Full Name">
             </div>
 
-            <div class="form-group form-control-email">
-              <label class="sr-only" for="inputEmail">Nick Name</label>
-              <input type="text" class="form-control form-control-lg" id="inputEmail" placeholder="Nick Name" autocomplete="off">
+            <div class="form-group form-control-Nick">
+              <label class="sr-only" for="inputNick">Nick Name</label>
+              <input type="text" class="form-control form-control-lg" id="inputNick" placeholder="Nick Name" autocomplete="off">
+            </div>
+
+            <div class="form-group form-control-Gender">
+              <label class="sr-only" for="inputNick">Gender</label>
+              <input type="text" class="form-control form-control-lg" id="inputGender" placeholder="Gender" autocomplete="off">
             </div>
 
             <div class="form-group">
-              <input class="form-control" type="date" placeholder="test" id="example-date-input">
+              <input class="form-control" type="date" placeholder="test" id="Data-date-input">
               <small id="dobHelp" class="form-text text-muted">The birth day of your child</small>
             </div>
           </div>
 
+          <br>
+          
           <div class="Historical-weight&height">
             <h4><center>HISTORICAL <b>WEIGHT</b> and <b>HEIGHT</b></center></h4>
               <hr class="invisible">
 
-              <div class="col-md-6 col-xl-6" style="padding-left:0;padding-right:5px;">
+              <div class="col-md-6 col-xl-6" style="padding-left:0px;padding-right:5px;">
                 <div class="form-group form-control-Weight">
                   <label class="sr-only" for="inputWeight">Weight</label>
                   <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight">
@@ -65,7 +72,7 @@
                 </div>
               </div>
 
-              <div class="col-md-6 col-xl-6" style="padding-left:5px;padding-right:0;">
+              <div class="col-md-6 col-xl-6" style="padding-left:5px;padding-right:0px;">
                 <div class="form-group form-control-Height">
                   <label class="sr-only" for="inputHeight">Height</label>
                   <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height">
@@ -73,66 +80,88 @@
                 </div>
               </div>
 
-            <div class="form-group">
-              <input class="form-control" type="date" placeholder="test" id="example-date-input">
-              <small id="emailHelp" class="form-text text-muted">Date Taken</small>
-            </div>
+              <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px">
+                <div class="form-group">
+                  <input class="form-control" type="date" placeholder="test" id="weightheight-date-input">
+                  <small id="dateHelp" class="form-text text-muted">Date Taken</small>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-xl-4" style="padding-left:5px;padding-right: 0;">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+                  <br>
+                  <br>
+              </div>
           </div>
 
-         <div class="Historical-TEETHDATA">
-
+          <div class="Historical-TEETHDATA">
             <h4><center>HISTORICAL <b>TEETH DATA</b></center></h4>
               <hr class="invisible">
               <div class="form-group form-control-Teeth">
-                <label class="sr-only" for="inputEmail">Number of Teeth</label>
+                <label class="sr-only" for="inputTeeth">Number of Teeth</label>
                 <input type="text" class="form-control form-control-lg" id="inputTeeth" placeholder="Number Of Teeth" autocomplete="off">
               </div>
-            <div class="form-group">
-              <input class="form-control" type="date" placeholder="test" id="example-date-input">
-              <small id="emailHelp" class="form-text text-muted">Date Taken</small>
-            </div>
+              <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px">
+                <div class="form-group">
+                  <input class="form-control" type="date" placeholder="test" id="teeth-date-input">
+                  <small id="dateHelp" class="form-text text-muted">Date Taken</small>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-xl-4" style="padding-left:5px;padding-right: 0;">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+                  <br>
+                  <br>
+              </div>
           </div>
 
-          <div class="col-sm-6" style="height:130px;">
-              <div class="form-group">
-                  <div class='input-group date' id='datetimepicker9'>
-                      <input type='text' class="form-control" />
-                      <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar">
-                          </span>
-                      </span>
+          <div class="Head-Circumference">
+            <h4><center><b>HEAD CIRCUMFERENCE</b></center></h4>
+              <hr class="invisible">
+              <div class="form-group form-control-Teeth">
+                <label class="sr-only" for="inputHead">Head Size</label>
+                <input type="text" class="form-control form-control-lg" id="inputHead" placeholder="Head Size" autocomplete="off">
+              </div>
+
+              <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px">
+                <div class="form-group">
+                  <input class="form-control" type="date" placeholder="test" id="head-date-input">
+                  <small id="dateHelp" class="form-text text-muted">Date Taken</small>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-xl-4" style="padding-left:5px;padding-right: 0;">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+                  <br>
+                  <br>
+              </div>
+          </div>
+
+
+          <div class="VAKSIN">
+            <h4><center> <b>VACINICCATION</b></center></h4>
+                <div class="form-group">
+                  <label for="sel1">Select from list:</label>
+                  <select class="form-control" id="sel1">
+                    <option value="Vaksin1">Vaksin1</option>
+                    <option value="Vaksin2">Vaksin2</option>
+                    <option value="Vaksin3">Vaksin3</option>
+                    <option value="Vaksin4">Vaksin4</option>
+                  </select>
+                </div>
+                <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px">
+                  <div class="form-group">
+                    <input class="form-control" type="date" placeholder="test" id="head-date-input">
+                    <small id="dateHelp" class="form-text text-muted">Date Taken</small>
                   </div>
-              </div>
-          </div>
-          <script type="text/javascript">
-              $(function () {
-                  $('#datetimepicker9').datetimepicker({
-                      viewMode: 'years'
-                  });
-              });
-          </script>
+                </div>
 
-          <form>
-              <div class="form-group">
-                <label for="sel1">Select list (select one):</label>
-                <select class="form-control" id="sel1">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-                <br>
-                <label for="sel2">Mutiple select list (hold shift to select more than one):</label>
-                <select multiple class="form-control" id="sel2">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            
-            </form>
+                <div class="col-md-4 col-xl-4" style="padding-left:5px;padding-right: 0;">
+                    <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+                    <br>
+                    <br>
+                </div>
+          </div>
 
           <hr class="invisible">
         </div>
