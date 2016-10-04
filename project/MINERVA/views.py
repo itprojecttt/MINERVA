@@ -11,9 +11,12 @@ def login(request):
 
 
 def auth_view(request):
+    for key, value in request.POST.items():
+        print(key, value)
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
+    print(username, password)
 
     if user is not None:
         auth.login(request, user)
