@@ -1,6 +1,0 @@
-2016-09-23 14:37:39 ICT LOG:  sistem database telah mati pada 2016-09-23 14:37:20 ICT
-2016-09-23 14:37:39 ICT LOG:  MultiXact member wraparound protections are now enabled
-2016-09-23 14:37:39 ICT LOG:  sistem database siap untuk menerima koneksi
-2016-09-23 14:37:39 ICT LOG:  launcher autovacuum dijalankan
-2016-09-26 19:39:08 ICT LOG:  tidak dapat menerima data dari klien : An existing connection was forcibly closed by the remote host.
-	
