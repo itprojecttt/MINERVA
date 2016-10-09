@@ -4,11 +4,8 @@ from .models import Milestone, UserChecklist
 
 # Register your models here.
 class MilestoneAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['milestone']})
-    ]
-    list_display = ('milestone')
-    search_fields = ['milestone']
+    fields = ('milestone', 'start', 'seven_five', 'finish')
+    list_display = ('milestone', 'start', 'seven_five', 'finish')
 
 
 class ChoiceInline(admin.TabularInline):
