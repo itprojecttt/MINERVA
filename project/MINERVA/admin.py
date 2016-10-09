@@ -8,5 +8,5 @@ class MilestoneAdmin(admin.ModelAdmin):
     list_display = ('milestone', 'start', 'seven_five', 'finish')
 
 
-admin.site.register(Milestone)
+admin.site.register(Milestone, MilestoneAdmin)
 admin.site.register(UserChecklist)

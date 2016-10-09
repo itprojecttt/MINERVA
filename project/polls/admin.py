@@ -13,11 +13,11 @@ class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['question_text']
 
 
-class ChoiceInline(admin.TabularInline):
+'''class ChoiceInline(admin.TabularInline):
     fieldsets = [
         (None, {'fields': ['choice_text']}),
         ('Date information', {'fields': ['votes']}),
-    ]
+    ]'''
 
 
 admin.site.register(Question, QuestionAdmin)
