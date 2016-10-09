@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><Ayobaca class="in">MINERVA</Ayobaca> | Form Data Input</title>
-
     <link rel="stylesheet" href="css/landio.css">
-    <link rel="stylesheet" href="registertest.css">
+    <link rel="stylesheet" href="register.css">
 
 
+    <script type="text/javascript" src="js/dynamic-table-t.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   </head>
 
-  <body class="bg-white">
+  <body onlaoad="load()" class="bg-white">
     <hr class="invisible">
 
 <!--MAIN BODY================================================== -->
@@ -62,7 +62,7 @@
           <h4><center>HISTORICAL <b>WEIGHT</b> and <b>HEIGHT</b></center></h4>
             <br>
             <!--WEIGHT-->
-            <div class="col-md-6 col-xl-6" style="padding-left:0px; padding-right:0.5rem;">
+            <div class="col-md-6 col-xl-6">
               <div class="form-group form-control-Weight">
                 <label class="sr-only" for="inputWeight">Weight</label>
                 <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight">
@@ -70,7 +70,7 @@
               </div>
             </div>
             <!--HEIGHT-->
-            <div class="col-md-6 col-xl-6" style="padding-left:0.5rem; padding-right:0px;">
+            <div class="col-md-6 col-xl-6">
               <div class="form-group form-control-Height">
                 <label class="sr-only" for="inputHeight">Height</label>
                 <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height">
@@ -86,12 +86,26 @@
             </div>
             <!-- ADD BUTTON-->
             <div class="col-md-4 col-xl-4">
-                <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+                <button styletype="submit" class="btn btn-primary-outline btn-block"  onclick="Javascript:addRow()">ADD TO TABLE</button>
             </div>
         </div>
         <br><br>
         <div class="col-md-6 col-xl-6">
-          <h3><center>TEST UNTUT TABLEEE AAA A A A A A A A  AA</center></h3>
+          <div class="currentdata">
+            <table class="table table-fill" id='WeightHeightTable'>
+              <thead>
+                <tr>
+                  <th class="text-left">Weight</th>
+                  <th class="text-left">Height</th>
+                  <th class="text-left">Date</th>
+                  <th class="text-left table-remove glyhicon table-remove"></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
 
