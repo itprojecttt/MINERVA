@@ -13,8 +13,9 @@ class MilestoneAdmin(admin.ModelAdmin):
 
 class ChoiceInline(admin.TabularInline):
     fieldsets = [
-        (None, {'fields': ['choice_text']}),
-        ('Date information', {'fields': ['votes']}),
+        ('Milestone', {'fields': ['uid_milestone']}),
+        ('User', {'fields': ['uid_user']}),
+        ('Timestamp', {'fields': ['timestamp']})
     ]
 
 admin.site.register(Milestone)
