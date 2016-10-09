@@ -19,5 +19,6 @@ class ChoiceInline(admin.TabularInline):
         ('Date information', {'fields': ['votes']}),
     ]
 
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
