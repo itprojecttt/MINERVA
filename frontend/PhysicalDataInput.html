@@ -24,8 +24,8 @@
       <b><h1>Register</h1></b><h3>Data Input</h3>
       </center><br>
       <!--HEADER-->
-      <div class="card card-inverse card-social has-gradient card-register text-xs-center">
-        <div class="card-block card-register-pic" style="height:100%; position: center;">
+      <div class="card card-inverse has-gradient card-register">
+        <div class="card-register-pic" style="height:100%; position: center;">
         </div>
       </div>
       <br>
@@ -62,31 +62,31 @@
           <h4><center>HISTORICAL <b>WEIGHT</b> and <b>HEIGHT</b></center></h4>
             <br>
             <!--WEIGHT-->
-            <div class="col-md-6 col-xl-6">
+            <div class="col-md-6 col-xl-6" style="padding-left: 0; padding-right: 5px;">
               <div class="form-group form-control-Weight">
                 <label class="sr-only" for="inputWeight">Weight</label>
-                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight">
+                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name=="currinputWeight">
                 <small id="weightHelp" class="form-text text-muted">Please input weight in kg scale</small>
               </div>
             </div>
             <!--HEIGHT-->
-            <div class="col-md-6 col-xl-6">
+            <div class="col-md-6 col-xl-6" style="padding-left: 5px; padding-right: 0;">
               <div class="form-group form-control-Height">
                 <label class="sr-only" for="inputHeight">Height</label>
-                <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height">
+                <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height" name="currinputHeight">
                 <small id="heightHelp" class="form-text text-muted">Please input height in cm scale</small>
               </div>
             </div>
             <!--DATE TAKEN-->
-            <div class="col-md-8 col-xl-8">
+            <div class="col-md-8 col-xl-8" style="padding-left: 0; padding-right: 5px;">
               <div class="form-group">
-                <input class="form-control" type="date" placeholder="test" id="weightheight-date-input">
+                <input class="form-control" type="date" placeholder="test" id="weightheight-date-input" name="weightheight-date-input">
                 <small id="dateHelp" class="form-text text-muted">Date Taken</small>
               </div>
             </div>
             <!-- ADD BUTTON-->
-            <div class="col-md-4 col-xl-4">
-                <button styletype="submit" class="btn btn-primary-outline btn-block"  onclick="Javascript:addRow()">ADD TO TABLE</button>
+            <div class="col-md-4 col-xl-4" style="padding-left: 5px; padding-right: 5px;">
+                <button styletype="submit" class="btn btn-primary-outline btn-block"  onclick="Javascript:addRowWeightHeight()">ADD TO TABLE</button>
             </div>
         </div>
         <br><br>
@@ -95,10 +95,10 @@
             <table class="table table-fill" id='WeightHeightTable'>
               <thead>
                 <tr>
-                  <th class="text-left">Weight</th>
-                  <th class="text-left">Height</th>
-                  <th class="text-left">Date</th>
-                  <th class="text-left table-remove glyhicon table-remove"></th>
+                  <th>Weight</th>
+                  <th>Height</th>
+                  <th>Date</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -117,23 +117,35 @@
             <br>
               <div class="form-group">
                 <label class="sr-only" for="inputTeeth">Number of Teeth</label>
-                <input type="text" class="form-control form-control-lg" id="inputTeeth" placeholder="Number Of Teeth" autocomplete="off">
+                <input type="text" class="form-control form-control-lg" id="inputTeeth" name="inputTeeth" placeholder="Number Of Teeth" autocomplete="off">
               </div>
 
-              <div class="col-md-8 col-xl-8">
+              <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px;">
                 <div class="form-group">
-                  <input class="form-control" type="date" placeholder="test" id="teeth-date-input">
+                  <input class="form-control" type="date" placeholder="test" id="teeth-date-input" name="curr-teeth-date-input">
                   <small id="dateHelp" class="form-text text-muted">Date Taken</small>
                 </div>
               </div>
 
-              <div class="col-md-4 col-xl-4">
-                  <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+              <div class="col-md-4 col-xl-4" style="padding-left: 5px; padding-right: 0px">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block" onclick="Javascript:addRowTeeth()">ADD TO TABLE</button>
               </div>
         </div>
         <br><br>
         <div class="col-md-6 col-xl-6">
-          <h4><center>TEST UNTUT TABLEEE AAA A A A A A A A  AA</center></h4>
+          <div class="currentdata">
+            <table class="table table-fill" id='TeethTable'>
+              <thead>
+                <tr>
+                  <th>Teeth Number</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -145,66 +157,37 @@
             <br>
               <div class="form-group">
                 <label class="sr-only" for="inputHead">Head Size</label>
-                <input type="text" class="form-control form-control-lg" id="inputHead" placeholder="Head Size" autocomplete="off">
+                <input type="text" class="form-control form-control-lg" id="inputHead" name="curr-head-date-input" placeholder="Head Size" autocomplete="off">
               </div>
 
-              <div class="col-md-8 col-xl-8">
+              <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px;">
                 <div class="form-group">
-                  <input class="form-control" type="date" placeholder="test" id="head-date-input">
+                  <input class="form-control" type="date" placeholder="test" id="head-date-input" name="curr-head-date-input">
                   <small id="dateHelp" class="form-text text-muted">Date Taken</small>
                 </div>
               </div>
 
-              <div class="col-md-4 col-xl-4">
-                  <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
+              <div class="col-md-4 col-xl-4" style="padding-left: 5px; padding-right: 0;">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block"  onclick="Javascript:addRowHead()">ADD TO TABLE</button>
               </div>
           </div>
           <br><br>
           <div class="col-md-6 col-xl-6">
-            <h4>table buat gigi anak lu</h4>
+            <div class="currentdata">
+              <table class="table table-fill" id='HeadTable'>
+                <thead>
+                  <tr>
+                    <th>Head Circumference</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>          
           </div>
       </div>
 
-      <hr class="invisible">
-      <!-- VAKSIN -->
-      <div class="row">
-        <div class="col-md-6 col-xl-6">
-          <h4><center> <b>VACINICCATION</b></center></h4>
-          <br>
-            <div class="form-group">
-              <label for="sel1">Select from list:</label>
-              <select class="selectpicker form-control form-control-lg" data-live-search="true">
-               <optgroup label="VAKSIN PRIA">
-                  <option value="Vaksin1">Vaksin1</option>
-                  <option value="Vaksin2">Vaksin2</option>
-                  <option value="Vaksin3">Vaksin3</option>
-                  <option value="Vaksin4">Vaksin4</option>
-                </optgroup>
-                <optgroup label="VAKSIN WANITA">
-                  <option value="Vaksin1">Vaksin1</option>
-                  <option value="Vaksin2">Vaksin2</option>
-                  <option value="Vaksin3">Vaksin3</option>
-                  <option value="Vaksin4">Vaksin4</option>
-                </optgroup>
-              </select>
-            </div>
-
-            <div class="col-md-8 col-xl-8">
-              <div class="form-group">
-                <input class="form-control" type="date" placeholder="test" id="head-date-input">
-                <small id="dateHelp" class="form-text text-muted">Date Taken</small>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-xl-4">
-                <button styletype="submit" class="btn btn-primary-outline btn-block">ADD TO TABLE</button>
-            </div>
-        </div>
-        <br><br>
-        <div class="col-md-6 col-xl-6">
-          <h3> <center>table buat anak2 lu</center></h3>
-        </div>
-      </div>
 
       <!--NEXT STEP BUTTON-->
       <div class="row">

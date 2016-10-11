@@ -6,11 +6,12 @@
 .card-register-pic{
 	background:url(img/Register_PAGE1/registersteps.png) no-repeat;
 	background-size:contain;
-	border-radius: 0 0 0 0;
+  background-position: center;
 }
 
-.card-social .card-block:last-child {
-	border-radius:0 0 0 0;
+.row-strip{
+  margin-left: 0;
+  margin-right:0;
 }
 
 table {
