@@ -4,7 +4,8 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from .models import Milestone
+from .models import Milestone, UserChecklist
+import datetime
 
 
 def login(request):
@@ -52,6 +53,21 @@ def register(request):
 
 
 def milestone_view(request):
+    c = {}
+    c.update(csrf(request))
     milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
-    age_range = ["0-3 Months"]
-    return render_to_response('physical-milestones.html', {'milestone_list': milestone_list, 'age_range': age_range})
+    return render_to_response('physical-milestones.html', {'milestone_list': milestone_list}, c)
+
+
+@csrf_exempt
+def milestones_auth(request):
+    checklist = request.POST.getlist('checklist')
+    print(checklist)
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = Milestone.objects.get(id=id)
+            UserChecklist.objects.create(uid_milestone=m, uid_user=request.user, timestamp=date)
+        return render_to_response('physical-milestones.html')
+    else:
+        return render_to_response('redirect.html')
