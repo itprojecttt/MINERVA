@@ -9,6 +9,9 @@ class Milestone(models.Model):
     seven_five = models.DecimalField(max_digits=5, decimal_places=2)
     finish = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return self.milestone
+
 
 class UserChecklist(models.Model):
     uid_milestone = models.ForeignKey(Milestone)

@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from .models import Milestone
 
 
 def login(request):
@@ -48,3 +49,9 @@ def register(request):
 
     User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
     return render_to_response('loggedin.html')
+
+
+def milestone_view(request):
+    milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
+    age_range = ["0-3 Months"]
+    return render_to_response('physical-milestones.html', {'milestone_list': milestone_list, 'age_range': age_range})
