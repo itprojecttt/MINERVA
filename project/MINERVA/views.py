@@ -23,15 +23,23 @@ def auth_view(request):
         auth.login(request, user)
         return HttpResponseRedirect('/loggedin')
     else:
-        return HttpResponseRedirect('/redirect')
+        return render_to_response('redirect.html', {'tag': 'login'})
 
 
 def loggedin(request):
-    return render_to_response('loggedin.html', request.user.username)
+    if request.user.is_authenticated():
+        return render_to_response('loggedin.html', {'username': request.user.username})
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 def redirect(request):
     return render_to_response('redirect.html')
+
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/login')
 
 
 @csrf_exempt
@@ -44,19 +52,23 @@ def register(request):
     password2 = request.POST.get('password2_reg', '')
 
     checker = [firstname, lastname, username, email, password, password2]
+    print(checker)
 
-    if None in checker or password != password2:
-        return render_to_response('redirect.html')
+    if '' in checker or password != password2:
+        return render_to_response('redirect.html', {'tag': 'register'})
 
     User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
-    return render_to_response('loggedin.html')
+    return render_to_response('loggedin.html', {'username': request.user.username})
 
 
 def milestone_view(request):
     c = {}
     c.update(csrf(request))
     milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
-    return render_to_response('physical-milestones.html', {'milestone_list': milestone_list}, c)
+    if request.user.is_authenticated():
+        return render_to_response('physical-milestones.html',{'milestone_list': milestone_list})
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 @csrf_exempt
@@ -68,6 +80,6 @@ def milestones_auth(request):
         for id in checklist:
             m = Milestone.objects.get(id=id)
             UserChecklist.objects.create(uid_milestone=m, uid_user=request.user, timestamp=date)
-        return render_to_response('physical-milestones.html')
+        return render_to_response('loggedin.html', {'username': request.user.username})
     else:
-        return render_to_response('redirect.html')
+        return render_to_response('redirect.html', {'tag': 'logout'})
