@@ -1,9 +1,28 @@
 {% load static %}
-
-<h2>Hi logged in!</h2>
-
-<img src="{% static "images/bg.png" %}" />
-
-
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Logged in!</title>
+        <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+    </head>
+    <body>
+        <br><br>
+        <center><h1><b>Hi {{ username }}, you are logged in!<b></b></h1></center>
+        <br>
+        <center><h3>Please choose the following options to continue</h3></center>
+        <br>
+        <div style="margin-left:100px; margin-right:100px;">
+            <form action="/milestones/">
+                <button type="submit" class="btn btn-primary btn-block" value="LOGOUT">Physical Milestones Checklist</input>
+            </form>
+        </div>
+        <br>
+        <div style="margin-left:100px; margin-right:100px;">
+            <form action="/logout/">
+                <button type="submit" class="btn btn-primary btn-block" value="LOGOUT">LOGOUT</input>
+            </form>
+        </div>
+    </body>
+</html>
 
 

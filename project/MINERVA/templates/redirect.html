@@ -1,12 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="1.5; url=/login/">
-    <title>Wrong credentials</title>
-</head>
-<body>
-    <h2>Wrong username or password!</h2>
-    <h3>Redirecting you to previous page in a second...</h3>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Invalid Request</title>
+        <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+        {% if tag == 'login' or tag == 'register' or tag == 'logout' %}
+        <meta http-equiv="refresh" content="3; url=/login/">
+        {% endif %}
+    </head>
+    <body>
+        {% if tag == 'login' %}
+        <br><br>
+        <center><h1><b>Wrong username or password!</b></h1>
+        <h3>Redirecting you to the previous page...</h3></center>
+        {% elif tag == 'register' %}
+        <br><br>
+        <center><h1><b>Register form incorrectly filled out!</b></h1>
+        <h3>Redirecting you to the previous page...</h3></center>
+        {% elif tag == 'logout' %}
+        <br><br>
+        <center><h1><b>You are not logged in!</b></h1>
+        <h3>Redirecting you to the login page...</h3></center>
+        {% endif %}
+    </body>
 </html>
