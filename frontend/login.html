@@ -13,7 +13,7 @@
         <div class="container">
             <center>
                 <h2>
-                    <b>Masuk</b> atau <b>Daftar</b><br>untuk melanjutkan
+                    <b>Login</b> or <b>Register</b><br>to continue
                 </h2>
             </center>
             <br>
@@ -27,37 +27,37 @@
                         <div class="col-md-6 col-xl-6" style="padding-left:0;padding-right:5px;">
                             <div class="form-group has-icon-left form-control-name">
                                 <form action="/register/" method="post">
-                                <label class="sr-only" for="firstname">Nama Depan</label>
-                                <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" placeholder="Nama Depan">
+                                <label class="sr-only" for="firstname">First Name</label>
+                                <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" placeholder="First Name">
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-6" style="padding-left:5px;padding-right:0;">
                             <div class="form-group has-icon-left form-control-name">
-                                <label class="sr-only" for="lastname">Nama Belakang</label>
-                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Nama Belakang">
+                                <label class="sr-only" for="lastname">Last Name</label>
+                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Last Name">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group has-icon-left form-control-name">
-                            <label class="sr-only" for="username_reg">Username Anda</label>
-                            <input type="username" class="form-control form-control-lg" id="username_reg" name="username_reg" placeholder="Username Anda" autocomplete="off">
+                            <label class="sr-only" for="username_reg">Username</label>
+                            <input type="username" class="form-control form-control-lg" id="username_reg" name="username_reg" placeholder="Username" autocomplete="off">
                         </div>
                         <div class="form-group has-icon-left form-control-email">
-                            <label class="sr-only" for="email">Alamat e-mail</label>
-                            <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Alamat e-mail" autocomplete="off">
+                            <label class="sr-only" for="email">E-Mail Address</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="E-Mail Address" autocomplete="off">
                         </div>
                         <div class="form-group has-icon-left form-control-password">
-                            <label class="sr-only" for="password_reg">Masukkan password</label>
-                            <input type="password" class="form-control form-control-lg" id="password_reg" name="password_reg" placeholder="Masukkan password" autocomplete="off">
+                            <label class="sr-only" for="password_reg">Password</label>
+                            <input type="password" class="form-control form-control-lg" id="password_reg" name="password_reg" placeholder="Password" autocomplete="off">
                         </div>
                         <div class="form-group has-icon-left form-control-password">
-                            <label class="sr-only" for="password2_reg">Ketik ulang password</label>
-                            <input type="password" class="form-control form-control-lg" id="password2_reg" name="password2_reg" placeholder="Ketik ulang password" autocomplete="off">
+                            <label class="sr-only" for="password2_reg">Repeat your password</label>
+                            <input type="password" class="form-control form-control-lg" id="password2_reg" name="password2_reg" placeholder="Repeat your password" autocomplete="off">
                         </div>
                         <!-- Buttons
                             ================================================== -->
-                        <input type="submit" class="btn btn-primary btn-block" value="Register"></input>
+                        <input type="submit" class="btn btn-primary btn-block" value="REGISTER"></input>
                         </form>
                         <hr class="invisible">
                     </div>
@@ -66,18 +66,19 @@
                     <div class="form-group has-icon-left form-control-name">
                         {% block content %}
                         <form action="/auth/" method="post">{% csrf_token %}
-                            <label class="sr-only" for="inputName">Username Anda</label>
-                            <input type="username" class="form-control form-control-lg" id="username" name="username" placeholder="Username Anda" autocomplete="off">
+                            <label class="sr-only" for="inputName">Username</label>
+                            <input type="username" class="form-control form-control-lg" id="username" name="username" placeholder="Username" autocomplete="off">
                     </div>
                     <div class="form-group has-icon-left form-control-password">
-                    <label class="sr-only" for="inputPassword">Masukkan password</label>
-                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Masukkan password" autocomplete="off">
-                    <a style="float: left; text-align: right" href="#"><br>Lupa password?</a>
-                    <a style="float: right; text-align: right; margin-bottom: 12px" href="#"><br>Belum punya akun?</a>
+                    <label class="sr-only" for="inputPassword">Password</label>
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" autocomplete="off">
+                    <a style="float: left; text-align: right" href="#"><br>Forget your password?</a>
+					<!--
+                    <a style="float: right; text-align: right; margin-bottom: 12px" href="#"><br>Belum punya akun?</a> -->
                     </div>
                     <!-- Buttons
                         ================================================== -->
-                    <input type="submit" class="btn btn-primary btn-block" value="login"></input>
+                    <input type="submit" class="btn btn-primary btn-block" value="LOGIN"></input>
                     </form>
                     {% endblock %}
                     <hr class="invisible">
