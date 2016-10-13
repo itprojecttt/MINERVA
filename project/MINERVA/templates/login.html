@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-6 col-xl-6" style="padding-left:0;padding-right:5px;">
                             <div class="form-group has-icon-left form-control-name">
-                                <form action="/register/" method="post">
+                                <form action="/register/" method="post">{% csrf_token %}
                                 <label class="sr-only" for="firstname">First Name</label>
                                 <input type="text" class="form-control form-control-lg" id="firstname" name="firstname" placeholder="First Name">
                             </div>

@@ -42,7 +42,6 @@ def logout(request):
     return HttpResponseRedirect('/login')
 
 
-@csrf_exempt
 def register(request):
     firstname = request.POST.get('firstname', '')
     lastname = request.POST.get('lastname', '')
@@ -52,29 +51,30 @@ def register(request):
     password2 = request.POST.get('password2_reg', '')
 
     checker = [firstname, lastname, username, email, password, password2]
-    print(checker)
 
     if '' in checker or password != password2:
         return render_to_response('redirect.html', {'tag': 'register'})
 
     User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
-    return render_to_response('loggedin.html', {'username': request.user.username})
+    user = auth.authenticate(username=username, password=password)
+    auth.login(request, user)
+    return render_to_response('loggedin.html', {'username': username})
 
 
 def milestone_view(request):
     c = {}
     c.update(csrf(request))
     milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
+    c.update({'milestone_list': milestone_list})
+    print(c)
     if request.user.is_authenticated():
-        return render_to_response('physical-milestones.html',{'milestone_list': milestone_list})
+        return render_to_response('physical-milestones.html', c)
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-@csrf_exempt
 def milestones_auth(request):
     checklist = request.POST.getlist('checklist')
-    print(checklist)
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     if request.user.is_authenticated():
         for id in checklist:
