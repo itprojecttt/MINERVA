@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .views import login, auth_view, loggedin, logout, redirect, register, milestone_view, milestones_auth
+from .views import login, auth_view, loggedin, logout, redirect, register, milestone_view, milestones_auth, \
+    physical_input
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -28,7 +29,8 @@ urlpatterns = [
     url(r'^redirect/$', redirect),
     url(r'^register/$', register),
     url(r'^milestones/$', milestone_view),
-    url(r'^milestones_auth/$', milestones_auth)
+    url(r'^milestones_auth/$', milestones_auth),
+    url(r'^physical_input/$', physical_input)
 ]
 
 urlpatterns += staticfiles_urlpatterns()

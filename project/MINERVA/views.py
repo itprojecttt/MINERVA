@@ -83,3 +83,7 @@ def milestones_auth(request):
         return render_to_response('loggedin.html', {'username': request.user.username})
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def physical_input(request):
+    return render_to_response('PhysicalDataInput.html')
