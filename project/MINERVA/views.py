@@ -86,4 +86,9 @@ def milestones_auth(request):
 
 
 def physical_input(request):
+    # Get all data from FORM POST.
+
+    # Save in database
+
+    #
     return render_to_response('PhysicalDataInput.html')

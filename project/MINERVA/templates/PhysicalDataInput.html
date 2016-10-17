@@ -22,7 +22,7 @@
 <!--MAIN BODY================================================== -->
   <div class="container">
       <center>
-      <b><h1>Register</h1></b><h3>Data Input</h3>
+      <b><h1>Physical</h1></b><h3>Data Input</h3>
       </center><br>
       <!--HEADER-->
       <div class="card card-inverse has-gradient card-register">
@@ -36,21 +36,23 @@
           <div class="col-md-6 col-xl-6">
             <div class="form-group form-control-name">
               <label class="sr-only" for="inputName">Full Name</label>
-              <input type="text" class="form-control form-control-lg" id="inputName" placeholder="Full Name">
+              <input type="text" class="form-control form-control-lg" id="inputName" name="inputName" placeholder="Full Name">
             </div>
 
             <div class="form-group form-control-Nick">
               <label class="sr-only" for="inputNick">Nick Name</label>
-              <input type="text" class="form-control form-control-lg" id="inputNick" placeholder="Nick Name" autocomplete="off">
+              <input type="text" class="form-control form-control-lg" id="inputNick" name="inputNick" placeholder="Nick Name" autocomplete="off">
             </div>
 
+            <!-- Tolong ganti dong jadi options M/F -->
             <div class="form-group form-control-Gender">
               <label class="sr-only" for="inputNick">Gender</label>
-              <input type="text" class="form-control form-control-lg" id="inputGender" placeholder="Gender" autocomplete="off">
+              <input type="text" class="form-control form-control-lg" id="inputGender" name="inputGender" placeholder="Gender" autocomplete="off">
             </div>
 
+            <!-- Saran nih untuk jadiin format datenya YYYY-MM-DD biar langsung masuk Django lol -->
             <div class="form-group">
-              <input class="form-control" type="date" placeholder="test" id="Data-date-input">
+              <input class="form-control" type="date" placeholder="test" id="Data-date-input" name="Data-date-input">
               <small id="dobHelp" class="form-text text-muted">The birth day of your child</small>
             </div>
           </div>
@@ -66,7 +68,7 @@
             <div class="col-md-6 col-xl-6" style="padding-left: 0; padding-right: 5px;">
               <div class="form-group form-control-Weight">
                 <label class="sr-only" for="inputWeight">Weight</label>
-                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name=="currinputWeight">
+                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name="currinputWeight">
                 <small id="weightHelp" class="form-text text-muted">Please input weight in kg scale</small>
               </div>
             </div>
