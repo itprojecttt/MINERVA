@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><Ayobaca class="in">MINERVA</Ayobaca> | Form Data Input</title>
+    <title>MINERVA | Form Data Input</title>
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
 
@@ -35,24 +35,29 @@
       <div class="row">
           <div class="col-md-6 col-xl-6">
             <div class="form-group form-control-name">
+              <form action="/physical_input_auth/" method="post">{% csrf_token %}
               <label class="sr-only" for="inputName">Full Name</label>
-              <input type="text" class="form-control form-control-lg" id="inputName" name="inputName" placeholder="Full Name">
+              <input type="text" class="form-control form-control-lg" id="inputName" name="fullname" placeholder="Full Name">
             </div>
 
             <div class="form-group form-control-Nick">
               <label class="sr-only" for="inputNick">Nick Name</label>
-              <input type="text" class="form-control form-control-lg" id="inputNick" name="inputNick" placeholder="Nick Name" autocomplete="off">
+              <input type="text" class="form-control form-control-lg" id="inputNick" name="nickname" placeholder="Nick Name" autocomplete="off">
             </div>
 
             <!-- Tolong ganti dong jadi options M/F -->
             <div class="form-group form-control-Gender">
               <label class="sr-only" for="inputNick">Gender</label>
-              <input type="text" class="form-control form-control-lg" id="inputGender" name="inputGender" placeholder="Gender" autocomplete="off">
+              <!-- <input type="text" class="form-control form-control-lg" id="inputGender" name="gender" placeholder="Gender" autocomplete="off"> -->
+              <select name="gender">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+              </select>
             </div>
 
             <!-- Saran nih untuk jadiin format datenya YYYY-MM-DD biar langsung masuk Django lol -->
             <div class="form-group">
-              <input class="form-control" type="date" placeholder="test" id="Data-date-input" name="Data-date-input">
+              <input class="form-control" type="date" placeholder="test" id="Data-date-input" name="birthday">
               <small id="dobHelp" class="form-text text-muted">The birth day of your child</small>
             </div>
           </div>
@@ -68,7 +73,7 @@
             <div class="col-md-6 col-xl-6" style="padding-left: 0; padding-right: 5px;">
               <div class="form-group form-control-Weight">
                 <label class="sr-only" for="inputWeight">Weight</label>
-                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name="currinputWeight">
+                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name="weight">
                 <small id="weightHelp" class="form-text text-muted">Please input weight in kg scale</small>
               </div>
             </div>
@@ -76,14 +81,14 @@
             <div class="col-md-6 col-xl-6" style="padding-left: 5px; padding-right: 0;">
               <div class="form-group form-control-Height">
                 <label class="sr-only" for="inputHeight">Height</label>
-                <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height" name="currinputHeight">
+                <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height" name="height">
                 <small id="heightHelp" class="form-text text-muted">Please input height in cm scale</small>
               </div>
             </div>
             <!--DATE TAKEN-->
             <div class="col-md-8 col-xl-8" style="padding-left: 0; padding-right: 5px;">
               <div class="form-group">
-                <input class="form-control" type="date" placeholder="test" id="weightheight-date-input" name="weightheight-date-input">
+                <input class="form-control" type="date" placeholder="test" id="weightheight-date-input" name="date_w_and_h">
                 <small id="dateHelp" class="form-text text-muted">Date Taken</small>
               </div>
             </div>
@@ -120,12 +125,12 @@
             <br>
               <div class="form-group">
                 <label class="sr-only" for="inputTeeth">Number of Teeth</label>
-                <input type="text" class="form-control form-control-lg" id="inputTeeth" name="inputTeeth" placeholder="Number Of Teeth" autocomplete="off">
+                <input type="text" class="form-control form-control-lg" id="inputTeeth" name="teeth" placeholder="Number Of Teeth" autocomplete="off">
               </div>
 
               <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px;">
                 <div class="form-group">
-                  <input class="form-control" type="date" placeholder="test" id="teeth-date-input" name="curr-teeth-date-input">
+                  <input class="form-control" type="date" placeholder="test" id="teeth-date-input" name="date_teeth">
                   <small id="dateHelp" class="form-text text-muted">Date Taken</small>
                 </div>
               </div>
@@ -160,12 +165,12 @@
             <br>
               <div class="form-group">
                 <label class="sr-only" for="inputHead">Head Size</label>
-                <input type="text" class="form-control form-control-lg" id="inputHead" name="curr-head-date-input" placeholder="Head Size" autocomplete="off">
+                <input type="text" class="form-control form-control-lg" id="inputHead" name="head" placeholder="Head Size" autocomplete="off">
               </div>
 
               <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px;">
                 <div class="form-group">
-                  <input class="form-control" type="date" placeholder="test" id="head-date-input" name="curr-head-date-input">
+                  <input class="form-control" type="date" placeholder="test" id="date_head" name="date_head">
                   <small id="dateHelp" class="form-text text-muted">Date Taken</small>
                 </div>
               </div>
@@ -195,7 +200,8 @@
       <!--NEXT STEP BUTTON-->
       <div class="row">
         <div class="col-md-6 col-md-offset-6 col-xl-6 col-xl-offset-6">
-          <button styletype="submit" class="btn btn-primary btn-block">NEXT STEP</button>
+          <button type="submit" class="btn btn-primary btn-block">NEXT STEP</button>
+          </form>
         </div>
       </div>
     </div>
@@ -241,7 +247,6 @@
     <script src="{% static 'js/moment.js' %}"></script>
 
     <!-- Cannot find this script -->
-    <script type="text/javascript" src="/path/to/bootstrap/js/transition.js"></script>
 
     <script src="{% static 'js/bootstrap/collapse.js' %}"></script>
 

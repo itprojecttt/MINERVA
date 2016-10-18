@@ -2,9 +2,8 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from .models import Milestone, UserChecklist
+from .models import Milestone, UserChecklist, ChildData, WeightAndHeightData, TeethData, HeadData
 import datetime
 
 
@@ -66,7 +65,6 @@ def milestone_view(request):
     c.update(csrf(request))
     milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
     c.update({'milestone_list': milestone_list})
-    print(c)
     if request.user.is_authenticated():
         return render_to_response('physical-milestones.html', c)
     else:
@@ -85,10 +83,36 @@ def milestones_auth(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def physical_input(request):
-    # Get all data from FORM POST.
+def physical_input_view(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('PhysicalDataInput.html', c)
 
-    # Save in database
 
-    #
-    return render_to_response('PhysicalDataInput.html')
+def physical_input_auth(request):
+    if request.user.is_authenticated():
+        fullname = request.POST.get('fullname')
+        nickname = request.POST.get('nickname')
+        gender = request.POST.get('gender')
+        birthday = request.POST.get('birthday')
+        weight = request.POST.get('weight')
+        height = request.POST.get('height')
+        date_w_and_h = request.POST.get('date_w_and_h')
+        teeth = request.POST.get('teeth')
+        date_teeth = request.POST.get('date_teeth')
+        head = request.POST.get('head')
+        date_head = request.POST.get('date_head')
+
+        checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head, date_head]
+        print(checker)
+        
+        if None or '' in checker:
+            return render_to_response('redirect.html', {'tag': 'incomplete'})
+        else:
+            child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname, gender=gender, birthday=birthday)
+            WeightAndHeightData.objects.create(uid_child=child, weight=weight, height=height, date_w_and_h=date_w_and_h)
+            TeethData.objects.create(uid_child=child, teeth=teeth, date_teeth=date_teeth)
+            HeadData.objects.create(uid_child=child, head_size=head, date_head=date_head)
+            return render_to_response('loggedin.html', {'username': request.user.username})
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})

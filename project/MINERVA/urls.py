@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from .views import login, auth_view, loggedin, logout, redirect, register, milestone_view, milestones_auth, \
-    physical_input
+    physical_input_view, physical_input_auth
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^register/$', register),
     url(r'^milestones/$', milestone_view),
     url(r'^milestones_auth/$', milestones_auth),
-    url(r'^physical_input/$', physical_input)
+    url(r'^physical_input/$', physical_input_view),
+    url(r'^physical_input_auth/$', physical_input_auth)
 ]
 
 urlpatterns += staticfiles_urlpatterns()

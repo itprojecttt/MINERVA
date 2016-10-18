@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 
 class Milestone(models.Model):
@@ -19,23 +20,33 @@ class UserChecklist(models.Model):
     timestamp = models.DateField()
 
 
-class PhysicalInput(models.Model):
+class ChildData(models.Model):
     uid_user = models.ForeignKey(User)
     fullname = models.CharField(max_length=50)
     nickname = models.CharField(max_length=15)
-
     gender_choices = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
     gender = models.CharField(max_length=1, choices=gender_choices)
+    birthday = models.DateField(default=datetime.datetime.now())
 
+
+class WeightAndHeightData(models.Model):
+    uid_child = models.ForeignKey(ChildData)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     date_w_and_h = models.DateField()
 
+
+class TeethData(models.Model):
+    uid_child = models.ForeignKey(ChildData)
     teeth = models.IntegerField()
     date_teeth = models.DateField()
 
+
+class HeadData(models.Model):
+    uid_child = models.ForeignKey(ChildData)
     head_size = models.DecimalField(max_digits=5, decimal_places=2)
     date_head = models.DateField()
+
