@@ -45,17 +45,14 @@
               <input type="text" class="form-control form-control-lg" id="inputNick" name="nickname" placeholder="Nick Name" autocomplete="off">
             </div>
 
-            <!-- Tolong ganti dong jadi options M/F -->
             <div class="form-group form-control-Gender">
               <label class="sr-only" for="inputNick">Gender</label>
-              <!-- <input type="text" class="form-control form-control-lg" id="inputGender" name="gender" placeholder="Gender" autocomplete="off"> -->
               <select name="gender">
                   <option value="M">Male</option>
                   <option value="F">Female</option>
               </select>
             </div>
 
-            <!-- Saran nih untuk jadiin format datenya YYYY-MM-DD biar langsung masuk Django lol -->
             <div class="form-group">
               <input class="form-control" type="date" placeholder="test" id="Data-date-input" name="birthday">
               <small id="dobHelp" class="form-text text-muted">The birth day of your child</small>
@@ -166,6 +163,7 @@
               <div class="form-group">
                 <label class="sr-only" for="inputHead">Head Size</label>
                 <input type="text" class="form-control form-control-lg" id="inputHead" name="head" placeholder="Head Size" autocomplete="off">
+                <small id="headHelp" class="form-text text-muted">Please input circumference in cm scale</small>
               </div>
 
               <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px;">
