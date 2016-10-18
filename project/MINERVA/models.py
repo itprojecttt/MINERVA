@@ -20,6 +20,7 @@ class UserChecklist(models.Model):
 
 
 class PhysicalInput(models.Model):
+    uid_user = models.ForeignKey(User)
     fullname = models.CharField(max_length=50)
     nickname = models.CharField(max_length=15)
 
@@ -33,7 +34,7 @@ class PhysicalInput(models.Model):
     height = models.DecimalField(max_digits=5, decimal_places=2)
     date_w_and_h = models.DateField()
 
-    teeth = models.IntegerField(max_length=2)
+    teeth = models.IntegerField()
     date_teeth = models.DateField()
 
     head_size = models.DecimalField(max_digits=5, decimal_places=2)
