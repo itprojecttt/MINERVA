@@ -22,14 +22,19 @@ class UserChecklist(models.Model):
 class PhysicalInput(models.Model):
     fullname = models.CharField(max_length=50)
     nickname = models.CharField(max_length=15)
+
     gender_choices = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
     gender = models.CharField(max_length=1, choices=gender_choices)
-    # Set date for birthday, weight & height history, teeth history and head circumference history
-    # date =
-    weight = models.IntegerField()
-    height = models.IntegerField()
-    teeth = models.IntegerField()
-    head_size = models.IntegerField()
+
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    height = models.DecimalField(max_digits=5, decimal_places=2)
+    date_w_and_h = models.DateField()
+
+    teeth = models.IntegerField(max_length=2)
+    date_teeth = models.DateField()
+
+    head_size = models.DecimalField(max_digits=5, decimal_places=2)
+    date_head = models.DateField()
