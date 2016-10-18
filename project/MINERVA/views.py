@@ -4,6 +4,8 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from .models import Milestone, UserChecklist
+import datetime
 
 
 def login(request):
@@ -21,18 +23,25 @@ def auth_view(request):
         auth.login(request, user)
         return HttpResponseRedirect('/loggedin')
     else:
-        return HttpResponseRedirect('/redirect')
+        return render_to_response('redirect.html', {'tag': 'login'})
 
 
 def loggedin(request):
-    return render_to_response('loggedin.html', request.user.username)
+    if request.user.is_authenticated():
+        return render_to_response('loggedin.html', {'username': request.user.username})
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 def redirect(request):
     return render_to_response('redirect.html')
 
 
-@csrf_exempt
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/login')
+
+
 def register(request):
     firstname = request.POST.get('firstname', '')
     lastname = request.POST.get('lastname', '')
@@ -43,8 +52,43 @@ def register(request):
 
     checker = [firstname, lastname, username, email, password, password2]
 
-    if None in checker or password != password2:
-        return render_to_response('redirect.html')
+    if '' in checker or password != password2:
+        return render_to_response('redirect.html', {'tag': 'register'})
 
     User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
-    return render_to_response('loggedin.html')
+    user = auth.authenticate(username=username, password=password)
+    auth.login(request, user)
+    return render_to_response('loggedin.html', {'username': username})
+
+
+def milestone_view(request):
+    c = {}
+    c.update(csrf(request))
+    milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
+    c.update({'milestone_list': milestone_list})
+    print(c)
+    if request.user.is_authenticated():
+        return render_to_response('physical-milestones.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def milestones_auth(request):
+    checklist = request.POST.getlist('checklist')
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = Milestone.objects.get(id=id)
+            UserChecklist.objects.create(uid_milestone=m, uid_user=request.user, timestamp=date)
+        return render_to_response('loggedin.html', {'username': request.user.username})
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def physical_input(request):
+    # Get all data from FORM POST.
+
+    # Save in database
+
+    #
+    return render_to_response('PhysicalDataInput.html')

@@ -714,7 +714,7 @@ mark,
     margin-left: auto;
     margin-right: auto;
     padding-left: 0.938rem;
-    padding-right: 0.938rem
+    padding-right: 0.938rem;
 }
 .container::after {
     content: "";
@@ -824,7 +824,7 @@ mark,
     position: relative;
     min-height: 1px;
     padding-left: 0.938rem;
-    padding-right: 0.938rem
+    padding-right: 0.938rem;
 }
 .col-xs-1,
 .col-xs-2,
@@ -8337,7 +8337,7 @@ h3 {
     }
 }
 .section-features .card-block {
-    padding: 0
+    padding: 0   
 }
 @media (min-width: 768px) {
     .section-features .card-block {

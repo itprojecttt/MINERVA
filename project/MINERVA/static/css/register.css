@@ -4,7 +4,7 @@
 }
 
 .card-register-pic{
-	background:url(img/Register_PAGE1/registersteps.png) no-repeat;
+	background:url(../img/Register_PAGE1/registersteps.png) no-repeat;
 	background-size:contain;
   background-position: center;
 }
@@ -93,12 +93,12 @@ th {
 .glyphicon {
     font-size: 20px;
   }
-}
+
 
 .table-remove {
   color: #700;
   cursor: pointer;
-  
+
   &:hover {
     color: #f00;
   }
