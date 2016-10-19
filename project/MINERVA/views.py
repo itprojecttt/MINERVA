@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
-from .models import Milestone, UserChecklist, ChildData, WeightAndHeightData, TeethData, HeadData
+from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData
 import datetime
 
 
@@ -60,10 +60,10 @@ def register(request):
     return render_to_response('loggedin.html', {'username': username})
 
 
-def milestone_view(request):
+def gm_milestone_view(request):
     c = {}
     c.update(csrf(request))
-    milestone_list = Milestone.objects.raw('SELECT * FROM "MINERVA_milestone"')
+    milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
     c.update({'milestone_list': milestone_list})
     if request.user.is_authenticated():
         return render_to_response('physical-milestones.html', c)
@@ -71,13 +71,13 @@ def milestone_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def milestones_auth(request):
+def gm_milestones_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     if request.user.is_authenticated():
         for id in checklist:
-            m = Milestone.objects.get(id=id)
-            UserChecklist.objects.create(uid_milestone=m, uid_user=request.user, timestamp=date)
+            m = GrossMotorMilestone.objects.get(id=id)
+            GrossMotorChecklist.objects.create(uid_milestone=m, uid_user=request.user, timestamp=date)
         return render_to_response('loggedin.html', {'username': request.user.username})
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})

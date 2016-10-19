@@ -1,16 +1,27 @@
 from django.contrib import admin
-from .models import Milestone, UserChecklist, ChildData, WeightAndHeightData, TeethData, HeadData
+from .models import FineMotorMilestone, FineMotorChecklist, GrossMotorMilestone, GrossMotorChecklist, ChildData, \
+    WeightAndHeightData, TeethData, HeadData
 
 
 # Register your models here.
-class MilestoneAdmin(admin.ModelAdmin):
-    fields = ('milestone', 'start', 'seven_five', 'finish')
-    list_display = ('milestone', 'start', 'seven_five', 'finish')
+class FineMotorMilestoneAdmin(admin.ModelAdmin):
+    fields = ('fm_milestone', 'start', 'seven_five', 'finish')
+    list_display = ('fm_milestone', 'start', 'seven_five', 'finish')
 
 
-class UserChecklistAdmin(admin.ModelAdmin):
-    fields = ('uid_milestone', 'uid_user', 'timestamp')
-    list_display = ('uid_milestone', 'uid_user', 'timestamp')
+class FineMotorChecklistAdmin(admin.ModelAdmin):
+    fields = ('uid_fm_milestone', 'uid_user', 'timestamp')
+    list_display = ('uid_fm_milestone', 'uid_user', 'timestamp')
+
+
+class GrossMotorMilestoneAdmin(admin.ModelAdmin):
+    fields = ('g_milestone', 'start', 'seven_five', 'finish')
+    list_display = ('g_milestone', 'start', 'seven_five', 'finish')
+
+
+class GrossMotorChecklistAdmin(admin.ModelAdmin):
+    fields = ('uid_g_milestone', 'uid_user', 'timestamp')
+    list_display = ('uid_g_milestone', 'uid_user', 'timestamp')
 
 
 class ChildDataAdmin(admin.ModelAdmin):
@@ -33,8 +44,8 @@ class HeadDataAdmin(admin.ModelAdmin):
     list_display = ('uid_child', 'head_size', 'date_head')
 
 
-admin.site.register(Milestone, MilestoneAdmin)
-admin.site.register(UserChecklist, UserChecklistAdmin)
+admin.site.register(FineMotorMilestone, FineMotorMilestoneAdmin)
+admin.site.register(FineMotorChecklist, FineMotorChecklistAdmin)
 admin.site.register(ChildData, ChildDataAdmin)
 admin.site.register(WeightAndHeightData, WeightAndHeightDataAdmin)
 admin.site.register(TeethData, TeethDataAdmin)
