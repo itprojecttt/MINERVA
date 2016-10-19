@@ -1,26 +1,25 @@
-Milestone;Start;75th;Final
-Equal Movements;0;0;0
-Lift Head;0;0;0
-Head Up 45;0;2;3
-Head Up 90;1.5;3;4
-sit-head steady;2;3;4
-bear weight on legs;2;3.5;4.5
-chest up-arm;3;4;5
-roll over;2.5;4.5;6.5
-pull to sit,  no head lag;3;4;6
-sit no support;5.5;6.5;7
-stand holding on;6.5;8;8.5
-pull to stand;8;9;10
-get to sitting;7.5;9;10
-stand 2 sec;9.5;10.5;11.5
-stand alone;10;12;13.5
-stoop and recover;11;13;15
-walk well;11;13.5;15
-walk backwards;12.5;15;17
-runs;14;18;20
-walk up steps;14;19;21.5
-kick ball forward;16;21;23.5
-jump up;21;27;30
-throw ball overhand;17;24;36
-broad jump;27;36;40,2
-balance each foot  1 second;30;33;42
+1,Equal Movements,0,0,0
+2,Lift Head,0,0,0
+3,Head Up 45,0,2,3
+4,Head Up 90,1.5,3,4
+5,sit-head steady,2,3,4
+6,bear weight on legs,2,3.5,4.5
+7,chest up-arm,3,4,5
+8,roll over,2.5,4.5,6.5
+9,"pull to sit,  no head lag",3,4,6
+10,sit no support,5.5,6.5,7
+11,stand holding on,6.5,8,8.5
+12,pull to stand,8,9,10
+13,get to sitting,7.5,9,10
+14,stand 2 sec,9.5,10.5,11.5
+15,stand alone,10,12,13.5
+16,stoop and recover,11,13,15
+17,walk well,11,13.5,15
+18,walk backwards,12.5,15,17
+19,runs,14,18,20
+20,walk up steps,14,19,21.5
+21,kick ball forward,16,21,23.5
+22,jump up,21,27,30
+23,throw ball overhand,17,24,36
+24,broad jump,27,36,"40,2"
+25,balance each foot  1 second,30,33,42
