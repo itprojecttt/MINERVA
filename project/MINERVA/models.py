@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+import django.utils.timezone
 import datetime
+
 
 
 class FineMotorMilestone(models.Model):
@@ -37,6 +39,23 @@ class GrossMotorChecklist(models.Model):
     timestamp = models.DateField()
 
 
+class PersonalSocialMilestone(models.Model):
+    ps_milestone = models.CharField(max_length=50)
+    # unit of start, final and 75th percentile in MONTHS
+    start = models.DecimalField(max_digits=5, decimal_places=2)
+    seven_five = models.DecimalField(max_digits=5, decimal_places=2)
+    finish = models.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return self.ps_milestone
+
+
+class PersonalSocialChecklist(models.Model):
+    uid_gm_milestone = models.ForeignKey(GrossMotorMilestone)
+    uid_user = models.ForeignKey(User)
+    timestamp = models.DateField()
+
+
 class ChildData(models.Model):
     uid_user = models.ForeignKey(User)
     fullname = models.CharField(max_length=50)
@@ -46,7 +65,7 @@ class ChildData(models.Model):
         ('F', 'Female'),
     )
     gender = models.CharField(max_length=1, choices=gender_choices)
-    birthday = models.DateField(default=datetime.datetime.now())
+    birthday = models.DateField(default=django.utils.timezone.now)
 
 
 class WeightAndHeightData(models.Model):
@@ -66,4 +85,3 @@ class HeadData(models.Model):
     uid_child = models.ForeignKey(ChildData)
     head_size = models.DecimalField(max_digits=5, decimal_places=2)
     date_head = models.DateField()
-

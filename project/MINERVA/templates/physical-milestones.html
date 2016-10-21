@@ -24,7 +24,7 @@
 		<hr class="invisible">
       <div class="row">
         <div class="col-md-8 col-xl-8">
-			 <form action="/gm_milestones_auth/" method="post">{% csrf_token %}
+			 <form action="/milestones_auth/" method="post">{% csrf_token %}
 		<div class='agegroup'> <!-- Checklists per age group -->
 			<div class='agelabel'><b>0-3 months old</b></div> <!-- Age Description -->
 		{% for m in milestone_list %}

@@ -15,13 +15,13 @@ class FineMotorChecklistAdmin(admin.ModelAdmin):
 
 
 class GrossMotorMilestoneAdmin(admin.ModelAdmin):
-    fields = ('g_milestone', 'start', 'seven_five', 'finish')
-    list_display = ('g_milestone', 'start', 'seven_five', 'finish')
+    fields = ('gm_milestone', 'start', 'seven_five', 'finish')
+    list_display = ('gm_milestone', 'start', 'seven_five', 'finish')
 
 
 class GrossMotorChecklistAdmin(admin.ModelAdmin):
-    fields = ('uid_g_milestone', 'uid_user', 'timestamp')
-    list_display = ('uid_g_milestone', 'uid_user', 'timestamp')
+    fields = ('uid_gm_milestone', 'uid_user', 'timestamp')
+    list_display = ('uid_gm_milestone', 'uid_user', 'timestamp')
 
 
 class ChildDataAdmin(admin.ModelAdmin):
@@ -44,8 +44,8 @@ class HeadDataAdmin(admin.ModelAdmin):
     list_display = ('uid_child', 'head_size', 'date_head')
 
 
-admin.site.register(FineMotorMilestone, FineMotorMilestoneAdmin)
-admin.site.register(FineMotorChecklist, FineMotorChecklistAdmin)
+admin.site.register(GrossMotorMilestone, GrossMotorMilestoneAdmin)
+admin.site.register(GrossMotorChecklist, GrossMotorChecklistAdmin)
 admin.site.register(ChildData, ChildDataAdmin)
 admin.site.register(WeightAndHeightData, WeightAndHeightDataAdmin)
 admin.site.register(TeethData, TeethDataAdmin)
