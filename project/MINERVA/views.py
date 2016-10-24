@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
-from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData
+from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData,\
+    PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
 
 
@@ -71,13 +72,36 @@ def gm_milestone_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def gm_milestones_auth(request):
+def gm_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     if request.user.is_authenticated():
         for id in checklist:
             m = GrossMotorMilestone.objects.get(id=id)
-            GrossMotorChecklist.objects.create(uid_milestone=m, uid_user=request.user, timestamp=date)
+            GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, timestamp=date)
+        return render_to_response('loggedin.html', {'username': request.user.username})
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def ps_milestone_view(request):
+    c = {}
+    c.update(csrf(request))
+    milestone_list = PersonalSocialMilestone.objects.raw('SELECT * FROM "MINERVA_personalsocialmilestone"')
+    c.update({'milestone_list': milestone_list})
+    if request.user.is_authenticated():
+        return render_to_response('personal-social-milestones.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def ps_milestone_auth(request):
+    checklist = request.POST.getlist('checklist')
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = PersonalSocialMilestone.objects.get(id=id)
+            PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, timestamp=date)
         return render_to_response('loggedin.html', {'username': request.user.username})
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
@@ -104,7 +128,6 @@ def physical_input_auth(request):
         date_head = request.POST.get('date_head')
 
         checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head, date_head]
-        print(checker)
         
         if None or '' in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
