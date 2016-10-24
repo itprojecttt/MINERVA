@@ -51,7 +51,7 @@ class PersonalSocialMilestone(models.Model):
 
 
 class PersonalSocialChecklist(models.Model):
-    uid_gm_milestone = models.ForeignKey(GrossMotorMilestone)
+    uid_ps_milestone = models.ForeignKey(GrossMotorMilestone)
     uid_user = models.ForeignKey(User)
     timestamp = models.DateField()
 
