@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 import django.utils.timezone
-import datetime
-
 
 
 class FineMotorMilestone(models.Model):
