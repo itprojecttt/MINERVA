@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
+from django.core.mail import send_mail, BadHeaderError
 from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData,\
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
@@ -49,6 +50,14 @@ def register(request):
     email = request.POST.get('email', '')
     password = request.POST.get('password_reg', '')
     password2 = request.POST.get('password2_reg', '')
+
+    try:
+        send_mail("Welcome to MINERVA!",
+                  "You are registered to MINERVA, your personal child development tracker service. "
+                  "PLEASE DO NOT REPLY THIS E-MAIL", 'admin@minerva.com', [email])
+    except BadHeaderError:
+        # Wrong e-mail
+        return render_to_response('redirect.html')
 
     checker = [firstname, lastname, username, email, password, password2]
 
