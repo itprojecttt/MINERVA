@@ -44,13 +44,14 @@ def logout(request):
 
 
 def register(request):
-    firstname = request.POST.get('firstname', '')
-    lastname = request.POST.get('lastname', '')
+    first_name = request.POST.get('firstname', '')
+    last_name = request.POST.get('lastname', '')
     username = request.POST.get('username_reg', '')
     email = request.POST.get('email', '')
     password = request.POST.get('password_reg', '')
     password2 = request.POST.get('password2_reg', '')
 
+    '''
     try:
         send_mail("Welcome to MINERVA!",
                   "You are registered to MINERVA, your personal child development tracker service. "
@@ -58,16 +59,18 @@ def register(request):
     except BadHeaderError:
         # Wrong e-mail
         return render_to_response('redirect.html')
+    '''
 
-    checker = [firstname, lastname, username, email, password, password2]
+    checker = [first_name, last_name, username, email, password, password2]
 
     if '' in checker or password != password2:
         return render_to_response('redirect.html', {'tag': 'register'})
 
-    User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
+    User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
     user = auth.authenticate(username=username, password=password)
     auth.login(request, user)
-    return render_to_response('PhysicalDataInput.html')
+    print(user)
+    return HttpResponseRedirect('/physical_input')
 
 
 def gm_milestone_view(request):
@@ -88,7 +91,7 @@ def gm_milestone_auth(request):
         for id in checklist:
             m = GrossMotorMilestone.objects.get(id=id)
             GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, timestamp=date)
-        return render_to_response('loggedin.html', {'username': request.user.username})
+        return HttpResponseRedirect('/milestones/personal_social')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -145,6 +148,6 @@ def physical_input_auth(request):
             WeightAndHeightData.objects.create(uid_child=child, weight=weight, height=height, date_w_and_h=date_w_and_h)
             TeethData.objects.create(uid_child=child, teeth=teeth, date_teeth=date_teeth)
             HeadData.objects.create(uid_child=child, head_size=head, date_head=date_head)
-            return render_to_response('loggedin.html', {'username': request.user.username})
+            return HttpResponseRedirect('/milestones/physical')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
