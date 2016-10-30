@@ -21,14 +21,14 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/loggedin')
+        return HttpResponseRedirect('/homepage')
     else:
         return render_to_response('redirect.html', {'tag': 'login'})
 
 
-def loggedin(request):
+def homepage(request):
     if request.user.is_authenticated():
-        return render_to_response('loggedin.html', {'username': request.user.username})
+        return render_to_response('homepage.html', {'username': request.user.username})
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -58,7 +58,7 @@ def register(request):
     User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
     user = auth.authenticate(username=username, password=password)
     auth.login(request, user)
-    return render_to_response('loggedin.html', {'username': username})
+    return render_to_response('PhysicalDataInput.html')
 
 
 def gm_milestone_view(request):

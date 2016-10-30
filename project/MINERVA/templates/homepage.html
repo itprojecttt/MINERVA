@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>MINERVA | Homepage</title>
+        <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+    </head>
+    <body>
+        <br><br>
+        <center><h1><b>Hi {{ username }}, you are logged in!<b></b></h1></center>
+        <br>
+        <center><h3>This is the homepage</h3></center>
+        <br>
+        <div style="margin-left:100px; margin-right:100px;">
+            <form action="/logout/">
+                <button type="submit" class="btn btn-primary btn-block" value="LOGOUT">LOGOUT</input>
+            </form>
+        </div>
+    </body>
+</html>
+
+
