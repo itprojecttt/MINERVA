@@ -76,8 +76,17 @@ def register(request):
 def gm_milestone_view(request):
     c = {}
     c.update(csrf(request))
+    user_id = int(request.user.id)
+    print(user_id)
     milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
-    c.update({'milestone_list': milestone_list})
+    milestone_checklist = GrossMotorMilestone.objects.raw('SELECT uid_gm_milestone_id FROM "MINERVA_grossmotorchecklist" '
+                                                          'WHERE uid_user_id = {}'.format(user_id))
+
+    '''for m in GrossMotorMilestone.objects.raw('SELECT uid_gm_milestone_id FROM "MINERVA_grossmotorchecklist" '
+                                                          'WHERE uid_user_id = {}'.format(user_id)):
+        print(m)'''
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
     if request.user.is_authenticated():
         return render_to_response('physical-milestones.html', c)
     else:
