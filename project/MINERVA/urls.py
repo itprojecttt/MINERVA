@@ -29,11 +29,11 @@ urlpatterns = [
     url(r'^redirect/$', redirect),
     url(r'^register/$', register),
     url(r'^milestones/physical/$', gm_milestone_view),
-    url(r'^milestones_auth/physical/$', gm_milestone_auth),
-    url(r'^milestones/personal_social/$', ps_milestone_view ),
-    url(r'^milestones_auth/personal_social/$', ps_milestone_auth),
-    url(r'^physical_input/$', physical_input_view),
-    url(r'^physical_input_auth/$', physical_input_auth)
+    url(r'^milestones-auth/physical/$', gm_milestone_auth),
+    url(r'^milestones/personal-social/$', ps_milestone_view ),
+    url(r'^milestones-auth/personal-social/$', ps_milestone_auth),
+    url(r'^physical-input/$', physical_input_view),
+    url(r'^physical-input-auth/$', physical_input_auth)
 ]
 
 urlpatterns += staticfiles_urlpatterns()

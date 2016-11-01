@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
-from django.core.mail import send_mail, BadHeaderError
+# from django.core.mail import send_mail, BadHeaderError
 from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData,\
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
@@ -70,7 +70,7 @@ def register(request):
     user = auth.authenticate(username=username, password=password)
     auth.login(request, user)
     print(user)
-    return HttpResponseRedirect('/physical_input')
+    return HttpResponseRedirect('/physical-input')
 
 
 def gm_milestone_view(request):
@@ -91,7 +91,7 @@ def gm_milestone_auth(request):
         for id in checklist:
             m = GrossMotorMilestone.objects.get(id=id)
             GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, timestamp=date)
-        return HttpResponseRedirect('/milestones/personal_social')
+        return HttpResponseRedirect('/milestones/personal-social')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -114,7 +114,7 @@ def ps_milestone_auth(request):
         for id in checklist:
             m = PersonalSocialMilestone.objects.get(id=id)
             PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, timestamp=date)
-        return render_to_response('loggedin.html', {'username': request.user.username})
+        return render_to_response('homepage.html', {'username': request.user.username})
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -122,7 +122,7 @@ def ps_milestone_auth(request):
 def physical_input_view(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('PhysicalDataInput.html', c)
+    return render_to_response('physical-data-input.html', c)
 
 
 def physical_input_auth(request):
