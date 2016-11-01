@@ -129,7 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR+"/MINERVA/", "static")]
 
 # Session controls
-TIME = 60    # four hours (240* 60) in seconds  or your time
+TIME = 300    # four hours (240* 60) in seconds  or your time
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = TIME    # change expired session
