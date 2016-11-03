@@ -82,9 +82,9 @@ def gm_milestone_view(request):
     milestone_checklist = GrossMotorMilestone.objects.raw('SELECT uid_gm_milestone_id FROM "MINERVA_grossmotorchecklist" '
                                                           'WHERE uid_user_id = {}'.format(user_id))
 
-    '''for m in GrossMotorMilestone.objects.raw('SELECT uid_gm_milestone_id FROM "MINERVA_grossmotorchecklist" '
+    for m in GrossMotorMilestone.objects.raw('SELECT uid_gm_milestone_id FROM "MINERVA_grossmotorchecklist" '
                                                           'WHERE uid_user_id = {}'.format(user_id)):
-        print(m)'''
+        print(m)
 
     c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
     if request.user.is_authenticated():
