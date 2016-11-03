@@ -1,0 +1,39 @@
+.card-register{
+	height: 10rem;
+	padding:1.5rem;
+}
+
+.card-register-pic{
+	background:url(../img/Register_PAGE1/registersteps.png) no-repeat;
+	background-size:contain;
+	border-radius: 0 0 0 0;
+}
+
+.card-social .card-block:last-child {
+	border-radius:0 0 0 0;
+}
+
+.checkbox-reg {
+	width: 100%;
+	padding: 0 0 0 0;
+}
+
+.checkbox-reg label {
+	text-align: left;
+    float: left;
+    text-align: left;
+    padding-left: 3em;
+    padding-top: 1.5em;
+    width: 100%;
+}
+
+.checkbox-reg p {
+	float: left;
+	text-transform: none;
+	text-align: left;
+	display: inline;
+}
+
+.checkbox-reg h6 {
+	text-transform: none;
+}
