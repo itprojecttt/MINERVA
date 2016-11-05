@@ -31,7 +31,7 @@
 			{% if m.start < 4 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
-				{% if m.id in milestone_checklist %}
+				{% if m in milestone_checklist %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
 				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
