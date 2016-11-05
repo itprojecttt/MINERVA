@@ -77,16 +77,15 @@ def gm_milestone_view(request):
     c = {}
     c.update(csrf(request))
     user_id = request.user
-    print(user_id)
     milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
     mc = GrossMotorChecklist.objects.all()
     milestone_checklist = []
     for m in mc:
         if m.uid_user == user_id:
-            milestone_checklist.append(str(m.uid_user))
-    print(milestone_checklist)
+            milestone_checklist.append(str(m.uid_gm_milestone))
 
     c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
+
     if request.user.is_authenticated():
         return render_to_response('physical-milestones.html', c)
     else:
@@ -123,7 +122,8 @@ def ps_milestone_auth(request):
         for id in checklist:
             m = PersonalSocialMilestone.objects.get(id=id)
             PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, timestamp=date)
-        return render_to_response('homepage.html', {'username': request.user.username})
+        #return render_to_response('homepage.html', {'username': request.user.username})
+        return HttpResponseRedirect('/homepage')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
