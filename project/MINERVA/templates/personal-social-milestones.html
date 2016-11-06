@@ -31,7 +31,11 @@
 			{% if m.start < 4 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
@@ -44,7 +48,11 @@
 			{% if m.start > 3 and m.start < 6 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
@@ -57,7 +65,11 @@
 			{% if m.start > 6 and m.start < 9.5 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
@@ -70,7 +82,11 @@
 			{% if m.start > 9.4 and m.start < 12 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
@@ -83,7 +99,11 @@
 			{% if m.start > 11 and m.start < 18 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
@@ -96,7 +116,11 @@
 			{% if m.start > 17 and m.start < 24 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
 				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
@@ -109,7 +133,11 @@
 			{% if m.start > 23 %}
 		  <div class="checkbox">
 		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist"">
+				{% if m.ps_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
 					<h6><b>{{ m.ps_milestone }}</b> </h6>
 					<p>Description of milestone.</p></label>
 				</button>
