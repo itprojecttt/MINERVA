@@ -130,6 +130,22 @@ def ps_milestone_auth(request):
 def physical_input_view(request):
     c = {}
     c.update(csrf(request))
+    user_id = request.user
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+    child_data = ChildData.objects.raw('SELECT * FROM "MINERVA_childdata" WHERE uid_user_id = {}'.format(user_id))
+    child_id = child_data.id
+
+    head_data = HeadData.objects.raw('SELECT * FROM "MINERVA_headdata" WHERE uid_child_id = {}'.format(child_id))
+    teeth_data = TeethData.objects.raw('SELECT * FROM "MINERVA_teethdata" WHERE uid_child_id = {}'.format(child_id))
+
+    weight_height_data = WeightAndHeightData.objects.raw('SELECT * FROM "MINERVA_weightandheightdata" '
+                                                         'WHERE uid_child_id = {}'.format(child_id))
+
+    c.update({'child_data': child_data, 'head_data': head_data, 'teeth_data': teeth_data,
+              'weight_height_data': weight_height_data})
+
     if request.user.is_authenticated():
         return render_to_response('physical-data-input.html', c)
     else:
