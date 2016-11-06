@@ -5,6 +5,11 @@ function addRowWeightHeight() {
 	var date = document.getElementById("weightheight-date-input");
     var table = document.getElementById("WeightHeightTable");
 
+    // Condition to ensure all values are filled before adding to table.
+    if(height.value == '' || weight.value == '' || date.value == ''){
+        return;
+    }
+
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
 
@@ -29,6 +34,10 @@ function addRowTeeth() {
 	var date = document.getElementById("teeth-date-input");
     var table = document.getElementById("TeethTable");
 
+    // Condition to ensure all values are filled before adding to table.
+    if(teeth.value == '' || date.value == ''){
+        return;
+    }
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
 
@@ -51,6 +60,11 @@ function addRowHead() {
     var head = document.getElementById("inputHead");
 	var date = document.getElementById("head-date-input");
     var table = document.getElementById("HeadTable");
+
+    // Condition to ensure all values are filled before adding to table.
+    if(head.value == '' || date.value == ''){
+        return;
+    }
 
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);

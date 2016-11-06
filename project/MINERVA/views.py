@@ -122,7 +122,6 @@ def ps_milestone_auth(request):
         for id in checklist:
             m = PersonalSocialMilestone.objects.get(id=id)
             PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, timestamp=date)
-        #return render_to_response('homepage.html', {'username': request.user.username})
         return HttpResponseRedirect('/homepage')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
@@ -131,7 +130,10 @@ def ps_milestone_auth(request):
 def physical_input_view(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('physical-data-input.html', c)
+    if request.user.is_authenticated():
+        return render_to_response('physical-data-input.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 def physical_input_auth(request):
@@ -140,6 +142,15 @@ def physical_input_auth(request):
         nickname = request.POST.get('nickname')
         gender = request.POST.get('gender')
         birthday = request.POST.get('birthday')
+        # Method to get more historical input
+        weight = []
+        counter = 1
+        weight_data = request.POST.get('inputWeight{}'.format(counter))
+        while weight_data != '':
+            weight.append(weight_data)
+            counter += 1
+            weight_data = request.POST.get('inputWeight{}'.format(counter))
+        #
         weight = request.POST.get('weight')
         height = request.POST.get('height')
         date_w_and_h = request.POST.get('date_w_and_h')
