@@ -34,7 +34,7 @@ def homepage(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def redirect(request):
+def redirect():
     return render_to_response('redirect.html')
 
 
@@ -140,7 +140,26 @@ def ps_milestone_auth(request):
 def physical_input_view(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('physical-data-input.html', c)
+    user_id = request.user
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+    child_data = ChildData.objects.raw('SELECT * FROM "MINERVA_childdata" WHERE uid_user_id = {}'.format(user_id))
+    child_id = child_data.id
+
+    head_data = HeadData.objects.raw('SELECT * FROM "MINERVA_headdata" WHERE uid_child_id = {}'.format(child_id))
+    teeth_data = TeethData.objects.raw('SELECT * FROM "MINERVA_teethdata" WHERE uid_child_id = {}'.format(child_id))
+
+    weight_height_data = WeightAndHeightData.objects.raw('SELECT * FROM "MINERVA_weightandheightdata" '
+                                                         'WHERE uid_child_id = {}'.format(child_id))
+
+    c.update({'child_data': child_data, 'head_data': head_data, 'teeth_data': teeth_data,
+              'weight_height_data': weight_height_data})
+
+    if request.user.is_authenticated():
+        return render_to_response('physical-data-input.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 def physical_input_auth(request):
@@ -149,23 +168,70 @@ def physical_input_auth(request):
         nickname = request.POST.get('nickname')
         gender = request.POST.get('gender')
         birthday = request.POST.get('birthday')
-        weight = request.POST.get('weight')
-        height = request.POST.get('height')
-        date_w_and_h = request.POST.get('date_w_and_h')
-        teeth = request.POST.get('teeth')
-        date_teeth = request.POST.get('date_teeth')
-        head = request.POST.get('head')
-        date_head = request.POST.get('date_head')
+        # Method to get more historical input
+        weight = height = date_w_and_h = teeth = date_teeth = head = date_head = []
+        counter = 1
 
-        checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head, date_head]
+        weight_data = request.POST.get('inputWeight{}'.format(counter))
+        height_data = request.POST.get('inputHeight{}'.format(counter))
+        date_w_and_h_data = request.POST.get('inputWeightHeightDate{}'.format(counter))
+
+        while weight_data != '':
+            weight.append(weight_data)
+            height.append(height_data)
+            date_w_and_h.append(date_w_and_h_data)
+
+            counter += 1
+
+            weight_data = request.POST.get('inputWeight{}'.format(counter))
+            height_data = request.POST.get('inputHeight{}'.format(counter))
+            date_w_and_h_data = request.POST.get('inputWeightHeightDate{}'.format(counter))
+
+        counter = 1
+
+        teeth_data = request.POST.get('inputTeeth{}'. format(counter))
+        date_teeth_data = request.POST.get('inputTeethDate{}'.format(counter))
+        while teeth_data != '':
+            teeth.append(teeth_data)
+            date_teeth.append(date_teeth_data)
+
+            counter += 1
+
+            teeth_data = request.POST.get('inputTeeth{}'.format(counter))
+            date_teeth_data = request.POST.get('inputTeethDate{}'.format(counter))
+
+        counter = 1
+
+        head_data = request.POST.get('inputHead{}'.format(counter))
+        date_head_data = request.POST.get('inputHeadDate{}'.format(counter))
+
+        while head_data != '':
+            head.append(head_data)
+            date_head.append(date_head_data)
+
+            counter += 1
+
+            head_data = request.POST.get('inputHead{}'.format(counter))
+            date_head_data = request.POST.get('inputHeadDate{}'.format(counter))
+        #################################################################################
+
+        checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head,
+                   date_head]
         
         if None or '' in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
         else:
-            child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname, gender=gender, birthday=birthday)
-            WeightAndHeightData.objects.create(uid_child=child, weight=weight, height=height, date_w_and_h=date_w_and_h)
-            TeethData.objects.create(uid_child=child, teeth=teeth, date_teeth=date_teeth)
-            HeadData.objects.create(uid_child=child, head_size=head, date_head=date_head)
+            # Create multiple instances based on data
+            child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname, gender=gender,
+                                             birthday=birthday)
+            for i in range(len(weight)):
+                WeightAndHeightData.objects.create(uid_child=child, weight=weight[i], height=height[i],
+                                                   date_w_and_h=date_w_and_h[i])
+            for i in range(len(teeth)):
+                TeethData.objects.create(uid_child=child, teeth=teeth[i], date_teeth=date_teeth[i])
+            for i in range(len(head)):
+                HeadData.objects.create(uid_child=child, head_size=head[i], date_head=date_head[i])
+
             return HttpResponseRedirect('/milestones/physical')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})

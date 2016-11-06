@@ -14,7 +14,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: postgres; Type: COMMENT; Schema: -; Owner: Kitto
+-- Name: postgres; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON DATABASE postgres IS 'default administrative connection database';
