@@ -62,9 +62,9 @@ function addRowHead() {
     var table = document.getElementById("HeadTable");
 
     // Condition to ensure all values are filled before adding to table.
-    //if(head.value == '' || date.value == ''){
-      //  return;
-    //}
+    if(head.value == '' || date.value == ''){
+        return;
+    }
 
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
