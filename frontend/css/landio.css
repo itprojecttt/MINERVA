@@ -1960,18 +1960,17 @@ input[type="checkbox"].disabled {
 }
 
 .btn {
+    margin-top: 25px;
     display: inline-block;
     font-weight: 600;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    cursor: pointer;
     user-select: none;
     border: 1px solid transparent;
     padding: 1.4rem 4.375rem;
     font-size: 1rem;
     line-height: 2;
-    border-radius: 2rem;
     transition: all 0.2s ease-in-out
 }
 
