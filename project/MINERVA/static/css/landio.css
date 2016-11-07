@@ -1971,7 +1971,7 @@ input[type="checkbox"].disabled {
     font-size: 1rem;
     line-height: 2;
     border-radius: 2rem;
-    transition: all 0.2s ease-in-out
+    transition: all 0.5s;
 }
 .btn:focus,
 .btn.focus,

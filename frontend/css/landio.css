@@ -1958,6 +1958,7 @@ input[type="checkbox"].disabled {
         top: 0
     }
 }
+
 .btn {
     display: inline-block;
     font-weight: 600;
@@ -1973,6 +1974,7 @@ input[type="checkbox"].disabled {
     border-radius: 2rem;
     transition: all 0.2s ease-in-out
 }
+
 .btn:focus,
 .btn.focus,
 .btn:active:focus,
@@ -2333,6 +2335,12 @@ fieldset[disabled] a.btn {
     background-image: none;
     background-color: transparent;
     border-color: #ccc
+}
+
+.btn2-secondary-outline {
+    background-image: none;
+    background-color: transparent;
+    border-color: white;
 }
 .btn-secondary-outline:focus,
 .btn-secondary-outline.focus,
@@ -4237,7 +4245,7 @@ a.text-danger:hover {
 }
 .bg-inverse {
     color: #eceeef;
-    background-color: #312f38
+    background-color: #312f38;
 }
 .bg-faded {
     background-color: #f4f5f7
@@ -7681,7 +7689,8 @@ a.bg-danger:hover {
     }
 }
 .bg-inverse {
-    color: #fff
+    color: #fff;
+    border-radius: 0.25rem;
 }
 .bg-inverse a,
 .bg-inverse a:focus,
@@ -8260,6 +8269,16 @@ h2 em {
     letter-spacing: .1rem;
     border-width: 1px
 }
+
+.btn2 {
+    padding: 1.4rem 2.125rem 1.3rem;
+    font-size: .8125rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    border:1px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
 @media (min-width: 992px) {
     .btn {
         padding: 1.4rem 3.125rem 1.3rem
@@ -8275,7 +8294,7 @@ h2 em {
 .bg-inverse .btn-secondary-outline:focus,
 .bg-inverse .btn-secondary-outline:hover {
     background-color: rgba(255, 255, 255, 0.5);
-    border-color: transparent
+    border-color: transparent;
 }
 .social-share {
     margin-bottom: 1rem;
@@ -8680,25 +8699,19 @@ figure {
     transform: translate3d(15px, 0, 0)
 }
 .label {
-    padding: .35em .85em;
-    margin-bottom: .5rem;
-    font-size: .8125rem;
-    font-weight: 600;
-    line-height: 1.1538;
-    border-radius: 2.5rem
+    padding: 0.4rem .85em;
+    font-size: 1.5rem;
+    font-weight: 200;
+    line-height: 2rem;
+    border-radius: 2rem;
+    margin-top: 1rem;
 }
 .label span {
     margin-right: .15rem;
     font-size: 16px;
     vertical-align: text-top
 }
-.label-default {
-    padding-right: 0;
-    padding-left: 0;
-    margin-right: .5rem;
-    color: rgba(255, 255, 255, 0.6);
-    background-color: transparent
-}
+
 .form-group {
     margin-bottom: 1.875rem
 }
@@ -8942,7 +8955,6 @@ figure {
 }
 .card-social img {
     margin-bottom: 1rem;
-    box-shadow: 0 0 0 4px #fff
 }
 .card-social .card-title {
     font-size: 1.125rem
@@ -8966,6 +8978,29 @@ figure {
     letter-spacing: 0;
     border-color: #fff
 }
+
+
+.card-social .btn2 {
+    padding: .4rem .75rem;
+    font-size: .875rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    margin-right: 3px;
+    margin-left:3px;
+    margin-top:10px;
+    font-weight: 400;
+    color: white;
+    text-transform: capitalize;
+    letter-spacing: 0;
+    border-color: white;
+}
+
+.card-social .btn2:hover,
+.card-social .btn2:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-color: transparent
+}
+
+
 .card-social .btn:hover,
 .card-social .btn:focus {
     background-color: rgba(255, 255, 255, 0.25);
