@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Land.io UI Kit | Codrops</title>
+    <meta name="description" content="A free HTML template and UI Kit built on Bootstrap" />
+    <meta name="keywords" content="free html template, bootstrap, ui kit, sass" />
+    <meta name="author" content="Peter Finlan and Taty Grassini Codrops" />
+    <link rel="manifest" href="{% static 'img/favicon/manifest.json' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#663fb5">
+    <meta name="msapplication-TileImage" content="{% static 'img/favicon/mstile-144x144.png' %}">
+    <meta name="msapplication-config" content="{% static 'img/favicon/browserconfig.xml' %}">
+    <meta name="theme-color" content="#663fb5">
+    <!-- Only needed Bootstrap bits + custom CSS in one file -->
+    <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+    <link rel="stylesheet" href="{% static 'homepagetest.css' %}">
+
+  </head>
+
+  <body class="bg-faded">
+    <div class="container">
+
+      <div class="card card-inverse card-social text-xs-center">
+        <div class="card-block has-gradient">
+          <img src="{% static 'img/minervaofficial/minervaofficial.png' %}" height="120" width="150">
+          <h3 class="card-title">NAME</h3>
+          <h6 class="card-subtitle">DATE OF BIRTH</h6>
+          <button type="submit" class="btn btn-secondary-outline btn-sm">Update Details</button>
+          <button type="submit" class="btn2 btn-secondary-outline btn-sm">TESTTTTTT1</button>
+          <button type="submit" class="btn2 btn-secondary-outline btn-sm">TESTTTTTT2</button>
+
+        </div>
+        <div class="card-block container">
+          <div class="row">
+            <div class="col-md-4 card-stat">
+              <h4>3 <small class="text-uppercase">YEARS OLD</small></h4>
+            </div>
+            <div class="col-md-4 card-stat">
+              <h4>13 <small class="text-uppercase">IN KILOGRAMS</small></h4>
+            </div>
+            <div class="col-md-4 card-stat">
+              <h4>45 <small>IN CENTIMETER</small></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-6">
+            <center><div class="label" style="background-color: #372799">COGNITIVE MILESTONE</div></center>
+            <br>
+            <div class="mainpage-milestone-list">
+            blablabla
+            </div>
+        </div>
+        <div class="col-md-6">
+            <center><div class="label label-info">PHYSICAL MILESTONE</div></center>
+            <br>
+            <div class="mainpage-milestone-list2">
+            blablabla
+            </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12" style="border-radius:0.25rem; background-color: #312f38; padding-bottom:1rem; margin-bottom: 2rem;">
+          <center><div class="label" style="background-color: #585183">SUGGESTED ACTIVITIES</div></center>
+          <br>
+          <div class="mainpage-milestone-list3">
+                blablabla
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <hr class="invisible">
+
+    <!-- DARK footer
+    ================================================== -->
+
+    <footer class="section-footer bg-inverse" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-5">
+            <div class="media">
+              <div class="media-left">
+                <span class="media-object icon-logo display-1"></span>
+              </div>
+              <small class="media-body media-bottom">
+                &copy; Land.io 2015. <br>
+                Designed by Peter Finlan, developed by Taty Grassini, exclusively for Codrops.
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-7">
+            <ul class="nav nav-inline">
+              <li class="nav-item">
+                <a class="nav-link" href="./index-carousel.html"><small>NEW</small> Slides<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active"><a class="nav-link" href="ui-elements.html">UI Kit</a></li>
+              <li class="nav-item"><a class="nav-link" href="https://github.com/tatygrassini/landio-html" target="_blank">GitHub</a></li>
+              <li class="nav-item"><a class="nav-link scroll-top" href="#totop">Back to top <span class="icon-caret-up"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- video modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+      <div class="modal-dialog modal-video" role="document">
+        <div class="modal-content">
+          <!-- 16:9 aspect ratio -->
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe id="vimeo-play" src="https://player.vimeo.com/video/98330466?color=6c59b4&byline=0&portrait=0&badge=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- video modal -->
+    <div class="modal fade" id="youtubeModal" tabindex="-1" role="dialog" aria-labelledby="youtubeModal" aria-hidden="true">
+      <div class="modal-dialog modal-video" role="document">
+        <div class="modal-content">
+          <!-- 16:9 aspect ratio -->
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe id="youtube-play" class="embed-responsive-item" src="" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{% static 'js/landio.min.js' %}"></script>
+  </body>
+</html>
