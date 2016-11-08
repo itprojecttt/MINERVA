@@ -30,7 +30,7 @@ class ChildDataAdmin(admin.ModelAdmin):
 
 
 class WeightAndHeightDataAdmin(admin.ModelAdmin):
-    fields = ('uid_child', 'weight', 'height', 'date_w_and_h')
+    fields = ('ui_child', 'weight', 'height', 'date_w_and_h')
     list_display = ('uid_child', 'weight', 'height', 'date_w_and_h')
 
 

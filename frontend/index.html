@@ -16,7 +16,6 @@
     <meta name="theme-color" content="#663fb5">
     <!-- Only needed Bootstrap bits + custom CSS in one file -->
     <link rel="stylesheet" href="css/landio.css">
-    <link rel="stylesheet" href="homepagetest.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
   </head>
 
@@ -26,13 +25,13 @@
 
       <div class="card card-inverse card-social text-xs-center">
         <div class="card-block has-gradient">
-          <img src="img/minervaofficial/minervaofficial.png" height="120" width="150">
+          <img src="img/minervaofficial/minervaofficial4.png" height="120" width="150">
           <h3 class="card-title">Agaci Raibimo Kivel</h3>
           <h6 class="card-subtitle">January 11, 2015</h6>
           <h6 class="card-subtitle">24 Months</h6>
           <button type="submit" class="btn btn-secondary-outline btn-sm">Update Details</button>
           <button type="submit" class="btn2 btn-secondary-outline btn-sm">PHYSICAL GROWTH</button>
-          <button type="submit" class="btn2 btn2-secondary-outline btn-sm">VACINNE WIDGET</button>
+          <button type="submit" class="btn2 btn-secondary-outline btn-sm">VACINNE WIDGET</button>
 
         </div>
         <div class="card-block container">
@@ -52,28 +51,70 @@
 
       <div class="row">
         <div class="col-md-6">
-        <div class="btn btn-primary btn-block">PHYSICAL MILESTONE</div>
+        <div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div>
           <div class="card card-chart">
             <div id="chart-holder" class="center-block">
-              <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
+              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
               <li class="list-group-item complete">
-                <center>CLICK TO SEE DETAILS</center> 
+                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
               </li>
             </ul>
           </div>
         </div>
 
          <div class="col-md-6">
-         <div class="btn btn-primary btn-block">COGNITIVE MILESTONE</div>
+         <div class="btn3 btn-primary btn-block">COGNITIVE PROGRESS</div>
           <div class="card card-chart">
             <div id="chart-holder" class="center-block" data-active="85%">
-              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
+              <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
+            </div>
+
+            <div id="chart-holder" class="center-block">
+              <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
               <li class="list-group-item complete">
-                <center>CLICK TO SEE DETAILS</center>
+                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-md-6">
+        <div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div>
+          <div class="card card-chart">
+            <div id="chart-holder" class="center-block">
+              1.<br>
+              2.<br>
+              3.<br>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item complete">
+                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+         <div class="col-md-6">
+         <div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div>
+          <div class="card card-chart">
+            <div id="chart-holder" class="center-block">
+              1.<br>
+              2.<br>
+              3.<br>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item complete">
+                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
               </li>
             </ul>
           </div>
@@ -82,9 +123,9 @@
 
       <div class="row">
       <div class="col-md-12">
-      <div class="btn btn-primary btn-block">SUGGESTED ACTIVITIES</div>
+      <div class="btn3 btn-primary btn-block">SUGGESTED ACTIVITIES</div>
           <div class="col-md-3" style="background-color: #312f38; color: white">
-        Main lah sm anak lo
+        testtesttest
         </div>
         <div class="col-md-3" style="background-color: #312f38;">
         Test
@@ -164,6 +205,35 @@
             spanGaps: false,
         }
     ]
+        }
+      });
+
+    </script>
+
+ <script type="text/javascript">
+      var ctx = document.getElementById('myChart3').getContext('2d');
+      var myChart3 = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+              "Complete",
+              "Progress",
+              "On Hold"
+          ],
+          datasets: [
+              {
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#e8e9ec"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]
         }
       });
 

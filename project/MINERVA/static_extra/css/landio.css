@@ -1959,7 +1959,7 @@ input[type="checkbox"].disabled {
     }
 }
 
-.btn {
+.btn3 {
     margin-top: 15px;
     display: inline-block;
     font-weight: 600;
@@ -1971,9 +1971,28 @@ input[type="checkbox"].disabled {
     border: 1px solid transparent;
     padding: 1.4rem 4.375rem;
     font-size: 1rem;
+    line-height: 1rem;
+    letter-spacing: 0px;
+    transition: all 0.2s ease-in-out
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 1.4rem 4.375rem;
+    font-size: 1rem;
+    border-radius:2rem;
     line-height: 2;
     transition: all 0.2s ease-in-out
 }
+
+
 
 .btn:focus,
 .btn.focus,
@@ -1987,6 +2006,11 @@ input[type="checkbox"].disabled {
 }
 .btn:focus,
 .btn:hover {
+    text-decoration: none
+}
+
+.btn3:focus,
+.btn3:hover {
     text-decoration: none
 }
 .btn.focus {
@@ -3144,7 +3168,7 @@ input[type="button"].btn-block {
     margin-bottom: 0.75rem;
     background-color: #fff;
     border: 1px solid #e5e5e5;
-    border-radius: 0.25rem
+    border-radius: 0 0 0.25rem 0.25rem
 }
 .card-block {
     padding: 1.25rem

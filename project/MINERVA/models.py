@@ -55,9 +55,9 @@ class PersonalSocialChecklist(models.Model):
 
 
 class ChildData(models.Model):
-    uid_user = models.ForeignKey(User)
     fullname = models.CharField(max_length=50)
     nickname = models.CharField(max_length=15)
+    uid_user = models.ForeignKey(User)
     gender_choices = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -65,9 +65,12 @@ class ChildData(models.Model):
     gender = models.CharField(max_length=1, choices=gender_choices)
     birthday = models.DateField(default=django.utils.timezone.now)
 
+    def __str__(self):
+        return self.fullname
+
 
 class WeightAndHeightData(models.Model):
-    uid_child = models.ForeignKey(ChildData)
+    uid_child = models.ForeignKey(ChildData, on_delete=models.CASCADE)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     date_w_and_h = models.DateField()
