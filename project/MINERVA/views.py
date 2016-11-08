@@ -34,7 +34,7 @@ def homepage(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def redirect():
+def redirect(request):
     return render_to_response('redirect.html')
 
 
@@ -105,6 +105,10 @@ def gm_milestone_auth(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def index(request):
+    return render_to_response('index.html')
+
+
 def ps_milestone_view(request):
     c = {}
     c.update(csrf(request))
@@ -162,6 +166,10 @@ def physical_input_view(request):
         return render_to_response('physical-data-input.html', c)
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def reset_password(request):
+    return render_to_response('forget-password.html')
 
 
 def physical_input_auth(request):
