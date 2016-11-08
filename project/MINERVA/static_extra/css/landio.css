@@ -1960,6 +1960,7 @@ input[type="checkbox"].disabled {
 }
 
 .btn {
+    margin-top: 15px;
     display: inline-block;
     font-weight: 600;
     text-align: center;
@@ -1971,7 +1972,6 @@ input[type="checkbox"].disabled {
     padding: 1.4rem 4.375rem;
     font-size: 1rem;
     line-height: 2;
-    border-radius: 2rem;
     transition: all 0.2s ease-in-out
 }
 
@@ -2335,6 +2335,12 @@ fieldset[disabled] a.btn {
     background-image: none;
     background-color: transparent;
     border-color: #ccc
+}
+
+.btn2-secondary-outline {
+    background-image: none;
+    background-color: transparent;
+    border-color: white;
 }
 .btn-secondary-outline:focus,
 .btn-secondary-outline.focus,
@@ -8269,7 +8275,8 @@ h2 em {
     font-size: .8125rem;
     text-transform: uppercase;
     letter-spacing: .1rem;
-    border-width: 1px;
+    border:1px solid transparent;
+    transition: all 0.2s ease-in-out;
 }
 
 @media (min-width: 992px) {
@@ -8979,11 +8986,12 @@ figure {
     padding: 0.5rem 2rem 0.5rem 2rem;
     margin-right: 3px;
     margin-left:3px;
-    font-weight: 300;
-    color: #fff;
+    margin-top:10px;
+    font-weight: 400;
+    color: white;
     text-transform: capitalize;
     letter-spacing: 0;
-    border-color: #fff
+    border-color: white;
 }
 
 .card-social .btn2:hover,
