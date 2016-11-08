@@ -148,7 +148,7 @@ def physical_input_view(request):
     if not request.user.is_authenticated():
         return render_to_response('redirect.html', {'tag': 'logout'})
 
-<<<<<<< HEAD
+
     child_data = ChildData.objects.get(uid_user=user_id)
     birthday = str(child_data.birthday)
     head_data = HeadData.objects.get(uid_child=child_data)
@@ -157,21 +157,6 @@ def physical_input_view(request):
 
     c.update({'child_data': child_data, 'birthday': birthday, 'head_data': head_data, 'teeth_data': teeth_data,
               'weight_height_data': weight_height_data})
-=======
-    child_data = ChildData.objects.raw('SELECT * FROM "MINERVA_childdata" WHERE uid_user_id = {}'.format(user_id))
-    for i in child_data:
-        child_id = i.key
-
-    # head_data = HeadData.objects.raw('SELECT * FROM "MINERVA_headdata" WHERE uid_child_id = {}'.format(child_id))
-    # teeth_data = TeethData.objects.raw('SELECT * FROM "MINERVA_teethdata" WHERE uid_child_id = {}'.format(child_id))
-    #
-    # weight_height_data = WeightAndHeightData.objects.raw('SELECT * FROM "MINERVA_weightandheightdata" '
-    #                                                      'WHERE uid_child_id = {}'.format(child_id))
-
-    c.update({'child_data': child_data})
-    # c.update({'child_data': child_data, 'head_data': head_data, 'teeth_data': teeth_data,
-    #           'weight_height_data': weight_height_data})
->>>>>>> acad9950a7c447cd552559a8dfde98de50d99cb6
 
     if request.user.is_authenticated():
         return render_to_response('physical-data-input.html', c)
@@ -193,9 +178,11 @@ def physical_input_auth(request):
         weight = height = date_w_and_h = teeth = date_teeth = head = date_head = []
         counter = 1
 
-        weight_data = request.POST.get('inputWeight{}'.format(counter))
+        weight_data = request.POST.get('inputWeight1'.format(counter))
         height_data = request.POST.get('inputHeight{}'.format(counter))
         date_w_and_h_data = request.POST.get('inputWeightHeightDate{}'.format(counter))
+
+        print(weight_data)
 
         while weight_data != '':
             weight.append(weight_data)
@@ -234,7 +221,6 @@ def physical_input_auth(request):
 
             head_data = request.POST.get('inputHead{}'.format(counter))
             date_head_data = request.POST.get('inputHeadDate{}'.format(counter))
-        #################################################################################
 
         checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head,
                    date_head]
