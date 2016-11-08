@@ -51,10 +51,10 @@
 
       <div class="row">
         <div class="col-md-6">
-        <div class="btn3 btn-primary btn-block">PHYSICAL PROGRESS</div>
+        <div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div>
           <div class="card card-chart">
             <div id="chart-holder" class="center-block">
-              <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
+              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
               <li class="list-group-item complete">
@@ -68,7 +68,11 @@
          <div class="btn3 btn-primary btn-block">COGNITIVE PROGRESS</div>
           <div class="card card-chart">
             <div id="chart-holder" class="center-block" data-active="85%">
-              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
+              <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
+            </div>
+
+            <div id="chart-holder" class="center-block">
+              <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
               <li class="list-group-item complete">
@@ -76,8 +80,11 @@
               </li>
             </ul>
           </div>
+
         </div>
       </div>
+
+
 
 
       <div class="row">
@@ -198,6 +205,35 @@
             spanGaps: false,
         }
     ]
+        }
+      });
+
+    </script>
+
+ <script type="text/javascript">
+      var ctx = document.getElementById('myChart3').getContext('2d');
+      var myChart3 = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+              "Complete",
+              "Progress",
+              "On Hold"
+          ],
+          datasets: [
+              {
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#e8e9ec"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]
         }
       });
 
