@@ -148,6 +148,16 @@ def physical_input_view(request):
     if not request.user.is_authenticated():
         return render_to_response('redirect.html', {'tag': 'logout'})
 
+<<<<<<< HEAD
+    child_data = ChildData.objects.get(uid_user=user_id)
+    birthday = str(child_data.birthday)
+    head_data = HeadData.objects.get(uid_child=child_data)
+    teeth_data = TeethData.objects.get(uid_child=child_data)
+    weight_height_data = WeightAndHeightData.objects.get(uid_child=child_data)
+
+    c.update({'child_data': child_data, 'birthday': birthday, 'head_data': head_data, 'teeth_data': teeth_data,
+              'weight_height_data': weight_height_data})
+=======
     child_data = ChildData.objects.raw('SELECT * FROM "MINERVA_childdata" WHERE uid_user_id = {}'.format(user_id))
     for i in child_data:
         child_id = i.key
@@ -161,6 +171,7 @@ def physical_input_view(request):
     c.update({'child_data': child_data})
     # c.update({'child_data': child_data, 'head_data': head_data, 'teeth_data': teeth_data,
     #           'weight_height_data': weight_height_data})
+>>>>>>> acad9950a7c447cd552559a8dfde98de50d99cb6
 
     if request.user.is_authenticated():
         return render_to_response('physical-data-input.html', c)
