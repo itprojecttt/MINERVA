@@ -106,7 +106,9 @@ def gm_milestone_auth(request):
 
 
 def index(request):
-    return render_to_response('index.html')
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('index.html', c)
 
 
 def ps_milestone_view(request):
