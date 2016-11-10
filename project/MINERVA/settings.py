@@ -141,8 +141,8 @@ SESSION_IDLE_TIMEOUT = TIME  # logout
 # E-mail settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'minervaitprojecttt'
-EMAIL_HOST_PASSWORD = 'minervaminerva1234'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'minervaitprojecttt@gmail.com'
+EMAIL_HOST_PASSWORD = 'cxmitguqkhtiipvb'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
