@@ -33,10 +33,11 @@
 }
 
 .card-register-pic3{
-	background:url(../img/Register_PAGE1/cognitive_milestone.png) no-repeat;
-	background-size:contain;
+  background:url(../img/Register_PAGE1/cognitive_milestone.png) no-repeat;
+  background-size:contain;
   background-position: center;
 }
+
 
 
 .card-social .card-block:last-child {
