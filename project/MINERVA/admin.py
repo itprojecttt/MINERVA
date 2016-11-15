@@ -10,8 +10,8 @@ class PersonalSocialMilestoneAdmin(admin.ModelAdmin):
 
 
 class PersonalSocialChecklistAdmin(admin.ModelAdmin):
-    fields = ('uid_ps_milestone', 'uid_user', 'timestamp')
-    list_display = ('uid_ps_milestone', 'uid_user', 'timestamp')
+    fields = ('uid_ps_milestone', 'uid_user', 'uid_child', 'timestamp')
+    list_display = ('uid_ps_milestone', 'uid_user', 'uid_child', 'timestamp')
 
 
 class GrossMotorMilestoneAdmin(admin.ModelAdmin):
@@ -20,8 +20,8 @@ class GrossMotorMilestoneAdmin(admin.ModelAdmin):
 
 
 class GrossMotorChecklistAdmin(admin.ModelAdmin):
-    fields = ('uid_gm_milestone', 'uid_user', 'timestamp')
-    list_display = ('uid_gm_milestone', 'uid_user', 'timestamp')
+    fields = ('uid_gm_milestone', 'uid_user', 'uid_child', 'timestamp')
+    list_display = ('uid_gm_milestone', 'uid_user', 'uid_child', 'timestamp')
 
 
 class ChildDataAdmin(admin.ModelAdmin):

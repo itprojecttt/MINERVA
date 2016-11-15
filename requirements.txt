@@ -3,3 +3,6 @@ pip==8.1.2
 setuptools==27.3.0
 psycopg2==2.6.2
 coverage==4.2
+gunicorn==19.6.0
+dj-database-url==0.4.1
+whitenoise==3.2.2

@@ -5,10 +5,15 @@ function addRowWeightHeight() {
 	var date = document.getElementById("weightheight-date-input");
     var table = document.getElementById("WeightHeightTable");
 
+    // Condition to ensure all values are filled before adding to table.
+    if(height.value == '' || weight.value == '' || date.value == ''){
+        return;
+    }
+
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
 
-    row.insertCell(0).innerHTML= String(weight.value) + ' <br> <input type="hidden" name="inputWeight' + String(rowCount) + '" value="' + String(weight.value) + '" />';
+    row.insertCell(0).innerHTML= String(weight.value) + ' <br> <input type="hidden" name="inputWeight" value="' + String(weight.value) + '" />';
     row.insertCell(1).innerHTML= String(height.value) + ' <br> <input type="hidden" name="inputHeight' + String(rowCount) + '" value="' + String(height.value) + '" />';
 	row.insertCell(2).innerHTML= String(date.value) + ' <br> <input type="hidden" name="inputWeightHeightDate' + String(rowCount) + '" value="' + String(date.value) + '" />';;
 	row.insertCell(3).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRowWeightHeight(this)">';
@@ -29,6 +34,10 @@ function addRowTeeth() {
 	var date = document.getElementById("teeth-date-input");
     var table = document.getElementById("TeethTable");
 
+    // Condition to ensure all values are filled before adding to table.
+    if(teeth.value == '' || date.value == ''){
+        return;
+    }
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
 
@@ -51,6 +60,11 @@ function addRowHead() {
     var head = document.getElementById("inputHead");
 	var date = document.getElementById("head-date-input");
     var table = document.getElementById("HeadTable");
+
+    // Condition to ensure all values are filled before adding to table.
+    if(head.value == '' || date.value == ''){
+        return;
+    }
 
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);

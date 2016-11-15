@@ -1972,7 +1972,7 @@ input[type="checkbox"].disabled {
     padding: 1.4rem 4.375rem;
     font-size: 1rem;
     line-height: 1rem;
-    letter-spacing: 0px;
+    letter-spacing: 0.5px;
     transition: all 0.2s ease-in-out
 }
 
@@ -3170,6 +3170,16 @@ input[type="button"].btn-block {
     border: 1px solid #e5e5e5;
     border-radius: 0 0 0.25rem 0.25rem
 }
+
+.card_header {
+    position: relative;
+    display: block;
+    margin-bottom: 0.75rem;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+
+}
 .card-block {
     padding: 1.25rem
 }
@@ -3364,12 +3374,20 @@ input[type="button"].btn-block {
         width: 100%
     }
 }
+
+.label-index{
+    display:inline-block;
+    padding:0 1rem;
+    color:white;
+    text-align: center;
+    background-color: #3c2d63;
+    vertical-align: baseline;
+    border-radius: 2.5rem;
+}
 .label {
     display: inline-block;
     padding: .25em .4em;
-    font-size: 75%;
-    font-weight: bold;
-    line-height: 1;
+    font-size: 50%;
     color: #fff;
     text-align: center;
     white-space: nowrap;

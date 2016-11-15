@@ -14,12 +14,6 @@ class FineMotorMilestone(models.Model):
         return self.fm_milestone
 
 
-class FineMotorChecklist(models.Model):
-    uid_fm_milestone = models.ForeignKey(FineMotorMilestone)
-    uid_user = models.ForeignKey(User)
-    timestamp = models.DateField()
-
-
 class GrossMotorMilestone(models.Model):
     gm_milestone = models.CharField(max_length=50)
     # unit of start, final and 75th percentile in MONTHS
@@ -31,12 +25,6 @@ class GrossMotorMilestone(models.Model):
         return self.gm_milestone
 
 
-class GrossMotorChecklist(models.Model):
-    uid_gm_milestone = models.ForeignKey(GrossMotorMilestone)
-    uid_user = models.ForeignKey(User)
-    timestamp = models.DateField()
-
-
 class PersonalSocialMilestone(models.Model):
     ps_milestone = models.CharField(max_length=50)
     # unit of start, final and 75th percentile in MONTHS
@@ -46,12 +34,6 @@ class PersonalSocialMilestone(models.Model):
 
     def __str__(self):
         return self.ps_milestone
-
-
-class PersonalSocialChecklist(models.Model):
-    uid_ps_milestone = models.ForeignKey(PersonalSocialMilestone)
-    uid_user = models.ForeignKey(User)
-    timestamp = models.DateField()
 
 
 class ChildData(models.Model):
@@ -67,6 +49,27 @@ class ChildData(models.Model):
 
     def __str__(self):
         return self.fullname
+
+
+class FineMotorChecklist(models.Model):
+    uid_fm_milestone = models.ForeignKey(FineMotorMilestone)
+    uid_user = models.ForeignKey(User)
+    uid_child = models.ForeignKey(ChildData, null=True)
+    timestamp = models.DateField()
+
+
+class GrossMotorChecklist(models.Model):
+    uid_gm_milestone = models.ForeignKey(GrossMotorMilestone)
+    uid_user = models.ForeignKey(User)
+    uid_child = models.ForeignKey(ChildData, null=True)
+    timestamp = models.DateField()
+
+
+class PersonalSocialChecklist(models.Model):
+    uid_ps_milestone = models.ForeignKey(PersonalSocialMilestone)
+    uid_user = models.ForeignKey(User)
+    uid_child = models.ForeignKey(ChildData, null=True)
+    timestamp = models.DateField()
 
 
 class WeightAndHeightData(models.Model):
