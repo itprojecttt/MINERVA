@@ -9222,11 +9222,22 @@ figure {
 
 
 .card-register-pic{
-	background:url(img/Register_PAGE1/registersteps.png) no-repeat;
+	background:url(img/Register_PAGE1/physical_input.png) no-repeat;
 	background-size:contain;
     background-position: center;
 }
 
+.card-register-pic2{
+	background:url(img/Register_PAGE1/physical_milestone.png) no-repeat;
+	background-size:contain;
+    background-position: center;
+}
+
+.card-register-pic3{
+	background:url(img/Register_PAGE1/cognitive_milestone.png) no-repeat;
+	background-size:contain;
+    background-position: center;
+}
 
 table {
   background-color: transparent;
