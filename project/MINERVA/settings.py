@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j=%tw!-f0gp(-j51v^*6h2xd=c8(w*_a5#@ct#+ba9)!44m6&g'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'j=%tw!-f0gp(-j51v^*6h2xd=c8(w*_a5#@ct#+ba9)!44m6&g')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'MINERVA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_minerva',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'NAME': os.environ.get('DB_NAME', 'db_minerva'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'admin'),
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -145,8 +145,8 @@ SESSION_IDLE_TIMEOUT = TIME  # logout
 # E-mail settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'minervaitprojecttt@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'cxmitguqkhtiipvb')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', '587')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
