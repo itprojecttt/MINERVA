@@ -24,7 +24,7 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/homepage')
+        return HttpResponseRedirect('/')
     else:
         return render_to_response('redirect.html', {'tag': 'login'})
 
@@ -111,6 +111,10 @@ def gm_milestone_auth(request):
 def index(request):
     c = {}
     c.update(csrf(request))
+    child = ChildData.objects.get(uid_user=request.user)
+    date = datetime.date.today()
+    birthday = date - child.birthday
+    c.update({'child': child, 'birthday': birthday})
     return render_to_response('index.html', c)
 
 
@@ -142,7 +146,7 @@ def ps_milestone_auth(request):
         for id in checklist:
             m = PersonalSocialMilestone.objects.get(id=id)
             PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
-        return HttpResponseRedirect('/homepage')
+        return HttpResponseRedirect('/')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -183,17 +187,15 @@ def physical_input_auth(request):
         nickname = request.POST.get('nickname')
         gender = request.POST.get('gender')
         birthday = request.POST.get('birthday')
-        # Method to get more historical input
-        weight = height = date_w_and_h = teeth = date_teeth = head = date_head = []
-        counter = 1
+        weight = request.POST.get('weight')
+        height = request.POST.get('height')
+        date_w_and_h = request.POST.get('date_w_and_h')
+        teeth = request.POST.get('teeth')
+        date_teeth = request.POST.get('date_teeth')
+        head = request.POST.get('head')
+        date_head = request.POST.get('date_head')
 
-        weight_data = request.POST.get('inputWeight'.format(counter))
-        height_data = request.POST.get('inputHeight{}'.format(counter))
-        date_w_and_h_data = request.POST.get('inputWeightHeightDate{}'.format(counter))
-
-        print(weight_data)
-
-        while weight_data != '':
+        '''while weight_data != '':
             weight.append(weight_data)
             height.append(height_data)
             date_w_and_h.append(date_w_and_h_data)
@@ -229,7 +231,7 @@ def physical_input_auth(request):
             counter += 1
 
             head_data = request.POST.get('inputHead{}'.format(counter))
-            date_head_data = request.POST.get('inputHeadDate{}'.format(counter))
+            date_head_data = request.POST.get('inputHeadDate{}'.format(counter))'''
 
         checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head,
                    date_head]
@@ -240,13 +242,10 @@ def physical_input_auth(request):
             # Create multiple instances based on data
             child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname, gender=gender,
                                              birthday=birthday)
-            for i in range(len(weight)):
-                WeightAndHeightData.objects.create(uid_child=child, weight=weight[i], height=height[i],
-                                                   date_w_and_h=date_w_and_h[i])
-            for i in range(len(teeth)):
-                TeethData.objects.create(uid_child=child, teeth=teeth[i], date_teeth=date_teeth[i])
-            for i in range(len(head)):
-                HeadData.objects.create(uid_child=child, head_size=head[i], date_head=date_head[i])
+            WeightAndHeightData.objects.create(uid_child=child, weight=weight, height=height,
+                                               date_w_and_h=date_w_and_h)
+            TeethData.objects.create(uid_child=child, teeth=teeth, date_teeth=date_teeth)
+            HeadData.objects.create(uid_child=child, head_size=head, date_head=date_head)
 
             return HttpResponseRedirect('/milestones/physical')
     else:

@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'j=%tw!-f0gp(-j51v^*6h2xd=c8(w*_a5#@ct#+ba9)!44m6&g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'MINERVA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'NAME': 'db_minerva',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }

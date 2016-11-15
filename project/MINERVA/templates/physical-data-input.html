@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>MINERVA | Form Data Input</title>
+    <link rel="stylesheet" href="{% static 'css/register-input.css' %}">
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
 
     <script type="text/javascript" src="{% static 'js/dynamic-table-t.js' %}"></script>
@@ -85,7 +86,7 @@
             <div class="col-md-6 col-xl-6" style="padding-left: 0; padding-right: 5px;">
               <div class="form-group form-control-Weight">
                 <label class="sr-only" for="inputWeight">Weight</label>
-                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name="weight" value="10">
+                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name="weight" >
                 <small id="weightHelp" class="form-text text-muted">Please input weight in kg scale</small>
               </div>
             </div>
@@ -178,7 +179,6 @@
               <div class="form-group">
                 <label class="sr-only" for="inputHead">Head Size</label>
                 <input type="text" class="form-control form-control-lg" id="inputHead" name="head" placeholder="Head Size" autocomplete="off">
-                <small id="headHelp" class="form-text text-muted">Please input circumference in cm scale</small>
               </div>
 
               <div class="col-md-8 col-xl-8" style="padding-left: 0px;padding-right: 5px;">

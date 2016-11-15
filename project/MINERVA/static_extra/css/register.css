@@ -26,9 +26,9 @@
 
 
 .card-register-pic{
-	background:url(img/Register_PAGE1/physical_input.png) no-repeat;
-	background-size:contain;
-  background-position: center;
+  background:url(../img/Register_PAGE1/physical_input.png) no-repeat;
+  background-size:contain;
+  background-position:center;
 }
 
 
