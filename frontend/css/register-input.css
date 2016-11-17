@@ -4,6 +4,29 @@
   padding:10px;
 }
 
+.input-left{
+  padding-left: 0; 
+  padding-right: 0px;
+}
+
+.input-right{
+  padding-left: 0px;
+  padding-right:0px;
+}
+
+.input-middle{
+  padding-left:5px;
+  padding-right:5px;
+}
+
+@media(min-width: 600px){
+  .input-right{padding-left:5px;
+              padding-right:0px;}
+  .input-left{padding-left:0px;
+              padding-right:5px;}
+  .input-middle{padding-left:5px;
+              padding-right:5px;}
+}
 @media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ }
 @media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }
 @media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><Ayobaca class="in">MINERVA</Ayobaca> | Form Data Input</title>
+    <link rel="stylesheet" href="css/landio.css">
+
+    <link rel="stylesheet" href="css/register-input.css">
+
+    <script type="text/javascript" src="js/dynamic-table-t.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body onlaoad="load()" class="bg-white">
+    <hr class="invisible">
+
+<!--MAIN BODY================================================== -->
+  <div class="container">
+      <center>
+      <b><h1>Register</h1></b><h3>Data Input</h3>
+      </center><br>
+      <!--HEADER-->
+      <div class="card_header card-inverse has-gradient card-register">
+        <div class="card-register-pic" style="height:100%; position: center;">
+        </div>
+      </div>
+      <br>
+
+      <!--DATA DIRI-->
+      <div class="row">
+          <div class="col-md-6 col-xl-6">
+            <div class="form-group form-control-name">
+              <label class="sr-only" for="inputName">Full Name</label>
+              <input type="text" class="form-control form-control-lg" id="inputName" placeholder="Full Name">
+            </div>
+
+            <div class="form-group form-control-Nick">
+              <label class="sr-only" for="inputNick">Nick Name</label>
+              <input type="text" class="form-control form-control-lg" id="inputNick" placeholder="Nick Name" autocomplete="off">
+            </div>
+
+            <div class="form-group form-control-Gender">
+              <input type="radio" checked="checked" value="male" name="gender"> Male<br>
+              <input type="radio" value="female" name="gender"> Female<br>
+              <small id="genderHelp" class="form-text text-muted">Select gender</small>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" type="date" placeholder="test" id="Data-date-input">
+              <small id="dobHelp" class="form-text text-muted">The birth day of your child</small>
+            </div>
+          </div>
+      </div>
+
+      <hr class="invisible">
+      <!-- HISTORY WEIGHT & HEIGHT-->
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+          <h4><center>HISTORICAL <b>WEIGHT</b> and <b>HEIGHT</b></center></h4>
+            <br>
+            <!--WEIGHT-->
+            <div class="col-md-6 col-xl-6 input-left">
+              <div class="form-group form-control-Weight">
+                <label class="sr-only" for="inputWeight">Weight</label>
+                <input type="text" class="form-control form-control-lg" id="inputWeight" placeholder="Weight" name=="currinputWeight">
+                <small id="weightHelp" class="form-text text-muted">Please input weight in kg scale</small>
+              </div>
+            </div>
+            <!--HEIGHT-->
+            <div class="col-md-6 col-xl-6 input-right">
+              <div class="form-group form-control-Height">
+                <label class="sr-only" for="inputHeight">Height</label>
+                <input type="text" class="form-control form-control-lg" id="inputHeight" placeholder="Height" name="currinputHeight">
+                <small id="heightHelp" class="form-text text-muted">Please input height in cm scale</small>
+              </div>
+            </div>
+            <!--DATE TAKEN-->
+            <div class="col-md-8 col-xl-8 input-left">
+              <div class="form-group">
+                <input class="form-control" type="date" placeholder="test" id="weightheight-date-input" name="weightheight-date-input">
+                <small id="dateHelp" class="form-text text-muted">Date Taken</small>
+              </div>
+            </div>
+            <!-- ADD BUTTON-->
+            <div class="col-md-4 col-xl-4 input-right">
+                <button styletype="submit" class="btn btn-primary-outline btn-block"  onclick="Javascript:addRowWeightHeight()">ADD TO TABLE</button>
+            </div>
+        </div>
+        <br><br>
+        <div class="col-md-6 col-xl-6">
+          <div class="currentdata">
+            <table class="table table-fill" id='WeightHeightTable'>
+              <thead>
+                <tr>
+                  <th>Weight</th>
+                  <th>Height</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="invisible">
+      <!-- HISTORY TEETH DATA-->
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+            <h4><center>HISTORICAL <b>TEETH DATA</b></center></h4>
+            <br>
+              <div class="form-group">
+                <label class="sr-only" for="inputTeeth">Number of Teeth</label>
+                <input type="text" class="form-control form-control-lg" id="inputTeeth" name="inputTeeth" placeholder="Number Of Teeth" autocomplete="off">
+              </div>
+
+              <div class="col-md-8 col-xl-8 input-left">
+                <div class="form-group">
+                  <input class="form-control" type="date" placeholder="test" id="teeth-date-input" name="curr-teeth-date-input">
+                  <small id="dateHelp" class="form-text text-muted">Date Taken</small>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-xl-4 input-right">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block" onclick="Javascript:addRowTeeth()">ADD TO TABLE</button>
+              </div>
+        </div>
+        <br><br>
+        <div class="col-md-6 col-xl-6">
+          <div class="currentdata">
+            <table class="table table-fill" id='TeethTable'>
+              <thead>
+                <tr>
+                  <th>Teeth Number</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <hr class="invisible">
+      <!-- HEAD CIRCUMFERENCE-->
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+            <h4><center><b>HEAD CIRCUMFERENCE</b></center></h4>
+            <br>
+              <div class="form-group">
+                <label class="sr-only" for="inputHead">Head Size</label>
+                <input type="text" class="form-control form-control-lg" id="inputHead" name="curr-head-date-input" placeholder="Head Size" autocomplete="off">
+              </div>
+
+              <div class="col-md-8 col-xl-8 input-left">
+                <div class="form-group">
+                  <input class="form-control" type="date" placeholder="test" id="head-date-input" name="curr-head-date-input">
+                  <small id="dateHelp" class="form-text text-muted">Date Taken</small>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-xl-4 input-right">
+                  <button styletype="submit" class="btn btn-primary-outline btn-block"  onclick="Javascript:addRowHead()">ADD TO TABLE</button>
+              </div>
+          </div>
+          <br><br>
+          <div class="col-md-6 col-xl-6">
+            <div class="currentdata">
+              <table class="table table-fill" id='HeadTable'>
+                <thead>
+                  <tr>
+                    <th>Head Circumference</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>          
+          </div>
+      </div>
+
+
+      <!--NEXT STEP BUTTON-->
+      <div class="row">
+        <div class="col-md-6 col-md-offset-6 col-xl-6 col-xl-offset-6">
+          <button styletype="submit" class="btn btn-primary btn-block">NEXT STEP</button>
+        </div>
+      </div>
+    </div>
+
+      <hr class="invisible">
+
+<!-- DARK footer================================================== -->
+
+    <footer class="section-footer bg-inverse" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-5">
+            <div class="media">
+              <div class="media-left">
+                <span class="media-object icon-logo display-1"></span>
+              </div>
+              <small class="media-body media-bottom">
+                &copy; Land.io 2015. <br>
+                Designed by Peter Finlan, developed by Taty Grassini, exclusively for Codrops.
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-7">
+            <ul class="nav nav-inline">
+              <li class="nav-item">
+                <a class="nav-link" href="./index-carousel.html"><small>NEW</small> Slides<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active"><a class="nav-link" href="ui-elements.html">UI Kit</a></li>
+              <li class="nav-item"><a class="nav-link" href="https://github.com/tatygrassini/landio-html" target="_blank">GitHub</a></li>
+              <li class="nav-item"><a class="nav-link scroll-top" href="#totop">Back to top <span class="icon-caret-up"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+        
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="js/landio.min.js"></script>
+
+    <script src="js/moment.js"></script>
+
+    <script type="text/javascript" src="/path/to/bootstrap/js/transition.js"></script>
+
+    <script src="js/bootstrap/collapse.js"></script>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
+  </body>
+</html>
