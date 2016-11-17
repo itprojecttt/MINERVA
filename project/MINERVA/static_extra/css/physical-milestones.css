@@ -3,8 +3,14 @@
 	padding:1.5rem;
 }
 
-.card-register-pic{
-	background:url(img/Register_PAGE1/registersteps.png) no-repeat;
+.card-register-pic2{
+	background:url(../img/Register_PAGE1/physical_milestone.png) no-repeat;
+	background-size:contain;
+	border-radius: 0 0 0 0;
+}
+
+.card-register-pic3{
+	background:url(../img/Register_PAGE1/cognitive_milestone.png) no-repeat;
 	background-size:contain;
 	border-radius: 0 0 0 0;
 }
