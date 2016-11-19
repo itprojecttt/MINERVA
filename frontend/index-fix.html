@@ -8,15 +8,14 @@
     <meta name="description" content="A free HTML template and UI Kit built on Bootstrap" />
     <meta name="keywords" content="free html template, bootstrap, ui kit, sass" />
     <meta name="author" content="Peter Finlan and Taty Grassini Codrops" />
-    <link rel="manifest" href="img/favicon/manifest.json">
-    <link rel="shortcut icon" href="img/favicon/favicon.ico">
+    <link rel="manifest" href="{% static 'img/favicon/manifest.json' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
     <meta name="msapplication-TileColor" content="#663fb5">
     <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
     <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#663fb5">
     <!-- Only needed Bootstrap bits + custom CSS in one file -->
-
-    <link rel="stylesheet" href="css/landio.css">
+    <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
   </head>
 
@@ -26,10 +25,10 @@
 
       <div class="card card-inverse card-social text-xs-center">
         <div class="card-block has-gradient">
-          <img src="img/minervaofficial/minervaofficial4.png" height="120" width="150">
-          <h3 class="card-title">Agaci Raibimo Kivel</h3>
-          <h6 class="card-subtitle">January 11, 2015</h6>
-          <h6 class="card-subtitle">24 Months</h6>
+          <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
+          <h3 class="card-title">{{ child.fullname }}</h3>
+          <h6 class="card-subtitle">{{ child.birthday }}</h6>
+          <h6 class="card-subtitle">{{ birthday }}</h6>
           <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           <button type="submit" class="btn2 btn-secondary-outline btn-sm">UPDATE PROFILE</button>
 
@@ -288,6 +287,6 @@
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="js/landio.min.js"></script>
+    <script src="{% static 'js/landio.min.js' %}"></script>
   </body>
 </html>
