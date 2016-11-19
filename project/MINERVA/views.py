@@ -112,9 +112,12 @@ def index(request):
     c = {}
     c.update(csrf(request))
     child = ChildData.objects.get(uid_user=request.user)
+    w_h_data = WeightAndHeightData.objects.get(uid_child=child)
+    weight = int(w_h_data.weight)
+    height = int(w_h_data.height)
     date = datetime.date.today()
-    birthday = date - child.birthday
-    c.update({'child': child, 'birthday': birthday})
+    age = str((date - child.birthday)/30)[:3]
+    c.update({'child': child, 'age': age, 'weight': weight, 'height': height})
     return render_to_response('index.html', c)
 
 

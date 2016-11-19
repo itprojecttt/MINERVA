@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^reset-password', reset_password),
     url(r'^milestones/physical/$', gm_milestone_view),
     url(r'^milestones-auth/physical/$', gm_milestone_auth),
-    url(r'^milestones/personal-social/$', ps_milestone_view ),
+    url(r'^milestones/personal-social/$', ps_milestone_view),
     url(r'^milestones-auth/personal-social/$', ps_milestone_auth),
     url(r'^physical-input/$', physical_input_view),
     url(r'^physical-input-auth/$', physical_input_auth)

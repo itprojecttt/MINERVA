@@ -29,7 +29,6 @@
           <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
           <h3 class="card-title">{{ child.fullname }}</h3>
           <h6 class="card-subtitle">{{ child.birthday }}</h6>
-          <h6 class="card-subtitle">{{ birthday }}</h6>
           <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           <button type="submit" class="btn2 btn-secondary-outline btn-sm">UPDATE PROFILE</button>
 
@@ -37,13 +36,13 @@
         <div class="card-block container">
           <div class="row">
             <div class="col-md-4 card-stat">
-              <h4>3 <small class="text-uppercase">YEARS OLD</small></h4>
+              <h4>{{ age }} <small class="text-uppercase">MONTHS OLD</small></h4>
             </div>
             <div class="col-md-4 card-stat">
-              <h4>13 <small class="text-uppercase">IN KILOGRAMS</small></h4>
+              <h4>{{ weight }} <small class="text-uppercase">KILOGRAMS</small></h4>
             </div>
             <div class="col-md-4 card-stat">
-              <h4>45 <small>IN CENTIMETER</small></h4>
+              <h4>{{ height }} <small>CENTIMETER</small></h4>
             </div>
           </div>
         </div>
@@ -103,7 +102,7 @@
 
       <div class="row">
         <div class="col-md-6">
-        <div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div>
+        <a href="milestones/physical"><div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div></a>
           <div class="card card-chart">
             <div id="chart-holder" class="center-block">
               1.<br>
@@ -119,7 +118,7 @@
         </div>
 
          <div class="col-md-6">
-         <div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div>
+         <a href="milestones/personal-social/"><div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div></a>
           <div class="card card-chart">
             <div id="chart-holder" class="center-block">
               1.<br>
