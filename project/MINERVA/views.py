@@ -120,17 +120,16 @@ def index(request):
     age = str((date - child.birthday)/30)[:3]
 
     # Checklist info
-    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user))
+    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
     personal_social_not_done = PersonalSocialMilestone.objects.all()
 
-    print(personal_social_done)
     str_personal_list = [str(x) for x in personal_social_not_done]
-    print(len(personal_social_not_done))
+    print(len(str_personal_list))
     for i in personal_social_done:
-        print(len(PersonalSocialMilestone.objects.filter(ps_milestone=i.uid_ps_milestone)))
+        print(str_personal_list.index(i.uid_ps_milestone))
         if i.uid_ps_milestone in str_personal_list:
-            personal_social_not_done.remove(PersonalSocialMilestone.objects.filter(ps_milestone=i.uid_ps_milestone))
-    print(len(personal_social_not_done))
+            str_personal_list.remove(i.uid_ps_milestone)
+    print(len(str_personal_list))
     c.update({'child': child, 'age': age, 'weight': weight, 'height': height})
     return render_to_response('index.html', c)
 
