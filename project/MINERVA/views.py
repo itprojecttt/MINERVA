@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData,\
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
-from . import models
-
 
 
 def login(request):
@@ -110,13 +108,29 @@ def gm_milestone_auth(request):
 
 def index(request):
     c = {}
+    # CSRF
     c.update(csrf(request))
+
+    # Child info
     child = ChildData.objects.get(uid_user=request.user)
     w_h_data = WeightAndHeightData.objects.get(uid_child=child)
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
     age = str((date - child.birthday)/30)[:3]
+
+    # Checklist info
+    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user))
+    personal_social_not_done = PersonalSocialMilestone.objects.all()
+
+    print(personal_social_done)
+    str_personal_list = [str(x) for x in personal_social_not_done]
+    print(len(personal_social_not_done))
+    for i in personal_social_done:
+        print(len(PersonalSocialMilestone.objects.filter(ps_milestone=i.uid_ps_milestone)))
+        if i.uid_ps_milestone in str_personal_list:
+            personal_social_not_done.remove(PersonalSocialMilestone.objects.filter(ps_milestone=i.uid_ps_milestone))
+    print(len(personal_social_not_done))
     c.update({'child': child, 'age': age, 'weight': weight, 'height': height})
     return render_to_response('index.html', c)
 
@@ -170,7 +184,6 @@ def physical_input_view(request):
 
         c.update({'child_data': child_data, 'birthday': birthday, 'head_data': head_data, 'teeth_data': teeth_data,
                   'weight_height_data': weight_height_data})
-
     except:
         pass
 
