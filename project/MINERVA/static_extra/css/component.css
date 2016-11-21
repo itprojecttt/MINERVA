@@ -5,13 +5,6 @@ Styles for the html/body for special modal where we want 3d effects
 Note that we need a container wrapping all content on the page for the 
 perspective effects (not including the modals and the overlay).
 */
-.md-close {
-	border-radius: 20%;
-	background-color: salmon;
-	top: 0;
-	left: 0;
-	margin: 0;
-}
 .md-perspective,
 .md-perspective body {
 	height: 100%;
@@ -19,18 +12,23 @@ perspective effects (not including the modals and the overlay).
 }
 
 .md-perspective body  {
-	background: #222;
+	background-color: black;
 	-webkit-perspective: 600px;
 	-moz-perspective: 600px;
 	perspective: 600px;
 }
 
+.container {
+	min-height: 100%;
+	background-color: none;
+}
 
 .md-modal {
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	width: 50%;
+	background: #f2f2f2;
 	max-width: 630px;
 	min-width: 320px;
 	height: auto;
@@ -71,8 +69,7 @@ perspective effects (not including the modals and the overlay).
 
 /* Content styles */
 .md-content {
-	color: #fff;
-	background: #5E2D79;
+	color: #444;
 	position: relative;
 	border-radius: 3px;
 	margin: 0 auto;
