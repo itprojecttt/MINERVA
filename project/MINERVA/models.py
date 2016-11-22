@@ -64,12 +64,18 @@ class GrossMotorChecklist(models.Model):
     uid_child = models.ForeignKey(ChildData, null=True)
     timestamp = models.DateField()
 
+    def __str__(self):
+        return str(self.uid_gm_milestone)
+
 
 class PersonalSocialChecklist(models.Model):
     uid_ps_milestone = models.ForeignKey(PersonalSocialMilestone)
     uid_user = models.ForeignKey(User)
     uid_child = models.ForeignKey(ChildData, null=True)
     timestamp = models.DateField()
+
+    def __str__(self):
+        return str(self.uid_ps_milestone)
 
 
 class WeightAndHeightData(models.Model):

@@ -97,10 +97,16 @@ def gm_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
+
+    gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
+    gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
+
     if request.user.is_authenticated():
         for id in checklist:
             m = GrossMotorMilestone.objects.get(id=id)
-            GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+            if str(m.gm_milestone) not in gm_done_id:
+                GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+
         return HttpResponseRedirect('/milestones/personal-social')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
@@ -121,16 +127,20 @@ def index(request):
 
     # Checklist info
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
-    personal_social_not_done = PersonalSocialMilestone.objects.all()
+    personal_social_not_done = list(PersonalSocialMilestone.objects.all())
 
-    str_personal_list = [str(x) for x in personal_social_not_done]
-    print(len(str_personal_list))
-    for i in personal_social_done:
-        print(str_personal_list.index(str(i.uid_ps_milestone)))
-        if i.uid_ps_milestone in str_personal_list:
-            str_personal_list.remove(i.uid_ps_milestone)
-    print(len(str_personal_list))
-    c.update({'child': child, 'age': age, 'weight': weight, 'height': height})
+    str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
+    temp = []
+
+    for m in personal_social_not_done:
+        if m.ps_milestone in str_personal_list:
+            temp.append(m)
+    for t in temp:
+        personal_social_not_done.remove(t)
+    personal_social_not_done = personal_social_not_done[0:3]
+
+    c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
+              'personal_social_not_done': personal_social_not_done})
     return render_to_response('index.html', c)
 
 
@@ -158,10 +168,15 @@ def ps_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
+
+    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
+    ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
+
     if request.user.is_authenticated():
         for id in checklist:
             m = PersonalSocialMilestone.objects.get(id=id)
-            PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+            if str(m.ps_milestone) not in ps_done_id:
+                PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
         return HttpResponseRedirect('/')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
