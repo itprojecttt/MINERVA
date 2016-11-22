@@ -32,7 +32,9 @@
           <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
           <h3 class="card-title">{{ child.fullname }}</h3>
           <h6 class="card-subtitle">{{ child.birthday }}</h6>
-          <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
+          <form action="/logout/">
+            <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
+          </form>
           <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" data-modal="modal-13">UPDATE PROFILE</button>
 
         </div>
