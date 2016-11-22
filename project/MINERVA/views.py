@@ -126,7 +126,7 @@ def index(request):
     str_personal_list = [str(x) for x in personal_social_not_done]
     print(len(str_personal_list))
     for i in personal_social_done:
-        print(str_personal_list.index(i.uid_ps_milestone))
+        print(str_personal_list.index(str(i.uid_ps_milestone)))
         if i.uid_ps_milestone in str_personal_list:
             str_personal_list.remove(i.uid_ps_milestone)
     print(len(str_personal_list))
