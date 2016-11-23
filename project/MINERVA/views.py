@@ -132,7 +132,7 @@ def index(request):
     date = datetime.date.today()
     age = str((date - child.birthday)/30)[:3]
 
-    # Checklist info
+    # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
     personal_social_not_done = list(PersonalSocialMilestone.objects.all())
 
@@ -146,8 +146,22 @@ def index(request):
         personal_social_not_done.remove(t)
     personal_social_not_done = personal_social_not_done[0:3]
 
+    # Checklist info (physical)
+    physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
+    physical_not_done = list(GrossMotorMilestone.objects.all())
+
+    str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
+    temp = []
+
+    for m in physical_not_done:
+        if m.gm_milestone in str_physical_list:
+            temp.append(m)
+    for t in temp:
+        physical_not_done.remove(t)
+    physical_not_done = physical_not_done[0:3]
+
     c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
-              'personal_social_not_done': personal_social_not_done})
+              'personal_social_not_done': personal_social_not_done, 'physical_not_done': physical_not_done})
     return render_to_response('index.html', c)
 
 

@@ -145,16 +145,16 @@
          <div class="card card-chart">
             <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">NOW</span>
-                <span class="icon-status status-completed"></span> Mouthing reflex
+                <span class="label pull-xs-right">{{ physical_not_done.0.start }} - {{ physical_not_done.0.finish }} months old</span>
+                <span class="icon-status status-completed"></span>{{ physical_not_done.0 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">12 more days</span>
-                <span class="icon-status status-backlog"></span> Stepping reflex
+                <span class="label pull-xs-right">{{ physical_not_done.1.start }} - {{ physical_not_done.1.finish }} months old</span>
+                <span class="icon-status status-backlog"></span>{{ physical_not_done.1 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">32 more days</span>
-                <span class="icon-status status-noticket"></span> Grasp reflex
+                <span class="label pull-xs-right">{{ physical_not_done.2.start }} - {{ physical_not_done.2.finish }} months old</span>
+                <span class="icon-status status-noticket"></span>{{ physical_not_done.2 }}
               </li>
             </ul>
           </div>
