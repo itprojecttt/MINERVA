@@ -166,15 +166,15 @@
          <div class="card card-chart">
             <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">NOW</span>
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
                 <span class="icon-status status-completed"></span>{{ personal_social_not_done.0 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">10 more days</span>
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
                 <span class="icon-status status-backlog"></span>{{ personal_social_not_done.1 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">18 more days</span>
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
                 <span class="icon-status status-noticket"></span>{{ personal_social_not_done.2 }}
               </li>
             </ul>

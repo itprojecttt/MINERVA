@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{% static 'css/landio.css' %}">
         {% if tag == 'login' or tag == 'register' or tag == 'logout' %}
         <meta http-equiv="refresh" content="3; url=/login/">
-        {% elif tag == 'incomplete' %}
+        {% elif tag == 'incomplete' or tag == 'no_child' %}
         <meta http-equiv="refresh" content="3; url=/physical-input/">
         {% endif %}
     </head>
@@ -24,6 +24,10 @@
         <br><br>
         <center><h1><b>Form input incomplete!</b></h1>
         <h3>Redirecting you to the previous page...</h3></center>
+        {% elif tag == 'no_child' %}
+        <br><br>
+        <center><h1><b>No child data found!</b></h1>
+        <h3>Redirecting you to the physical data input page...</h3></center>
         {% elif tag == 'logout' %}
         <br><br>
         <center><h1><b>You are not logged in!</b></h1>

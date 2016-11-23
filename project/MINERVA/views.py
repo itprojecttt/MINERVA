@@ -117,8 +117,15 @@ def index(request):
     # CSRF
     c.update(csrf(request))
 
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
     # Child info
-    child = ChildData.objects.get(uid_user=request.user)
+    try:
+        child = ChildData.objects.get(uid_user=request.user)
+    except ChildData.DoesNotExist:
+        return render_to_response('redirect.html', {'tag': 'no_child'})
+
     w_h_data = WeightAndHeightData.objects.get(uid_child=child)
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
