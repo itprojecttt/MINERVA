@@ -198,7 +198,7 @@ def ps_milestone_auth(request):
             m = PersonalSocialMilestone.objects.get(id=id)
             if str(m.ps_milestone) not in ps_done_id:
                 PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/register-finish')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -301,3 +301,7 @@ def physical_input_auth(request):
             return HttpResponseRedirect('/milestones/physical')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def register_finish(request):
+    return render_to_response('register-finish-fix.html')
