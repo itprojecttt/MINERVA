@@ -16,8 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from .views import login, auth_view, homepage, logout, redirect, register, gm_milestone_view, gm_milestone_auth, \
+<<<<<<< HEAD
     ps_milestone_view, ps_milestone_auth, physical_input_view, physical_input_auth, index, reset_password, \
     milestone_details_view
+=======
+    ps_milestone_view, ps_milestone_auth, physical_input_view, physical_input_auth, index, reset_password, register_finish
+>>>>>>> c352fcc3b755dc95f80ea71c3b08a1075cdbc431
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -27,6 +31,7 @@ urlpatterns = [
     url(r'^auth/$', auth_view),
     url(r'^homepage/$', homepage),
     url(r'^$', index),
+    url(r'^register-finish/$', register_finish),
     url(r'^logout/$', logout),
     url(r'^redirect/$', redirect),
     url(r'^register/$', register),
