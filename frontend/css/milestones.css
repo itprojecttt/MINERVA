@@ -38,6 +38,11 @@
   background-position: center;
 }
 
+.card-register-pic4{
+  background:url(../img/Register_PAGE1/finish_register.png) no-repeat;
+  background-size:contain;
+  background-position: center;
+}
 
 
 .card-social .card-block:last-child {
