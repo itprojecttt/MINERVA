@@ -301,3 +301,7 @@ def physical_input_auth(request):
             return HttpResponseRedirect('/milestones/physical')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def milestone_details_view(request):
+    return render_to_response('milestone-details.html')
