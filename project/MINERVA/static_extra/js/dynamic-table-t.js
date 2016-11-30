@@ -58,7 +58,7 @@ function deleteRowTeeth(obj) {
 function addRowHead() {
          
     var head = document.getElementById("inputHead");
-	var date = document.getElementById("head-date-input");
+	var date = document.getElementById("date_head");
     var table = document.getElementById("HeadTable");
 
     // Condition to ensure all values are filled before adding to table.
