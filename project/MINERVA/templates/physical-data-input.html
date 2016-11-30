@@ -59,12 +59,16 @@
 
             <div class="form-group">
               <label class="sr-only" for="inputNick">Gender</label>
-              <select name="gender">
+              <select class="form-control form-control-lg" name="gender">
                   {% if child_data.gender == "F" %}
                   <option value="M">Male</option>
                   <option value="F" selected>Female</option>
-                  {% else %}
+                  {% elif child_data.gender == "M" %}
                   <option value="M" selected>Male</option>
+                  <option value="F">Female</option>
+                  {% else %}
+                  <option>Please select your child's gender</option>
+                  <option value="M">Male</option>
                   <option value="F">Female</option>
                   {% endif %}
               </select>
