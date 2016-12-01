@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <link rel="stylesheet" href="{% static 'css/register-input.css' %}">
 
-    <link rel="stylesheet" href="css/register-input.css">
+    <link rel="stylesheet" href="{% static 'css/register-input.css' %}">
 
-    <script type="text/javascript" src=" {% static 'js/dynamic-table-t.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dynamic-table-t.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -21,6 +21,7 @@
     <hr class="invisible">
 
 <!--MAIN BODY================================================== -->
+    <form action="/physical-input-auth/" method="post">{% csrf_token %}
   <div class="container">
       <center>
       <b><h1>Physical</h1></b><h3>Data Input</h3>
@@ -36,7 +37,6 @@
       <div class="row">
           <div class="col-md-6 col-xl-6">
             <div class="form-group">
-              <form action="/physical-input-auth/" method="post">{% csrf_token %}
               <label class="sr-only" for="inputName">Full Name</label>
                 {% if child_data.fullname  %}
               <input type="text" class="form-control form-control-lg" id="inputName" name="fullname"
@@ -59,12 +59,16 @@
 
             <div class="form-group">
               <label class="sr-only" for="inputNick">Gender</label>
-              <select name="gender">
+              <select class="form-control form-control-lg" name="gender">
                   {% if child_data.gender == "F" %}
                   <option value="M">Male</option>
                   <option value="F" selected>Female</option>
-                  {% else %}
+                  {% elif child_data.gender == "M" %}
                   <option value="M" selected>Male</option>
+                  <option value="F">Female</option>
+                  {% else %}
+                  <option>Please select your child's gender</option>
+                  <option value="M">Male</option>
                   <option value="F">Female</option>
                   {% endif %}
               </select>
@@ -219,6 +223,7 @@
         </div>
       </div>
     </div>
+      </form>
 
       <hr class="invisible">
 

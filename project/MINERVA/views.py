@@ -130,11 +130,15 @@ def index(request):
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
-    age = str((date - child.birthday)/30)[:3]
+    age = str((date - child.birthday)/30)
+    print(age)
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
     personal_social_not_done = list(PersonalSocialMilestone.objects.all())
+
+    c.update({'personal_social_not_done_len': len(personal_social_not_done),
+              'personal_social_done_len': len(personal_social_done)})
 
     str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
     temp = []
@@ -150,6 +154,10 @@ def index(request):
     physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
     physical_not_done = list(GrossMotorMilestone.objects.all())
 
+    c.update({'physical_not_done_len': len(physical_not_done),
+              'physical_done_len': len(physical_done)})
+
+    print(len(physical_not_done), len(physical_done))
     str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
     temp = []
 
@@ -161,7 +169,8 @@ def index(request):
     physical_not_done = physical_not_done[0:3]
 
     c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
-              'personal_social_not_done': personal_social_not_done, 'physical_not_done': physical_not_done})
+              'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
+              'physical_not_done': physical_not_done, 'physical_done': physical_done})
     return render_to_response('index.html', c)
 
 
