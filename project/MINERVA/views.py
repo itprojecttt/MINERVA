@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.models import User
-# from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData,\
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
@@ -318,4 +319,10 @@ def milestone_details_view(request):
 
 def register_finish(request):
     return render_to_response('register-finish-fix.html')
+
+
+def send_email(request):
+    send_mail('MINERVA Email Test', 'Does it work?', settings.EMAIL_HOST_USER, ['kitto.adinatha@gmail.com'],
+              fail_silently=False,)
+    return HttpResponseRedirect('/')
 
