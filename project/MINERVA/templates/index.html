@@ -90,7 +90,7 @@
             <center><div class="label-index">
             COGNITIVE MILESTONE
             </div></center>
-            <div id="chart-holder" class="center-block">
+            <div id="chart-holder" class="center-block" data-active="55%">
               <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
@@ -250,6 +250,10 @@
     
     <script type="text/javascript">
       var ctx = document.getElementById('myChart').getContext('2d');
+      var onHold = parseInt("{{physical_not_done_len}}") - parseInt("{{physical_done_len}}") - parseInt("{{physical_in_progress_len}}");
+      if(onHold < 0){
+        onHold = 0;
+      }
       var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -260,7 +264,7 @@
           ],
           datasets: [
               {
-                  data: [parseInt("{{physical_done_len}}"), 5, parseInt("{{physical_not_done_len}}")],
+                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), onHold],
                   backgroundColor: [
                       "#FF6384",
                       "#36A2EB",
@@ -349,6 +353,11 @@
 
  <script type="text/javascript">
       var ctx = document.getElementById('myChart3').getContext('2d');
+      var onHold = parseInt("{{personal_social_not_done_len}}") - parseInt("{{personal_social_done_len}}") - parseInt("{{personal_social_in_progress_len}}");
+      if(onHold < 0){
+        onHold = 0;
+      }
+      var percent = parseInt("{{personal_social_not_done_len}}")/ parseInt("{{personal_social_done_len}}") * 100;
       var myChart3 = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -359,7 +368,7 @@
           ],
           datasets: [
               {
-                  data: [parseInt("{{personal_social_done_len}}"), 5, parseInt("{{personal_social_not_done_len}}")],
+                  data: [parseInt("{{personal_social_done_len}}"), parseInt("{{personal_social_in_progress_len}}"), onHold],
                   backgroundColor: [
                       "#FF6384",
                       "#36A2EB",

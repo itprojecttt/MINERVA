@@ -131,14 +131,16 @@ def index(request):
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
-    age = str((date - child.birthday)/30)
-    print(age)
+    age = str((date - child.birthday)/30)[:3]
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
+    personal_social_in_progress = list(PersonalSocialMilestone.objects.all().filter(seven_five__lte=float(age),
+                                                                                    finish__lte=float(age)))
     personal_social_not_done = list(PersonalSocialMilestone.objects.all())
 
     c.update({'personal_social_not_done_len': len(personal_social_not_done),
+              'personal_social_in_progress_len': len(personal_social_in_progress),
               'personal_social_done_len': len(personal_social_done)})
 
     str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
@@ -153,12 +155,14 @@ def index(request):
 
     # Checklist info (physical)
     physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
+    physical_in_progress = list(GrossMotorMilestone.objects.all().filter(seven_five__lte=float(age),
+                                                                         finish__lte=float(age)))
     physical_not_done = list(GrossMotorMilestone.objects.all())
 
-    c.update({'physical_not_done_len': len(physical_not_done),
+    c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
               'physical_done_len': len(physical_done)})
 
-    print(len(physical_not_done), len(physical_done))
+    print(len(physical_not_done), len(physical_in_progress), len(physical_done))
     str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
     temp = []
 
