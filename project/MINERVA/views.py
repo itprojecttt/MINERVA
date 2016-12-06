@@ -133,7 +133,6 @@ def index(request):
     height = int(w_h_data.height)
     date = datetime.date.today()
     age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
-    print(age)
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
@@ -164,7 +163,6 @@ def index(request):
     c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
               'physical_done_len': len(physical_done)})
 
-    print(len(physical_not_done), len(physical_in_progress), len(physical_done))
     str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
     temp = []
 
@@ -332,3 +330,12 @@ def send_email(request):
               fail_silently=False,)
     return HttpResponseRedirect('/')
 
+
+def homepage_pass_check(request):
+    password = request.POST.get('inputPasswordCheck')
+    user_id = request.user.id
+    print(user_id, password)
+    user_db = User.objects.get(id=request.user.id, password=password)
+    print(user_db)
+    if str(request.user.id, password) == str(user_db.id, user_db.password):
+        return HttpResponseRedirect('/physical-input')
