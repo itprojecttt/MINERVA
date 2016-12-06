@@ -8,6 +8,7 @@ from django.conf import settings
 from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightAndHeightData, TeethData, HeadData,\
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
+import re
 
 
 def login(request):
@@ -131,7 +132,8 @@ def index(request):
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
-    age = str((date - child.birthday)/30)[:3]
+    age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
+    print(age)
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
