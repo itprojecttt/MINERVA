@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MINERVA | Homepage</title>
+    <meta name="description" content="A free HTML template and UI Kit built on Bootstrap" />
+    <meta name="keywords" content="free html template, bootstrap, ui kit, sass" />
+    <meta name="author" content="Peter Finlan and Taty Grassini Codrops" />
+    <link rel="manifest" href="{% static 'img/favicon/manifest.json' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#663fb5">
+    <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#663fb5">
+    <!-- Only needed Bootstrap bits + custom CSS in one file -->
+    <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/component.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+  </head>
+
+  <body class="bg-faded">
+
+    <div class="container" style="margin-top: 20px">
+
+      <div class="card card-inverse card-social text-xs-center">
+        <div class="card-block has-gradient">
+          <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
+          <h3 class="card-title">{{ child.fullname }}</h3>
+          <h6 class="card-subtitle">{{ child.birthday }}</h6>
+          <form action="/logout/">
+            <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
+          </form>
+          <button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button>
+
+        </div>
+        <div class="card-block container">
+          <div class="row">
+            <div class="col-md-4 card-stat">
+              <h4>{{ age }} <small class="text-uppercase">MONTHS OLD</small></h4>
+            </div>
+            <div class="col-md-4 card-stat">
+              <h4>{{ weight }} <small class="text-uppercase">KILOGRAMS</small></h4>
+            </div>
+            <div class="col-md-4 card-stat">
+              <h4>{{ height }} <small>CENTIMETER</small></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+        <div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div>
+          <div class="card card-chart">
+            <div id="chart-holder" class="center-block">
+              <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
+            </div>
+            <center><div class="label-danger" style="margin-top: 1rem;">
+            LATE
+            <br>
+            </div></center>
+
+            <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-warning" style="margin-top: 1rem;">
+            ONGOING
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-success" style="margin-top: 1rem;">
+            COMPLETED
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+         <div class="col-md-6">
+         <div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div>
+          <div class="card card-chart">
+            <div id="chart-holder" class="center-block" data-active="85%">
+              <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
+            </div>
+            <center><div class="label-danger" style="margin-top: 1rem;">
+            LATE
+            <br>
+            </div></center>
+
+            <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-warning" style="margin-top: 1rem;">
+            ONGOING
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-success" style="margin-top: 1rem;">
+            COMPLETED
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+
+        <hr class="invisible">
+      <div class="col-md-12 card">
+    </div>
+
+
+    <hr class="invisible">
+
+    
+    <script type="text/javascript">
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+              "Complete",
+              "Progress",
+              "On Hold"
+          ],
+          datasets: [
+              {
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#18bc9c",
+                      "#f4d10c",
+                      "#e8e9ec"
+                  ],
+                  hoverBackgroundColor: [
+                      "#2d8a78",
+                      "#f5bb4a",
+                      "#c3d3d0"
+                  ]
+              }]
+        }
+      });
+
+    </script>
+
+     <script type="text/javascript">
+      var ctx = document.getElementById('myChart2').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [
+        {
+            label: "CHILD'S GROWTH",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [65, 59, 80, 81, 56, 55, 40],
+            spanGaps: false,
+        }
+    ]
+        }
+      });
+
+    </script>
+
+  <script type="text/javascript">
+      var ctx = document.getElementById('myChart4').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [
+        {
+            label: "CHILD'S GROWTH",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [65, 59, 80, 81, 56, 55, 40],
+            spanGaps: false,
+        }
+    ]
+        }
+      });
+
+  </script>
+
+ <script type="text/javascript">
+      var ctx = document.getElementById('myChart3').getContext('2d');
+      var myChart3 = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+              "Complete",
+              "Progress",
+              "On Hold"
+          ],
+          datasets: [
+              {
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                      "#18bc9c",
+                      "#f4d10c",
+                      "#e8e9ec"
+                  ],
+                  hoverBackgroundColor: [
+                      "#2d8a78",
+                      "#f5bb4a",
+                      "#c3d3d0"
+                  ]
+              }]
+        }
+      });
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{% static 'js/landio.min.js' %}"></script>
+    <script src="{% static 'js/classie.js' %}"></script>
+    <script src="{% static 'js/modalEffects.js' %}"></script>
+
+    <!-- for the blur effect -->
+    <!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+    <script>
+      // this is important for IEs
+      var polyfilter_scriptpath = '/js/';
+    </script>
+    <script src="js/cssParser.js"></script>
+    <script src="js/css-filters-polyfill.js"></script>
+  </body>
+</html>
