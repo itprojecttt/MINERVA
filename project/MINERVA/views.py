@@ -252,65 +252,65 @@ def physical_input_auth(request):
         nickname = request.POST.get('nickname')
         gender = request.POST.get('gender')
         birthday = request.POST.get('birthday')
-        weight = request.POST.get('weight')
+        '''weight = request.POST.get('weight')
         height = request.POST.get('height')
         date_w_and_h = request.POST.get('date_w_and_h')
         teeth = request.POST.get('teeth')
         date_teeth = request.POST.get('date_teeth')
         head = request.POST.get('head')
-        date_head = request.POST.get('date_head')
+        date_head = request.POST.get('date_head')'''
 
-        '''while weight_data != '':
-            weight.append(weight_data)
-            height.append(height_data)
-            date_w_and_h.append(date_w_and_h_data)
-
-            counter += 1
-
-            weight_data = request.POST.get('inputWeight{}'.format(counter))
-            height_data = request.POST.get('inputHeight{}'.format(counter))
-            date_w_and_h_data = request.POST.get('inputWeightHeightDate{}'.format(counter))
+        weight_list = []
+        height_list = []
+        date_wh_list = []
+        teeth_list = []
+        date_teeth_list = []
+        head_list = []
+        date_head_list = []
 
         counter = 1
-
-        teeth_data = request.POST.get('inputTeeth{}'. format(counter))
-        date_teeth_data = request.POST.get('inputTeethDate{}'.format(counter))
-        while teeth_data != '':
-            teeth.append(teeth_data)
-            date_teeth.append(date_teeth_data)
-
+        while None not in weight_list:
+            weight_list.append(request.POST.get('inputWeight{}'.format(counter)))
+            height_list.append(request.POST.get('inputHeight{}'.format(counter)))
+            date_wh_list.append(request.POST.get('inputWeightHeightDate{}'.format(counter)))
             counter += 1
-
-            teeth_data = request.POST.get('inputTeeth{}'.format(counter))
-            date_teeth_data = request.POST.get('inputTeethDate{}'.format(counter))
 
         counter = 1
-
-        head_data = request.POST.get('inputHead{}'.format(counter))
-        date_head_data = request.POST.get('inputHeadDate{}'.format(counter))
-
-        while head_data != '':
-            head.append(head_data)
-            date_head.append(date_head_data)
-
+        while None not in teeth_list:
+            teeth_list.append(request.POST.get('inputTeeth{}'.format(counter)))
+            date_teeth_list.append(request.POST.get('inputTeethDate{}'.format(counter)))
             counter += 1
 
-            head_data = request.POST.get('inputHead{}'.format(counter))
-            date_head_data = request.POST.get('inputHeadDate{}'.format(counter))'''
+        counter = 1
+        while None not in head_list:
+            head_list.append(request.POST.get('inputHead{}'.format(counter)))
+            date_head_list.append(request.POST.get('inputHeadDate{}'.format(counter)))
+            counter += 1
 
-        checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head,
-                   date_head]
+        checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
+                   date_teeth_list, head_list, date_head_list]
+        print(checker)
         
-        if None or '' in checker:
+        if None or '' or [None] in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
         else:
-            # Create multiple instances based on data
-            child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname, gender=gender,
-                                             birthday=birthday)
-            WeightAndHeightData.objects.create(uid_child=child, weight=weight, height=height,
-                                               date_w_and_h=date_w_and_h)
-            TeethData.objects.create(uid_child=child, teeth=teeth, date_teeth=date_teeth)
-            HeadData.objects.create(uid_child=child, head_size=head, date_head=date_head)
+            # Check existing objects
+            try:
+                child = ChildData.objects.get(uid_user=request.user.id)
+                child.delete()
+                child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
+                                                 gender=gender, birthday=birthday)
+            except:
+                # Create multiple instances based on data
+                child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
+                                                 gender=gender, birthday=birthday)
+            for i in range(len(weight_list[:-1])):
+                WeightAndHeightData.objects.create(uid_child=child, weight=weight_list[i], height=height_list[i],
+                                                   date_w_and_h=date_wh_list[i])
+            for i in range(len(teeth_list)[:-1]):
+                TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
+            for i in range(len(head_list)[:-1]):
+                HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
             return HttpResponseRedirect('/milestones/physical')
     else:
