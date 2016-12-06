@@ -339,3 +339,68 @@ def homepage_pass_check(request):
     print(user_db)
     if str(request.user.id, password) == str(user_db.id, user_db.password):
         return HttpResponseRedirect('/physical-input')
+
+
+def growth_detail(request):
+    c = {}
+    # CSRF
+    c.update(csrf(request))
+
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+    # Child info
+    try:
+        child = ChildData.objects.get(uid_user=request.user)
+    except ChildData.DoesNotExist:
+        return render_to_response('redirect.html', {'tag': 'no_child'})
+
+    w_h_data = WeightAndHeightData.objects.get(uid_child=child)
+    weight = int(w_h_data.weight)
+    height = int(w_h_data.height)
+    date = datetime.date.today()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30)).group()
+
+    # Checklist info (cognitive)
+    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
+    personal_social_in_progress = list(PersonalSocialMilestone.objects.all().filter(seven_five__lte=float(age),
+                                                                                    finish__lte=float(age)))
+    personal_social_not_done = list(PersonalSocialMilestone.objects.all())
+
+    c.update({'personal_social_not_done_len': len(personal_social_not_done),
+              'personal_social_in_progress_len': len(personal_social_in_progress),
+              'personal_social_done_len': len(personal_social_done)})
+
+    str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
+    temp = []
+
+    for m in personal_social_not_done:
+        if m.ps_milestone in str_personal_list:
+            temp.append(m)
+    for t in temp:
+        personal_social_not_done.remove(t)
+    personal_social_not_done = personal_social_not_done[0:3]
+
+    # Checklist info (physical)
+    physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
+    physical_in_progress = list(GrossMotorMilestone.objects.all().filter(seven_five__lte=float(age),
+                                                                         finish__lte=float(age)))
+    physical_not_done = list(GrossMotorMilestone.objects.all())
+
+    c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
+              'physical_done_len': len(physical_done)})
+
+    str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
+    temp = []
+
+    for m in physical_not_done:
+        if m.gm_milestone in str_physical_list:
+            temp.append(m)
+    for t in temp:
+        physical_not_done.remove(t)
+    physical_not_done = physical_not_done[0:3]
+
+    c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
+              'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
+              'physical_not_done': physical_not_done, 'physical_done': physical_done})
+    return render_to_response('growth-detail.html', c)
