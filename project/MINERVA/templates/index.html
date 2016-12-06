@@ -61,13 +61,13 @@
             WEIGHT GROWTH
             </div></center>
             <div id="chart-holder" class="center-block" data-active="15%">
-              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
+              <canvas id="WeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-index">
             HEIGHT GROWTH
             </div></center>
             <div id="chart-holder" class="center-block" data-active="35%">
-              <canvas id="myChart4" class="center-block" width="150" height="150"></canvas>
+              <canvas id="HeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
               <li class="list-group-item complete">
@@ -279,14 +279,15 @@
     </script>
 
      <script type="text/javascript">
-      var ctx = document.getElementById('myChart2').getContext('2d');
+      var ctx = document.getElementById('WeightGraph').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
+          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
           labels: ["January", "February", "March", "April", "May", "June", "July"],
           datasets: [
         {
-            label: "CHILD'S GROWTH",
+            label: "Weight",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -304,24 +305,46 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
+          <!-- TODO: put corresponding data here -->
             data: [65, 95, 80, 81, 56, 55, 40],
             spanGaps: false,
         }
     ]
-        }
+        },
+            options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              displayFormats: {
+                'millisecond': 'MMM',
+                'second': 'MMM',
+                'minute': 'MMM',
+                'hour': 'MMM',
+                'day': 'MMM',
+                'week': 'MMM',
+                'month': 'MMM',
+                'quarter': 'MMM',
+                'year': 'MMM',
+              }
+            }
+          }],
+        },
+      }
       });
 
     </script>
 
   <script type="text/javascript">
-      var ctx = document.getElementById('myChart4').getContext('2d');
+      var ctx = document.getElementById('HeightGraph').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
+          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
           labels: ["January", "February", "March", "April", "May", "June", "July"],
           datasets: [
         {
-            label: "CHILD'S GROWTH",
+            label: "Height",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -339,10 +362,31 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
+          <!-- TODO: put corresponding data here -->
             data: [65, 59, 80, 81, 56, 55, 40],
             spanGaps: false,
         }
     ]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                  'millisecond': 'MMM',
+                  'second': 'MMM',
+                  'minute': 'MMM',
+                  'hour': 'MMM',
+                  'day': 'MMM',
+                  'week': 'MMM',
+                  'month': 'MMM',
+                  'quarter': 'MMM',
+                  'year': 'MMM',
+                }
+              }
+            }],
+          },
         }
       });
 
