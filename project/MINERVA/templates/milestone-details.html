@@ -35,7 +35,7 @@
           <form action="/logout/">
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
-          <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" data-modal="modal-13">UPDATE PROFILE</button>
+          <button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button>
 
         </div>
         <div class="card-block container">
@@ -57,21 +57,64 @@
         <div class="col-md-6">
         <div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div>
           <div class="card card-chart">
-            <center><div class="label-index" style="margin-top: 1rem">
-            WEIGHT GROWTH
-            </div></center>
             <div id="chart-holder" class="center-block">
-              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
+              <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
-            <center><div class="label-index">
-            HEIGHT GROWTH
+            <center><div class="label-danger" style="margin-top: 1rem;">
+            LATE
+            <br>
             </div></center>
-            <div id="chart-holder" class="center-block">
-              <canvas id="myChart4" class="center-block" width="150" height="150"></canvas>
-            </div>
+
             <ul class="list-group">
               <li class="list-group-item complete">
-                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-warning" style="margin-top: 1rem;">
+            ONGOING
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-success" style="margin-top: 1rem;">
+            COMPLETED
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
               </li>
             </ul>
           </div>
@@ -81,105 +124,72 @@
          <div class="col-md-6">
          <div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div>
           <div class="card card-chart">
-            <center><div class="label-index" style="margin-top:1rem;">
-            PHYSICAL MILESTONE
-            </div></center>
             <div id="chart-holder" class="center-block" data-active="85%">
               <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
             </div>
-            <center><div class="label-index">
-            COGNITIVE MILESTONE
+            <center><div class="label-danger" style="margin-top: 1rem;">
+            LATE
+            <br>
             </div></center>
-            <div id="chart-holder" class="center-block">
-              <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
-            </div>
-            <ul class="list-group">
-              <li class="list-group-item complete">
-                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
-              </li>
-            </ul>
-          </div>
 
-        </div>
-      </div>
-
-      <div class="md-modal md-effect-1" id="modal-12">
-      <div class="md-content">
-        <h3>Modal Dialog</h3>
-        <div>
-          <p>This is a modal window. You can do the following things with it:</p>
-          <ul>
-            <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
-            <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
-            <li><strong>Close:</strong> click on the button below to close the modal.</li>
-          </ul>
-          <button class="btn btn-primary btn-block md-close">Close me!</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="md-modal md-effect-1" id="modal-13">
-      <div class="md-content">
-        <h3>Update Profile</h3>
-        <div>
-          <p>Want to replace your credentials? Fill in the form below.</p>
-          <div class="form-group has-icon-left form-control-email">
-            <label class="sr-only" for="inputEmail">Email address</label>
-            <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="Email address" autocomplete="off">
-          </div>
-          <div class="form-group has-icon-left form-control-password">
-            <label class="sr-only" for="inputPassword">Enter a password</label>
-            <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Enter a password" autocomplete="off">
-          </div>
-          <button class="btn btn-primary btn-block md-close">Update Profile</button>
-        </div>
-      </div>
-    </div>
-
-
-
-      <div class="row">
-        <div class="col-md-6">
-        <a href="milestones/physical"><div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div></a>
-         <div class="card card-chart">
-            <ul class="list-group">
-              <li class="list-group-item complete">
-                <span class="label pull-xs-right">{{ physical_not_done.0.start }} - {{ physical_not_done.0.finish }} months old</span>
-                <span class="icon-status status-completed"></span>{{ physical_not_done.0 }}
-              </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_not_done.1.start }} - {{ physical_not_done.1.finish }} months old</span>
-                <span class="icon-status status-backlog"></span>{{ physical_not_done.1 }}
-              </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_not_done.2.start }} - {{ physical_not_done.2.finish }} months old</span>
-                <span class="icon-status status-noticket"></span>{{ physical_not_done.2 }}
-              </li>
-            </ul>
-          </div>
-            
-          </div>
-
-          <div class="col-md-6">
-        <a href="milestones/personal-social"><div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div></a>
-         <div class="card card-chart">
             <ul class="list-group">
               <li class="list-group-item complete">
                 <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status status-completed"></span>{{ personal_social_not_done.0 }}
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
               </li>
               <li class="list-group-item">
                 <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status status-backlog"></span>{{ personal_social_not_done.1 }}
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
               </li>
               <li class="list-group-item">
                 <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status status-noticket"></span>{{ personal_social_not_done.2 }}
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-warning" style="margin-top: 1rem;">
+            ONGOING
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+              </li>
+            </ul>
+
+            <center><div class="label-success" style="margin-top: 1rem;">
+            COMPLETED
+            <br>
+            </div></center>
+             <ul class="list-group">
+              <li class="list-group-item complete">
+                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+              </li>
+              <li class="list-group-item">
+                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
               </li>
             </ul>
           </div>
-          </div>
+
         </div>
+      </div>
+
+
         <hr class="invisible">
       <div class="col-md-12 card">
     </div>
@@ -202,14 +212,14 @@
               {
                   data: [300, 50, 100],
                   backgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
+                      "#18bc9c",
+                      "#f4d10c",
                       "#e8e9ec"
                   ],
                   hoverBackgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56"
+                      "#2d8a78",
+                      "#f5bb4a",
+                      "#c3d3d0"
                   ]
               }]
         }
@@ -301,14 +311,14 @@
               {
                   data: [300, 50, 100],
                   backgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
+                      "#18bc9c",
+                      "#f4d10c",
                       "#e8e9ec"
                   ],
                   hoverBackgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56"
+                      "#2d8a78",
+                      "#f5bb4a",
+                      "#c3d3d0"
                   ]
               }]
         }

@@ -3427,7 +3427,10 @@ a.label:hover {
     background-color: #554496
 }
 .label-success {
-    background-color: #5cb85c
+    background-color: #18bc9c;
+    padding: 1rem 4.375rem;
+    font-size: 1rem;
+    line-height: 1rem;
 }
 .label-success[href]:focus,
 .label-success[href]:hover {
@@ -3441,14 +3444,20 @@ a.label:hover {
     background-color: #1a71c1
 }
 .label-warning {
-    background-color: #f0ad4e
+    background-color: #f4d10c;
+    padding: 1rem 4.375rem;
+    font-size: 1rem;
+    line-height: 1rem;
 }
 .label-warning[href]:focus,
 .label-warning[href]:hover {
     background-color: #ec971f
 }
 .label-danger {
-    background-color: #d9534f
+    background-color: #d9534f;
+    padding: 1rem 4.375rem;
+    font-size: 1rem;
+    line-height: 1rem;
 }
 .label-danger[href]:focus,
 .label-danger[href]:hover {
@@ -9171,6 +9180,13 @@ figure {
 }
 .status-noticket {
     background-color: #e8e9ec
+}
+
+.status-late{
+    background-color: #d9534f;
+}
+.status-ongoing{
+    background-color:#f4d10c;
 }
 #chart-holder {
     position: relative;
