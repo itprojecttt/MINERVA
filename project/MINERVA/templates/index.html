@@ -19,11 +19,41 @@
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <link rel="stylesheet" href="{% static 'css/default.css' %}">
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
+      <script type="text/javascript">
+        function hideloader(){
+        var loading = document.getElementById("loading");
+              window.addEventListener('load', function(){
+                  loading.style.display = fadeOut;
+              })
+                }
+      </script>
   </head>
 
-  <body class="bg-faded">
+  <body onload="hideloader();" class="bg-faded">
+<!--
+    <div id="overlay">
+      <div class="testajadulu"></div>
+  </div>
+  -->
+
+  <div id="loading">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <div class="object" id="object_one"></div>
+            <div class="object" id="object_two"></div>
+            <div class="object" id="object_three"></div>
+            <div class="object" id="object_four"></div>
+            <div class="object" id="object_five"></div>
+            <div class="object" id="object_six"></div>
+            <div class="object" id="object_seven"></div>
+            <div class="object" id="object_eight"></div>
+        </div>
+    </div>
+  </div>
 
     <div class="container" style="margin-top: 20px">
 
