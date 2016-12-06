@@ -19,11 +19,41 @@
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <link rel="stylesheet" href="{% static 'css/default.css' %}">
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
+      <script type="text/javascript">
+        function hideloader(){
+        var loading = document.getElementById("loading");
+              window.addEventListener('load', function(){
+                  loading.style.display = fadeOut;
+              })
+                }
+      </script>
   </head>
 
-  <body class="bg-faded">
+  <body onload="hideloader();" class="bg-faded">
+<!--
+    <div id="overlay">
+      <div class="testajadulu"></div>
+  </div>
+  -->
+
+  <div id="loading">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <div class="object" id="object_one"></div>
+            <div class="object" id="object_two"></div>
+            <div class="object" id="object_three"></div>
+            <div class="object" id="object_four"></div>
+            <div class="object" id="object_five"></div>
+            <div class="object" id="object_six"></div>
+            <div class="object" id="object_seven"></div>
+            <div class="object" id="object_eight"></div>
+        </div>
+    </div>
+  </div>
 
     <div class="container" style="margin-top: 20px">
 
@@ -35,7 +65,7 @@
           <form action="/logout/">
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
-          <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" data-modal="modal-13">UPDATE PROFILE</button>
+          <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" data-modal="modal-13">UPDATE CHILD INFO</button>
 
         </div>
         <div class="card-block container">
@@ -55,23 +85,23 @@
 
       <div class="row">
         <div class="col-md-6">
-        <div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div>
+        <a href="growth-detail"><div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div></a>
           <div class="card card-chart">
             <center><div class="label-index" style="margin-top: 1rem">
             WEIGHT GROWTH
             </div></center>
-            <div id="chart-holder" class="center-block">
-              <canvas id="myChart2" class="center-block" width="150" height="150"></canvas>
+            <div id="chart-holder" class="center-block" data-active="15%">
+              <canvas id="WeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-index">
             HEIGHT GROWTH
             </div></center>
-            <div id="chart-holder" class="center-block">
-              <canvas id="myChart4" class="center-block" width="150" height="150"></canvas>
+            <div id="chart-holder" class="center-block" data-active="35%">
+              <canvas id="HeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
               <li class="list-group-item complete">
-                <a href="#"><center>CLICK TO SEE MORE DETAILS</center></a>
+                <a href="growth-detail"><center>CLICK TO SEE MORE DETAILS</center></a>
               </li>
             </ul>
           </div>
@@ -117,25 +147,22 @@
         </div>
       </div>
     </div>
-
+<form action="physical-input">
     <div class="md-modal md-effect-1" id="modal-13">
       <div class="md-content">
-        <h3>Update Profile</h3>
+
+        <h3>Update Child Info</h3>
         <div>
-          <p>Want to replace your credentials? Fill in the form below.</p>
-          <div class="form-group has-icon-left form-control-email">
-            <label class="sr-only" for="inputEmail">Email address</label>
-            <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="Email address" autocomplete="off">
-          </div>
+          <p>Want to update your child's physical information?</p>
           <div class="form-group has-icon-left form-control-password">
-            <label class="sr-only" for="inputPassword">Enter a password</label>
-            <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Enter a password" autocomplete="off">
+            <label class="sr-only" for="inputPassword">Enter your password</label>
+            <input type="password" class="form-control form-control-lg" id="inputPassword" name="inputPasswordCheck" placeholder="Enter your password" autocomplete="off">
           </div>
-          <button class="btn btn-primary btn-block md-close">Update Profile</button>
+          <button class="btn btn-primary btn-block md-close">Update Child Info</button>
         </div>
       </div>
     </div>
-
+</form>
     <div class="md-overlay"></div><!-- the overlay element -->
 
 
@@ -282,14 +309,15 @@
     </script>
 
      <script type="text/javascript">
-      var ctx = document.getElementById('myChart2').getContext('2d');
+      var ctx = document.getElementById('WeightGraph').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
+          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
           labels: ["January", "February", "March", "April", "May", "June", "July"],
           datasets: [
         {
-            label: "CHILD'S GROWTH",
+            label: "Weight",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -307,24 +335,46 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+          <!-- TODO: put corresponding data here -->
+            data: [65, 95, 80, 81, 56, 55, 40],
             spanGaps: false,
         }
     ]
-        }
+        },
+            options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              displayFormats: {
+                'millisecond': 'MMM',
+                'second': 'MMM',
+                'minute': 'MMM',
+                'hour': 'MMM',
+                'day': 'MMM',
+                'week': 'MMM',
+                'month': 'MMM',
+                'quarter': 'MMM',
+                'year': 'MMM',
+              }
+            }
+          }],
+        },
+      }
       });
 
     </script>
 
   <script type="text/javascript">
-      var ctx = document.getElementById('myChart4').getContext('2d');
+      var ctx = document.getElementById('HeightGraph').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
+          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
           labels: ["January", "February", "March", "April", "May", "June", "July"],
           datasets: [
         {
-            label: "CHILD'S GROWTH",
+            label: "Height",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -342,10 +392,31 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
+          <!-- TODO: put corresponding data here -->
             data: [65, 59, 80, 81, 56, 55, 40],
             spanGaps: false,
         }
     ]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                  'millisecond': 'MMM',
+                  'second': 'MMM',
+                  'minute': 'MMM',
+                  'hour': 'MMM',
+                  'day': 'MMM',
+                  'week': 'MMM',
+                  'month': 'MMM',
+                  'quarter': 'MMM',
+                  'year': 'MMM',
+                }
+              }
+            }],
+          },
         }
       });
 
