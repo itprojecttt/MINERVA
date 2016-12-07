@@ -72,7 +72,7 @@
         <div class="card-block container">
           <div class="row">
             <div class="col-md-4 card-stat">
-              <h4>{{ age }} <small class="text-uppercase">MONTHS OLD</small></h4>
+              <h4>{{ age }} <small class="text-uppercase">MONTHS OLD</small> </h4>
             </div>
             <div class="col-md-4 card-stat">
               <h4>{{ weight }} <small class="text-uppercase">KILOGRAMS</small></h4>
@@ -266,23 +266,16 @@
       
       </div>
       </div>
-
-      
-
-
     </div>
-
 
     <hr class="invisible">
 
      <script type="text/javascript">
       var ctx = document.getElementById('WeightGraph').getContext('2d');
-      var data_len = {{w_h_list|safe}};
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-         <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
-          labels: ["2016-06-02", "2016-06-15", "2016-06-23", "2016-08-23", "2016-09-03", "2016-09-05", "2016-10-01"],
+			labels: {{w_h_date_list|safe}},
           datasets: [
         {
             label: "Weight in kg",
@@ -304,7 +297,7 @@
             pointRadius: 1,
             pointHitRadius: 10,
          <!-- TODO: put corresponding data here -->
-            data: [65, 95, 80, 81, 56, 55, 40],
+            data: {{w_list|safe}},
             spanGaps: false,
         }
     ]
@@ -315,15 +308,7 @@
             type: 'time',
             time: {
               displayFormats: {
-                'millisecond': 'MMM',
-                'second': 'MMM',
-                'minute': 'MMM',
-                'hour': 'MMM',
-                'day': 'MMM',
-                'week': 'MMM',
-                'month': 'MMM',
-                'quarter': 'MMM',
-                'year': 'MMM',
+                'month': 'MMM'
               }
             }
           }],
@@ -338,8 +323,7 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
-          labels: ["2016-06-02", "2016-06-15", "2016-06-23", "2016-08-23", "2016-09-03", "2016-09-05", "2016-10-01"],
+          labels: {{w_h_date_list|safe}},
           datasets: [
         {
             label: "Height in cm",
@@ -361,7 +345,7 @@
             pointRadius: 1,
             pointHitRadius: 10,
           <!-- TODO: put corresponding data here -->
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: {{h_list|safe}},
             spanGaps: false,
         }
     ]
@@ -372,15 +356,7 @@
               type: 'time',
               time: {
                 displayFormats: {
-                  'millisecond': 'MMM',
-                  'second': 'MMM',
-                  'minute': 'MMM',
-                  'hour': 'MMM',
-                  'day': 'MMM',
-                  'week': 'MMM',
-                  'month': 'MMM',
-                  'quarter': 'MMM',
-                  'year': 'MMM',
+                  'month': 'MMM'
                 }
               }
             }],

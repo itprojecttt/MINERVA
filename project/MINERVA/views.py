@@ -136,9 +136,16 @@ def index(request):
     date = datetime.date.today()
     age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
 
-    # Weight and height list
-    # w_h_list = WeightAndHeightData.objects.filter(uid_child=child)
-    # c.update({'w_h_list': w_h_list})
+    # Weight and height list for graph
+    w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child).order_by('date_w_and_h')
+    w_h_date_list = []
+    w_list = []
+    h_list = []
+    for datapoint in w_h_list_query:
+        w_h_date_list.append(datapoint.date_w_and_h.isoformat())
+        w_list.append(int(datapoint.weight))
+        h_list.append(int(datapoint.height))
+    c.update({'w_h_data': w_h_data, 'w_h_date_list': w_h_date_list, 'w_list': w_list, 'h_list': h_list})
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
