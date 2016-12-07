@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="{% static 'css/default.css' %}">
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
     <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
-
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
       <script type="text/javascript">
@@ -39,7 +40,7 @@
       <div class="testajadulu"></div>
   </div>
   -->
-
+<!--
   <div id="loading">
     <div id="loading-center">
         <div id="loading-center-absolute">
@@ -53,7 +54,7 @@
             <div class="object" id="object_eight"></div>
         </div>
     </div>
-  </div>
+  </div> -->
 
     <div class="container" style="margin-top: 20px">
 
@@ -90,13 +91,13 @@
             <center><div class="label-index" style="margin-top: 1rem">
             WEIGHT GROWTH
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="15%">
+            <div id="chart-holder" class="center-block">
               <canvas id="WeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-index">
             HEIGHT GROWTH
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="35%">
+            <div id="chart-holder" class="center-block">
               <canvas id="HeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
@@ -274,50 +275,16 @@
 
     <hr class="invisible">
 
-    
-    <script type="text/javascript">
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var onHold = parseInt("{{physical_not_done_len}}") - parseInt("{{physical_done_len}}") - parseInt("{{physical_in_progress_len}}");
-      if(onHold < 0){
-        onHold = 0;
-      }
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: [
-              "Complete",
-              "Progress",
-              "On Hold"
-          ],
-          datasets: [
-              {
-                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), onHold],
-                  backgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#e8e9ec"
-                  ],
-                  hoverBackgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56"
-                  ]
-              }]
-        }
-      });
-
-    </script>
-
      <script type="text/javascript">
       var ctx = document.getElementById('WeightGraph').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+         <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
+          labels: ["2016-06-02", "2016-06-15", "2016-06-23", "2016-08-23", "2016-09-03", "2016-09-05", "2016-10-01"],
           datasets: [
         {
-            label: "Weight",
+            label: "Weight in kg",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -335,7 +302,7 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-          <!-- TODO: put corresponding data here -->
+         <!-- TODO: put corresponding data here -->
             data: [65, 95, 80, 81, 56, 55, 40],
             spanGaps: false,
         }
@@ -371,12 +338,12 @@
         type: 'line',
         data: {
           <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: ["2016-06-02", "2016-06-15", "2016-06-23", "2016-08-23", "2016-09-03", "2016-09-05", "2016-10-01"],
           datasets: [
         {
-            label: "Height",
-            fill: false,
-            lineTension: 0.1,
+            label: "Height in cm",
+            fill: true,
+            lineTension: 0.05,
             backgroundColor: "rgba(75,192,192,0.4)",
             borderColor: "rgba(75,192,192,1)",
             borderCapStyle: 'butt',
@@ -421,6 +388,39 @@
       });
 
   </script>
+	  
+    <script type="text/javascript">
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var onHold = parseInt("{{physical_not_done_len}}") - parseInt("{{physical_done_len}}") - parseInt("{{physical_in_progress_len}}");
+      if(onHold < 0){
+        onHold = 0;
+      }
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+              "Complete",
+              "Progress",
+              "On Hold"
+          ],
+          datasets: [
+              {
+                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), onHold],
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#e8e9ec"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]
+        }
+      });
+
+    </script>
 
  <script type="text/javascript">
       var ctx = document.getElementById('myChart3').getContext('2d');
@@ -428,7 +428,7 @@
       if(onHold < 0){
         onHold = 0;
       }
-      var percent = parseInt("{{personal_social_not_done_len}}")/ parseInt("{{personal_social_done_len}}") * 100;
+	var percent = parseInt("{{personal_social_not_done_len}}")/ parseInt("{{personal_social_done_len}}") * 100;
       var myChart3 = new Chart(ctx, {
         type: 'doughnut',
         data: {
