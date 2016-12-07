@@ -277,6 +277,7 @@
 
      <script type="text/javascript">
       var ctx = document.getElementById('WeightGraph').getContext('2d');
+      var data_len = {{w_h_list|safe}};
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {

@@ -9,6 +9,7 @@ from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightA
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
 import re
+from json import dumps
 
 
 def login(request):
@@ -128,11 +129,16 @@ def index(request):
     except ChildData.DoesNotExist:
         return render_to_response('redirect.html', {'tag': 'no_child'})
 
-    w_h_data = WeightAndHeightData.objects.get(uid_child=child)
+    # Child info
+    w_h_data = WeightAndHeightData.objects.filter(uid_child=child).order_by('-date_w_and_h')[0]
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
     age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
+
+    # Weight and height list
+    # w_h_list = WeightAndHeightData.objects.filter(uid_child=child)
+    # c.update({'w_h_list': w_h_list})
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
@@ -307,9 +313,9 @@ def physical_input_auth(request):
             for i in range(len(weight_list[:-1])):
                 WeightAndHeightData.objects.create(uid_child=child, weight=weight_list[i], height=height_list[i],
                                                    date_w_and_h=date_wh_list[i])
-            for i in range(len(teeth_list)[:-1]):
+            for i in range(len(teeth_list[:-1])):
                 TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
-            for i in range(len(head_list)[:-1]):
+            for i in range(len(head_list[:-1])):
                 HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
             return HttpResponseRedirect('/milestones/physical')
