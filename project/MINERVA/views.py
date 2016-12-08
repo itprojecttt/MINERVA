@@ -96,6 +96,26 @@ def gm_milestone_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def gm_milestone_view_update(request):
+    c = {}
+    c.update(csrf(request))
+    user_id = request.user
+
+    milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
+    mc = GrossMotorChecklist.objects.all()
+    milestone_checklist = []
+    for m in mc:
+        if m.uid_user == user_id:
+            milestone_checklist.append(str(m.uid_gm_milestone))
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
+
+    if request.user.is_authenticated():
+        return render_to_response('physical-milestones-update.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
 def gm_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -111,6 +131,26 @@ def gm_milestone_auth(request):
                 GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
 
         return HttpResponseRedirect('/milestones/personal-social')
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def gm_milestone_auth_update(request):
+    checklist = request.POST.getlist('checklist')
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    c = ChildData.objects.get(uid_user=request.user)
+
+    gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
+    gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
+
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = GrossMotorMilestone.objects.get(id=id)
+            if str(m.gm_milestone) not in gm_done_id:
+                GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c,
+                                                   timestamp=date)
+
+        return HttpResponseRedirect('/')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
