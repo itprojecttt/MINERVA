@@ -261,6 +261,26 @@ def ps_milestone_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def ps_milestone_view_update(request):
+    c = {}
+    c.update(csrf(request))
+    user_id = request.user
+
+    milestone_list = PersonalSocialMilestone.objects.raw('SELECT * FROM "MINERVA_personalsocialmilestone"')
+    mc = PersonalSocialChecklist.objects.all()
+    milestone_checklist = []
+    for m in mc:
+        if m.uid_user == user_id:
+            milestone_checklist.append(str(m.uid_ps_milestone))
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
+
+    if request.user.is_authenticated():
+        return render_to_response('personal-social-milestones-update.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
 def ps_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -275,6 +295,24 @@ def ps_milestone_auth(request):
             if str(m.ps_milestone) not in ps_done_id:
                 PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
         return HttpResponseRedirect('/register-finish')
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def ps_milestone_auth_update(request):
+    checklist = request.POST.getlist('checklist')
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    c = ChildData.objects.get(uid_user=request.user)
+
+    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
+    ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
+
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = PersonalSocialMilestone.objects.get(id=id)
+            if str(m.ps_milestone) not in ps_done_id:
+                PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+        return HttpResponseRedirect('/')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
