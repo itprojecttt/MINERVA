@@ -137,8 +137,10 @@ def index(request):
     age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
 
     # Weight and height list for graph
-    # TODO: limit data to the last 6 months
-    w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child).order_by('date_w_and_h')
+    # Done
+    w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child,
+                                                        date_w_and_h__lte=date,
+                                                        date_w_and_h__gte=date - datetime.timedelta(6*365/12)).order_by('date_w_and_h')
     w_h_date_list = []
     w_list = []
     h_list = []
