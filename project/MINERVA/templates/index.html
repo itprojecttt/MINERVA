@@ -115,13 +115,13 @@
             <center><div class="label-index" style="margin-top:1rem;">
             PHYSICAL MILESTONE
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="85%">
+            <div id="chart-holder" class="center-block" data-active="{{ percentage_physical }}%">
               <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-index">
             COGNITIVE MILESTONE
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="55%">
+            <div id="chart-holder" class="center-block" data-active="{{ percentage_personal_social }}%">
               <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
@@ -155,10 +155,6 @@
         <h3>Update Child Info</h3>
         <div>
           <p>Want to update your child's physical information?</p>
-          <div class="form-group has-icon-left form-control-password">
-            <label class="sr-only" for="inputPassword">Enter your password</label>
-            <input type="password" class="form-control form-control-lg" id="inputPassword" name="inputPasswordCheck" placeholder="Enter your password" autocomplete="off">
-          </div>
           <button class="btn btn-primary btn-block md-close">Update Child Info</button>
         </div>
       </div>
