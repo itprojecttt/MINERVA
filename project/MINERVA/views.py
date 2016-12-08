@@ -134,10 +134,12 @@ def index(request):
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
-    age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday)/30))
 
-    if age == '':
+    if age is None:
         age = re.match(r'([0-9])', str((date - child.birthday)/30)).group()
+    else:
+        age = age.group()
 
     # Weight and height list for graph
     # Done
