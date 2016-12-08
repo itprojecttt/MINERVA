@@ -343,8 +343,30 @@ def physical_input_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def reset_password(request):
-    return render_to_response('forget-password.html')
+def physical_input_view_update(request):
+    c = {}
+    c.update(csrf(request))
+    user_id = request.user.id
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+    try:
+        child_data = ChildData.objects.get(uid_user=user_id)
+        birthday = str(child_data.birthday)
+        weight_height_data = list(WeightAndHeightData.objects.all().filter(uid_child=child_data))
+        teeth_data = list(TeethData.objects.all().filter(uid_child=child_data))
+        head_data = list(HeadData.objects.all().filter(uid_child=child_data))
+        c.update({'child_data': child_data, 'birthday': birthday, 'weight_height_data': weight_height_data,
+                  'teeth_data': teeth_data, 'head_data': head_data})
+
+    except:
+        pass
+        print("lewat except")
+
+    if request.user.is_authenticated():
+        return render_to_response('physical-data-input-update.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 def physical_input_auth(request):
@@ -384,7 +406,7 @@ def physical_input_auth(request):
         checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
                    date_teeth_list, head_list, date_head_list]
         print(checker)
-        
+
         if None or '' or [None] in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
         else:
@@ -411,6 +433,76 @@ def physical_input_auth(request):
             return HttpResponseRedirect('/milestones/physical')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def physical_input_auth_update(request):
+    if request.user.is_authenticated():
+        fullname = request.POST.get('fullname')
+        nickname = request.POST.get('nickname')
+        gender = request.POST.get('gender')
+        birthday = request.POST.get('birthday')
+
+        weight_list = []
+        height_list = []
+        date_wh_list = []
+        teeth_list = []
+        date_teeth_list = []
+        head_list = []
+        date_head_list = []
+
+        counter = 1
+        while None not in weight_list:
+            weight_list.append(request.POST.get('inputWeight{}'.format(counter)))
+            height_list.append(request.POST.get('inputHeight{}'.format(counter)))
+            date_wh_list.append(request.POST.get('inputWeightHeightDate{}'.format(counter)))
+            counter += 1
+
+        counter = 1
+        while None not in teeth_list:
+            teeth_list.append(request.POST.get('inputTeeth{}'.format(counter)))
+            date_teeth_list.append(request.POST.get('inputTeethDate{}'.format(counter)))
+            counter += 1
+
+        counter = 1
+        while None not in head_list:
+            head_list.append(request.POST.get('inputHead{}'.format(counter)))
+            date_head_list.append(request.POST.get('inputHeadDate{}'.format(counter)))
+            counter += 1
+
+        checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
+                   date_teeth_list, head_list, date_head_list]
+        print(checker)
+
+        if None or '' or [None] in checker:
+            return render_to_response('redirect.html', {'tag': 'incomplete'})
+        else:
+            # Check existing objects
+            try:
+                child = ChildData.objects.get(uid_user=request.user.id)
+                child.fullname = fullname
+                child.nickname = nickname
+                child.gender = gender
+                child.birthday = birthday
+
+            except:
+                # Create multiple instances based on data
+                child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
+                                                 gender=gender, birthday=birthday)
+            for i in range(len(weight_list[:-1])):
+                WeightAndHeightData.objects.create(uid_child=child, weight=weight_list[i], height=height_list[i],
+                                                   date_w_and_h=date_wh_list[i])
+            for i in range(len(teeth_list[:-1])):
+                TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
+            for i in range(len(head_list[:-1])):
+                HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
+
+            return HttpResponseRedirect('/')
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def reset_password(request):
+    return render_to_response('forget-password.html')
 
 
 def milestone_details_view(request):
