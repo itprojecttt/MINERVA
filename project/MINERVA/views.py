@@ -136,6 +136,9 @@ def index(request):
     date = datetime.date.today()
     age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
 
+    if age == '':
+        age = re.match(r'([0-9])', str((date - child.birthday)/30)).group()
+
     # Weight and height list for graph
     # Done
     w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child,
