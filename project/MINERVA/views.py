@@ -243,14 +243,15 @@ def physical_input_view(request):
     try:
         child_data = ChildData.objects.get(uid_user=user_id)
         birthday = str(child_data.birthday)
-        head_data = HeadData.objects.get(uid_child=child_data)
-        teeth_data = TeethData.objects.get(uid_child=child_data)
-        weight_height_data = WeightAndHeightData.objects.get(uid_child=child_data)
+        weight_height_data = list(WeightAndHeightData.objects.all().filter(uid_child=child_data))
+        teeth_data = list(TeethData.objects.all().filter(uid_child=child_data))
+        head_data = list(HeadData.objects.all().filter(uid_child=child_data))
+        c.update({'child_data': child_data, 'birthday': birthday, 'weight_height_data': weight_height_data,
+                  'teeth_data': teeth_data, 'head_data': head_data})
 
-        c.update({'child_data': child_data, 'birthday': birthday, 'head_data': head_data, 'teeth_data': teeth_data,
-                  'weight_height_data': weight_height_data})
     except:
         pass
+        print("lewat except")
 
     if request.user.is_authenticated():
         return render_to_response('physical-data-input.html', c)
@@ -268,13 +269,6 @@ def physical_input_auth(request):
         nickname = request.POST.get('nickname')
         gender = request.POST.get('gender')
         birthday = request.POST.get('birthday')
-        '''weight = request.POST.get('weight')
-        height = request.POST.get('height')
-        date_w_and_h = request.POST.get('date_w_and_h')
-        teeth = request.POST.get('teeth')
-        date_teeth = request.POST.get('date_teeth')
-        head = request.POST.get('head')
-        date_head = request.POST.get('date_head')'''
 
         weight_list = []
         height_list = []
@@ -313,9 +307,11 @@ def physical_input_auth(request):
             # Check existing objects
             try:
                 child = ChildData.objects.get(uid_user=request.user.id)
-                child.delete()
-                child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
-                                                 gender=gender, birthday=birthday)
+                child.fullname = fullname
+                child.nickname = nickname
+                child.gender = gender
+                child.birthday = birthday
+
             except:
                 # Create multiple instances based on data
                 child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
