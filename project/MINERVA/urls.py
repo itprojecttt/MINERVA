@@ -17,7 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from .views import login, auth_view, homepage, logout, redirect, register, gm_milestone_view, gm_milestone_auth, \
     ps_milestone_view, ps_milestone_auth, physical_input_view, physical_input_auth, index, reset_password, \
-    milestone_details_view, register_finish, send_email, homepage_pass_check, growth_detail
+    milestone_details_view, register_finish, send_email, homepage_pass_check, growth_detail, gm_milestone_view_update, \
+    gm_milestone_auth_update
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -34,6 +35,8 @@ urlpatterns = [
     url(r'^reset-password', reset_password),
     url(r'^milestones/physical/$', gm_milestone_view),
     url(r'^milestones-auth/physical/$', gm_milestone_auth),
+    url(r'^milestones/physical-update/$', gm_milestone_view_update),
+    url(r'^milestones-auth/physical-update/$', gm_milestone_auth_update),
     url(r'^milestones/personal-social/$', ps_milestone_view),
     url(r'^milestones-auth/personal-social/$', ps_milestone_auth),
     url(r'^physical-input/$', physical_input_view),
