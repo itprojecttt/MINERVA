@@ -543,52 +543,38 @@ def growth_detail(request):
     except ChildData.DoesNotExist:
         return render_to_response('redirect.html', {'tag': 'no_child'})
 
-    w_h_data = WeightAndHeightData.objects.get(uid_child=child)
-    weight = int(w_h_data.weight)
-    height = int(w_h_data.height)
     date = datetime.date.today()
-    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30)).group()
 
-    # Checklist info (cognitive)
-    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
-    personal_social_in_progress = list(PersonalSocialMilestone.objects.all().filter(seven_five__lte=float(age),
-                                                                                    finish__lte=float(age)))
-    personal_social_not_done = list(PersonalSocialMilestone.objects.all())
+    # Weight and height list for graph
+    w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child,
+                                                        date_w_and_h__lte=date,
+                                                        date_w_and_h__gte=date - datetime.timedelta(
+                                                            6 * 365 / 12)).order_by('date_w_and_h')
+    # Teeth data
+    teeth_list_query = TeethData.objects.filter(uid_child=child, date_teeth__lte=date,
+                                                date_teeth__gte=date - datetime.timedelta(6 * 365 / 12)).order_by('date_teeth')
 
-    c.update({'personal_social_not_done_len': len(personal_social_not_done),
-              'personal_social_in_progress_len': len(personal_social_in_progress),
-              'personal_social_done_len': len(personal_social_done)})
+    # Head circumference data
+    head_list_query = HeadData.objects.filter(uid_child=child, date_head__lte=date,
+                                              date_head__gte=date - datetime.timedelta(6 * 365 / 12)).order_by('date_head')
+    w_h_date_list = w_list = h_list = teeth_date_list = teeth_list = head_date_list = head_list = []
 
-    str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
-    temp = []
+    # Weight and height
+    for datapoint in w_h_list_query:
+        w_h_date_list.append(datapoint.date_w_and_h.isoformat())
+        w_list.append(int(datapoint.weight))
+        h_list.append(int(datapoint.height))
+    c.update({'child': child, 'w_h_date_list': w_h_date_list, 'w_list': w_list, 'h_list': h_list})
 
-    for m in personal_social_not_done:
-        if m.ps_milestone in str_personal_list:
-            temp.append(m)
-    for t in temp:
-        personal_social_not_done.remove(t)
-    personal_social_not_done = personal_social_not_done[0:3]
+    # Teeth
+    for data in teeth_list_query:
+        teeth_date_list.append(data.date_teeth.isoformat())
+        teeth_list.append(data.teeth)
+    c.update({'teeth_list': teeth_list, 'teeth_date_list': teeth_date_list})
 
-    # Checklist info (physical)
-    physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
-    physical_in_progress = list(GrossMotorMilestone.objects.all().filter(seven_five__lte=float(age),
-                                                                         finish__lte=float(age)))
-    physical_not_done = list(GrossMotorMilestone.objects.all())
-
-    c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
-              'physical_done_len': len(physical_done)})
-
-    str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
-    temp = []
-
-    for m in physical_not_done:
-        if m.gm_milestone in str_physical_list:
-            temp.append(m)
-    for t in temp:
-        physical_not_done.remove(t)
-    physical_not_done = physical_not_done[0:3]
-
-    c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
-              'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
-              'physical_not_done': physical_not_done, 'physical_done': physical_done})
+    # Head
+    for data in head_list_query:
+        head_date_list.append(data.date_head.isoformat())
+        head_list.append(data.head_size)
+    c.update({'head_list': head_list, 'head_date_list': head_date_list})
     return render_to_response('growth-detail.html', c)
