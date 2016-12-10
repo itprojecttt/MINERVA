@@ -54,15 +54,8 @@ def register(request):
     password = request.POST.get('password_reg', '')
     password2 = request.POST.get('password2_reg', '')
 
-    '''
-    try:
-        send_mail("Welcome to MINERVA!",
-                  "You are registered to MINERVA, your personal child development tracker service. "
-                  "PLEASE DO NOT REPLY THIS E-MAIL", 'admin@minerva.com', [email])
-    except BadHeaderError:
-        # Wrong e-mail
-        return render_to_response('redirect.html')
-    '''
+    send_mail("Welcome to MINERVA!", "You are registered to MINERVA, your personal child development tracker service."
+                                     "PLEASE DO NOT REPLY THIS E-MAIL", settings.EMAIL_HOST_USER, [email])
 
     checker = [first_name, last_name, username, email, password, password2]
 
@@ -204,7 +197,7 @@ def index(request):
     c.update({'personal_social_not_done_len': len(personal_social_not_done),
               'personal_social_in_progress_len': len(personal_social_in_progress),
               'personal_social_done_len': len(personal_social_done),
-              'percentage_personal_social': (len(personal_social_done)//len(personal_social_not_done))*100})
+              'percentage_personal_social': int((len(personal_social_done)/len(personal_social_not_done))*100)})
 
     str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
     temp = []
@@ -223,7 +216,7 @@ def index(request):
     physical_not_done = list(GrossMotorMilestone.objects.all())
 
     c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
-              'physical_done_len': len(physical_done), 'percentage_physical': (len(physical_done)//len(physical_not_done))*100})
+              'physical_done_len': len(physical_done), 'percentage_physical': int((len(physical_done)/len(physical_not_done))*100)})
 
     str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
     temp = []
