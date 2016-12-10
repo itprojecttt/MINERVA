@@ -94,6 +94,11 @@ def gm_milestone_view_update(request):
     c.update(csrf(request))
     user_id = request.user
 
+    try:
+        child = ChildData.objects.get(uid_user=request.user)
+    except ChildData.DoesNotExist:
+        return render_to_response('redirect.html', {'tag': 'no_child'})
+
     milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
     mc = GrossMotorChecklist.objects.all()
     milestone_checklist = []
@@ -101,7 +106,15 @@ def gm_milestone_view_update(request):
         if m.uid_user == user_id:
             milestone_checklist.append(str(m.uid_gm_milestone))
 
-    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
+    date = datetime.date.today()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30))
+
+    if age is None:
+        age = re.match(r'([0-9])', str((date - child.birthday) / 30)).group()
+    else:
+        age = age.group()
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': age})
 
     if request.user.is_authenticated():
         return render_to_response('physical-milestones-update.html', c)
@@ -259,6 +272,11 @@ def ps_milestone_view_update(request):
     c.update(csrf(request))
     user_id = request.user
 
+    try:
+        child = ChildData.objects.get(uid_user=request.user)
+    except ChildData.DoesNotExist:
+        return render_to_response('redirect.html', {'tag': 'no_child'})
+
     milestone_list = PersonalSocialMilestone.objects.raw('SELECT * FROM "MINERVA_personalsocialmilestone"')
     mc = PersonalSocialChecklist.objects.all()
     milestone_checklist = []
@@ -266,7 +284,15 @@ def ps_milestone_view_update(request):
         if m.uid_user == user_id:
             milestone_checklist.append(str(m.uid_ps_milestone))
 
-    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
+    date = datetime.date.today()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30))
+
+    if age is None:
+        age = re.match(r'([0-9])', str((date - child.birthday) / 30)).group()
+    else:
+        age = age.group()
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': float(age)})
 
     if request.user.is_authenticated():
         return render_to_response('personal-social-milestones-update.html', c)
