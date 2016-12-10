@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <link rel="stylesheet" href="{% static 'css/default.css' %}">
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -65,7 +68,7 @@
         <div class="card-block container">
           <div class="row">
             <div class="col-md-4 card-stat">
-              <h4>{{ age }} <small class="text-uppercase">MONTHS OLD</small></h4>
+              <h4>{{ age }} <small class="text-uppercase">MONTHS OLD</small> </h4>
             </div>
             <div class="col-md-4 card-stat">
               <h4>{{ weight }} <small class="text-uppercase">KILOGRAMS</small></h4>
@@ -79,18 +82,18 @@
 
       <div class="row">
         <div class="col-md-6">
-        <a href="growth-detail"><div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div></a>
+        <a href="growth-details"><div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div></a>
           <div class="card card-chart">
             <center><div class="label-index" style="margin-top: 1rem">
             WEIGHT GROWTH
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="15%">
+            <div id="chart-holder" class="center-block">
               <canvas id="WeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-index">
             HEIGHT GROWTH
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="35%">
+            <div id="chart-holder" class="center-block">
               <canvas id="HeightGraph" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
@@ -108,13 +111,13 @@
             <center><div class="label-index" style="margin-top:1rem;">
             PHYSICAL MILESTONE
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="85%">
+            <div id="chart-holder" class="center-block" data-active="{{ percentage_physical }}%">
               <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-index">
             COGNITIVE MILESTONE
             </div></center>
-            <div id="chart-holder" class="center-block" data-active="55%">
+            <div id="chart-holder" class="center-block" data-active="{{ percentage_personal_social }}%">
               <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
             <ul class="list-group">
@@ -141,28 +144,24 @@
         </div>
       </div>
     </div>
-<form action="physical-input">
+
     <div class="md-modal md-effect-1" id="modal-13">
       <div class="md-content">
 
         <h3>Update Child Info</h3>
         <div>
           <p>Want to update your child's physical information?</p>
-          <div class="form-group has-icon-left form-control-password">
-            <label class="sr-only" for="inputPassword">Enter your password</label>
-            <input type="password" class="form-control form-control-lg" id="inputPassword" name="inputPasswordCheck" placeholder="Enter your password" autocomplete="off">
-          </div>
-          <button class="btn btn-primary btn-block md-close">Update Child Info</button>
+          <a href="physical-input-update"><button class="btn btn-primary btn-block md-close">Update Child Info</button></a>
         </div>
       </div>
     </div>
-</form>
+
     <div class="md-overlay"></div><!-- the overlay element -->
 
 
       <div class="row">
         <div class="col-md-6">
-        <a href="milestones/physical"><div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div></a>
+        <a href="milestones/physical-update"><div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div></a>
          <div class="card card-chart">
             <ul class="list-group">
               <li class="list-group-item complete">
@@ -183,7 +182,7 @@
           </div>
 
           <div class="col-md-6">
-        <a href="milestones/personal-social"><div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div></a>
+        <a href="milestones/personal-social-update/"><div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div></a>
          <div class="card card-chart">
             <ul class="list-group">
               <li class="list-group-item complete">
@@ -259,16 +258,107 @@
       
       </div>
       </div>
-
-      
-
-
     </div>
-
 
     <hr class="invisible">
 
-    
+     <script type="text/javascript">
+	// TODO: make graph more informative with visible points at data points, figure out how to BMI
+      var ctx = document.getElementById('WeightGraph').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+			labels: {{w_h_date_list|safe}},
+          datasets: [
+        {
+            label: "Weight in kg",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 3.5,
+            pointHitRadius: 10,
+         <!-- TODO: put corresponding data here -->
+            data: {{w_list|safe}},
+            spanGaps: false,
+        }
+    ]
+        },
+            options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              displayFormats: {
+                'month': 'MMM'
+              }
+            }
+          }],
+        },
+      }
+      });
+
+    </script>
+
+  <script type="text/javascript">
+      var ctx = document.getElementById('HeightGraph').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {{w_h_date_list|safe}},
+          datasets: [
+        {
+            label: "Height in cm",
+            fill: true,
+            lineTension: 0.05,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 3.5,
+            pointHitRadius: 10,
+          <!-- TODO: put corresponding data here -->
+            data: {{h_list|safe}},
+            spanGaps: false,
+        }
+    ]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                  'month': 'MMM'
+                }
+              }
+            }],
+          },
+        }
+      });
+
+  </script>
+
     <script type="text/javascript">
       var ctx = document.getElementById('myChart').getContext('2d');
       var onHold = parseInt("{{physical_not_done_len}}") - parseInt("{{physical_done_len}}") - parseInt("{{physical_in_progress_len}}");
@@ -302,127 +392,13 @@
 
     </script>
 
-     <script type="text/javascript">
-      var ctx = document.getElementById('WeightGraph').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
-          datasets: [
-        {
-            label: "Weight",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-          <!-- TODO: put corresponding data here -->
-            data: [65, 95, 80, 81, 56, 55, 40],
-            spanGaps: false,
-        }
-    ]
-        },
-            options: {
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              displayFormats: {
-                'millisecond': 'MMM',
-                'second': 'MMM',
-                'minute': 'MMM',
-                'hour': 'MMM',
-                'day': 'MMM',
-                'week': 'MMM',
-                'month': 'MMM',
-                'quarter': 'MMM',
-                'year': 'MMM',
-              }
-            }
-          }],
-        },
-      }
-      });
-
-    </script>
-
-  <script type="text/javascript">
-      var ctx = document.getElementById('HeightGraph').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          <!-- TODO: change labels to date from data points in YYYY-DD-MM format -->
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
-          datasets: [
-        {
-            label: "Height",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-          <!-- TODO: put corresponding data here -->
-            data: [65, 59, 80, 81, 56, 55, 40],
-            spanGaps: false,
-        }
-    ]
-        },
-        options: {
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  'millisecond': 'MMM',
-                  'second': 'MMM',
-                  'minute': 'MMM',
-                  'hour': 'MMM',
-                  'day': 'MMM',
-                  'week': 'MMM',
-                  'month': 'MMM',
-                  'quarter': 'MMM',
-                  'year': 'MMM',
-                }
-              }
-            }],
-          },
-        }
-      });
-
-  </script>
-
  <script type="text/javascript">
       var ctx = document.getElementById('myChart3').getContext('2d');
       var onHold = parseInt("{{personal_social_not_done_len}}") - parseInt("{{personal_social_done_len}}") - parseInt("{{personal_social_in_progress_len}}");
       if(onHold < 0){
         onHold = 0;
       }
-      var percent = parseInt("{{personal_social_not_done_len}}")/ parseInt("{{personal_social_done_len}}") * 100;
+	var percent = parseInt("{{personal_social_not_done_len}}")/ parseInt("{{personal_social_done_len}}") * 100;
       var myChart3 = new Chart(ctx, {
         type: 'doughnut',
         data: {

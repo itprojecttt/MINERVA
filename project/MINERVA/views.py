@@ -9,6 +9,7 @@ from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightA
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
 import re
+from json import dumps
 
 
 def login(request):
@@ -53,15 +54,8 @@ def register(request):
     password = request.POST.get('password_reg', '')
     password2 = request.POST.get('password2_reg', '')
 
-    '''
-    try:
-        send_mail("Welcome to MINERVA!",
-                  "You are registered to MINERVA, your personal child development tracker service. "
-                  "PLEASE DO NOT REPLY THIS E-MAIL", 'admin@minerva.com', [email])
-    except BadHeaderError:
-        # Wrong e-mail
-        return render_to_response('redirect.html')
-    '''
+    send_mail("Welcome to MINERVA!", "You are registered to MINERVA, your personal child development tracker service."
+                                     "PLEASE DO NOT REPLY THIS E-MAIL", settings.EMAIL_HOST_USER, [email])
 
     checker = [first_name, last_name, username, email, password, password2]
 
@@ -95,6 +89,39 @@ def gm_milestone_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def gm_milestone_view_update(request):
+    c = {}
+    c.update(csrf(request))
+    user_id = request.user
+
+    try:
+        child = ChildData.objects.get(uid_user=request.user)
+    except ChildData.DoesNotExist:
+        return render_to_response('redirect.html', {'tag': 'no_child'})
+
+    milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
+    mc = GrossMotorChecklist.objects.all()
+    milestone_checklist = []
+    for m in mc:
+        if m.uid_user == user_id:
+            milestone_checklist.append(str(m.uid_gm_milestone))
+
+    date = datetime.date.today()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30))
+
+    if age is None:
+        age = re.match(r'([0-9])', str((date - child.birthday) / 30)).group()
+    else:
+        age = age.group()
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': age})
+
+    if request.user.is_authenticated():
+        return render_to_response('physical-milestones-update.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
 def gm_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -114,6 +141,26 @@ def gm_milestone_auth(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def gm_milestone_auth_update(request):
+    checklist = request.POST.getlist('checklist')
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    c = ChildData.objects.get(uid_user=request.user)
+
+    gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
+    gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
+
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = GrossMotorMilestone.objects.get(id=id)
+            if str(m.gm_milestone) not in gm_done_id:
+                GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c,
+                                                   timestamp=date)
+
+        return HttpResponseRedirect('/')
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
 def index(request):
     c = {}
     # CSRF
@@ -128,11 +175,31 @@ def index(request):
     except ChildData.DoesNotExist:
         return render_to_response('redirect.html', {'tag': 'no_child'})
 
-    w_h_data = WeightAndHeightData.objects.get(uid_child=child)
+    # Child info
+    w_h_data = WeightAndHeightData.objects.filter(uid_child=child).order_by('-date_w_and_h')[0]
     weight = int(w_h_data.weight)
     height = int(w_h_data.height)
     date = datetime.date.today()
-    age = re.match(r'([0-9])\w+', str((date - child.birthday)/30)).group()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday)/30))
+
+    if age is None:
+        age = re.match(r'([0-9])', str((date - child.birthday)/30)).group()
+    else:
+        age = age.group()
+
+    # Weight and height list for graph
+    # Done
+    w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child,
+                                                        date_w_and_h__lte=date,
+                                                        date_w_and_h__gte=date - datetime.timedelta(6*365/12)).order_by('date_w_and_h')
+    w_h_date_list = []
+    w_list = []
+    h_list = []
+    for datapoint in w_h_list_query:
+        w_h_date_list.append(datapoint.date_w_and_h.isoformat())
+        w_list.append(int(datapoint.weight))
+        h_list.append(int(datapoint.height))
+    c.update({'w_h_data': w_h_data, 'w_h_date_list': w_h_date_list, 'w_list': w_list, 'h_list': h_list})
 
     # Checklist info (cognitive)
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
@@ -142,7 +209,8 @@ def index(request):
 
     c.update({'personal_social_not_done_len': len(personal_social_not_done),
               'personal_social_in_progress_len': len(personal_social_in_progress),
-              'personal_social_done_len': len(personal_social_done)})
+              'personal_social_done_len': len(personal_social_done),
+              'percentage_personal_social': int((len(personal_social_done)/len(personal_social_not_done))*100)})
 
     str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
     temp = []
@@ -161,7 +229,7 @@ def index(request):
     physical_not_done = list(GrossMotorMilestone.objects.all())
 
     c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
-              'physical_done_len': len(physical_done)})
+              'physical_done_len': len(physical_done), 'percentage_physical': int((len(physical_done)/len(physical_not_done))*100)})
 
     str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
     temp = []
@@ -199,6 +267,39 @@ def ps_milestone_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def ps_milestone_view_update(request):
+    c = {}
+    c.update(csrf(request))
+    user_id = request.user
+
+    try:
+        child = ChildData.objects.get(uid_user=request.user)
+    except ChildData.DoesNotExist:
+        return render_to_response('redirect.html', {'tag': 'no_child'})
+
+    milestone_list = PersonalSocialMilestone.objects.raw('SELECT * FROM "MINERVA_personalsocialmilestone"')
+    mc = PersonalSocialChecklist.objects.all()
+    milestone_checklist = []
+    for m in mc:
+        if m.uid_user == user_id:
+            milestone_checklist.append(str(m.uid_ps_milestone))
+
+    date = datetime.date.today()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30))
+
+    if age is None:
+        age = re.match(r'([0-9])', str((date - child.birthday) / 30)).group()
+    else:
+        age = age.group()
+
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': float(age)})
+
+    if request.user.is_authenticated():
+        return render_to_response('personal-social-milestones-update.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
 def ps_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -217,6 +318,24 @@ def ps_milestone_auth(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
+def ps_milestone_auth_update(request):
+    checklist = request.POST.getlist('checklist')
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    c = ChildData.objects.get(uid_user=request.user)
+
+    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
+    ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
+
+    if request.user.is_authenticated():
+        for id in checklist:
+            m = PersonalSocialMilestone.objects.get(id=id)
+            if str(m.ps_milestone) not in ps_done_id:
+                PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+        return HttpResponseRedirect('/')
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
 def physical_input_view(request):
     c = {}
     c.update(csrf(request))
@@ -227,14 +346,15 @@ def physical_input_view(request):
     try:
         child_data = ChildData.objects.get(uid_user=user_id)
         birthday = str(child_data.birthday)
-        head_data = HeadData.objects.get(uid_child=child_data)
-        teeth_data = TeethData.objects.get(uid_child=child_data)
-        weight_height_data = WeightAndHeightData.objects.get(uid_child=child_data)
+        weight_height_data = list(WeightAndHeightData.objects.all().filter(uid_child=child_data))
+        teeth_data = list(TeethData.objects.all().filter(uid_child=child_data))
+        head_data = list(HeadData.objects.all().filter(uid_child=child_data))
+        c.update({'child_data': child_data, 'birthday': birthday, 'weight_height_data': weight_height_data,
+                  'teeth_data': teeth_data, 'head_data': head_data})
 
-        c.update({'child_data': child_data, 'birthday': birthday, 'head_data': head_data, 'teeth_data': teeth_data,
-                  'weight_height_data': weight_height_data})
     except:
         pass
+        print("lewat except")
 
     if request.user.is_authenticated():
         return render_to_response('physical-data-input.html', c)
@@ -242,8 +362,30 @@ def physical_input_view(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
 
-def reset_password(request):
-    return render_to_response('forget-password.html')
+def physical_input_view_update(request):
+    c = {}
+    c.update(csrf(request))
+    user_id = request.user.id
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+    try:
+        child_data = ChildData.objects.get(uid_user=user_id)
+        birthday = str(child_data.birthday)
+        weight_height_data = list(WeightAndHeightData.objects.all().filter(uid_child=child_data))
+        teeth_data = list(TeethData.objects.all().filter(uid_child=child_data))
+        head_data = list(HeadData.objects.all().filter(uid_child=child_data))
+        c.update({'child_data': child_data, 'birthday': birthday, 'weight_height_data': weight_height_data,
+                  'teeth_data': teeth_data, 'head_data': head_data})
+
+    except:
+        pass
+        print("lewat except")
+
+    if request.user.is_authenticated():
+        return render_to_response('physical-data-input-update.html', c)
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
 
 def physical_input_auth(request):
@@ -252,69 +394,134 @@ def physical_input_auth(request):
         nickname = request.POST.get('nickname')
         gender = request.POST.get('gender')
         birthday = request.POST.get('birthday')
-        weight = request.POST.get('weight')
-        height = request.POST.get('height')
-        date_w_and_h = request.POST.get('date_w_and_h')
-        teeth = request.POST.get('teeth')
-        date_teeth = request.POST.get('date_teeth')
-        head = request.POST.get('head')
-        date_head = request.POST.get('date_head')
 
-        '''while weight_data != '':
-            weight.append(weight_data)
-            height.append(height_data)
-            date_w_and_h.append(date_w_and_h_data)
-
-            counter += 1
-
-            weight_data = request.POST.get('inputWeight{}'.format(counter))
-            height_data = request.POST.get('inputHeight{}'.format(counter))
-            date_w_and_h_data = request.POST.get('inputWeightHeightDate{}'.format(counter))
+        weight_list = []
+        height_list = []
+        date_wh_list = []
+        teeth_list = []
+        date_teeth_list = []
+        head_list = []
+        date_head_list = []
 
         counter = 1
-
-        teeth_data = request.POST.get('inputTeeth{}'. format(counter))
-        date_teeth_data = request.POST.get('inputTeethDate{}'.format(counter))
-        while teeth_data != '':
-            teeth.append(teeth_data)
-            date_teeth.append(date_teeth_data)
-
+        while None not in weight_list:
+            weight_list.append(request.POST.get('inputWeight{}'.format(counter)))
+            height_list.append(request.POST.get('inputHeight{}'.format(counter)))
+            date_wh_list.append(request.POST.get('inputWeightHeightDate{}'.format(counter)))
             counter += 1
-
-            teeth_data = request.POST.get('inputTeeth{}'.format(counter))
-            date_teeth_data = request.POST.get('inputTeethDate{}'.format(counter))
 
         counter = 1
-
-        head_data = request.POST.get('inputHead{}'.format(counter))
-        date_head_data = request.POST.get('inputHeadDate{}'.format(counter))
-
-        while head_data != '':
-            head.append(head_data)
-            date_head.append(date_head_data)
-
+        while None not in teeth_list:
+            teeth_list.append(request.POST.get('inputTeeth{}'.format(counter)))
+            date_teeth_list.append(request.POST.get('inputTeethDate{}'.format(counter)))
             counter += 1
 
-            head_data = request.POST.get('inputHead{}'.format(counter))
-            date_head_data = request.POST.get('inputHeadDate{}'.format(counter))'''
+        counter = 1
+        while None not in head_list:
+            head_list.append(request.POST.get('inputHead{}'.format(counter)))
+            date_head_list.append(request.POST.get('inputHeadDate{}'.format(counter)))
+            counter += 1
 
-        checker = [fullname, nickname, gender, birthday, weight, height, date_w_and_h, teeth, date_teeth, head,
-                   date_head]
-        
-        if None or '' in checker:
+        checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
+                   date_teeth_list, head_list, date_head_list]
+        print(checker)
+
+        if None or '' or [None] in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
         else:
-            # Create multiple instances based on data
-            child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname, gender=gender,
-                                             birthday=birthday)
-            WeightAndHeightData.objects.create(uid_child=child, weight=weight, height=height,
-                                               date_w_and_h=date_w_and_h)
-            TeethData.objects.create(uid_child=child, teeth=teeth, date_teeth=date_teeth)
-            HeadData.objects.create(uid_child=child, head_size=head, date_head=date_head)
+            # Check existing objects
+            try:
+                child = ChildData.objects.get(uid_user=request.user.id)
+                child.fullname = fullname
+                child.nickname = nickname
+                child.gender = gender
+                child.birthday = birthday
+
+            except:
+                # Create multiple instances based on data
+                child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
+                                                 gender=gender, birthday=birthday)
+            for i in range(len(weight_list[:-1])):
+                WeightAndHeightData.objects.create(uid_child=child, weight=weight_list[i], height=height_list[i],
+                                                   date_w_and_h=date_wh_list[i])
+            for i in range(len(teeth_list[:-1])):
+                TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
+            for i in range(len(head_list[:-1])):
+                HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
             return HttpResponseRedirect('/milestones/physical')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def physical_input_auth_update(request):
+    if request.user.is_authenticated():
+        fullname = request.POST.get('fullname')
+        nickname = request.POST.get('nickname')
+        gender = request.POST.get('gender')
+        birthday = request.POST.get('birthday')
+
+        weight_list = []
+        height_list = []
+        date_wh_list = []
+        teeth_list = []
+        date_teeth_list = []
+        head_list = []
+        date_head_list = []
+
+        counter = 1
+        while None not in weight_list:
+            weight_list.append(request.POST.get('inputWeight{}'.format(counter)))
+            height_list.append(request.POST.get('inputHeight{}'.format(counter)))
+            date_wh_list.append(request.POST.get('inputWeightHeightDate{}'.format(counter)))
+            counter += 1
+
+        counter = 1
+        while None not in teeth_list:
+            teeth_list.append(request.POST.get('inputTeeth{}'.format(counter)))
+            date_teeth_list.append(request.POST.get('inputTeethDate{}'.format(counter)))
+            counter += 1
+
+        counter = 1
+        while None not in head_list:
+            head_list.append(request.POST.get('inputHead{}'.format(counter)))
+            date_head_list.append(request.POST.get('inputHeadDate{}'.format(counter)))
+            counter += 1
+
+        checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
+                   date_teeth_list, head_list, date_head_list]
+        print(checker)
+
+        if None or '' or [None] in checker:
+            return render_to_response('redirect.html', {'tag': 'incomplete'})
+        else:
+            # Check existing objects
+            try:
+                child = ChildData.objects.get(uid_user=request.user.id)
+                child.fullname = fullname
+                child.nickname = nickname
+                child.gender = gender
+                child.birthday = birthday
+
+            except:
+                # Create multiple instances based on data
+                child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
+                                                 gender=gender, birthday=birthday)
+            for i in range(len(weight_list[:-1])):
+                WeightAndHeightData.objects.create(uid_child=child, weight=weight_list[i], height=height_list[i],
+                                                   date_w_and_h=date_wh_list[i])
+            for i in range(len(teeth_list[:-1])):
+                TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
+            for i in range(len(head_list[:-1])):
+                HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
+
+            return HttpResponseRedirect('/')
+    else:
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
+
+def reset_password(request):
+    return render_to_response('forget-password.html')
 
 
 def milestone_details_view(request):
@@ -355,52 +562,38 @@ def growth_detail(request):
     except ChildData.DoesNotExist:
         return render_to_response('redirect.html', {'tag': 'no_child'})
 
-    w_h_data = WeightAndHeightData.objects.get(uid_child=child)
-    weight = int(w_h_data.weight)
-    height = int(w_h_data.height)
     date = datetime.date.today()
-    age = re.match(r'([0-9])\w+', str((date - child.birthday) / 30)).group()
 
-    # Checklist info (cognitive)
-    personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
-    personal_social_in_progress = list(PersonalSocialMilestone.objects.all().filter(seven_five__lte=float(age),
-                                                                                    finish__lte=float(age)))
-    personal_social_not_done = list(PersonalSocialMilestone.objects.all())
+    # Weight and height list for graph
+    w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child,
+                                                        date_w_and_h__lte=date,
+                                                        date_w_and_h__gte=date - datetime.timedelta(
+                                                            6 * 365 / 12)).order_by('date_w_and_h')
+    # Teeth data
+    teeth_list_query = TeethData.objects.filter(uid_child=child, date_teeth__lte=date,
+                                                date_teeth__gte=date - datetime.timedelta(6 * 365 / 12)).order_by('date_teeth')
 
-    c.update({'personal_social_not_done_len': len(personal_social_not_done),
-              'personal_social_in_progress_len': len(personal_social_in_progress),
-              'personal_social_done_len': len(personal_social_done)})
+    # Head circumference data
+    head_list_query = HeadData.objects.filter(uid_child=child, date_head__lte=date,
+                                              date_head__gte=date - datetime.timedelta(6 * 365 / 12)).order_by('date_head')
+    w_h_date_list = w_list = h_list = teeth_date_list = teeth_list = head_date_list = head_list = []
 
-    str_personal_list = [str(x.uid_ps_milestone) for x in personal_social_done]
-    temp = []
+    # Weight and height
+    for datapoint in w_h_list_query:
+        w_h_date_list.append(datapoint.date_w_and_h.isoformat())
+        w_list.append(int(datapoint.weight))
+        h_list.append(int(datapoint.height))
+    c.update({'child': child, 'w_h_date_list': w_h_date_list, 'w_list': w_list, 'h_list': h_list})
 
-    for m in personal_social_not_done:
-        if m.ps_milestone in str_personal_list:
-            temp.append(m)
-    for t in temp:
-        personal_social_not_done.remove(t)
-    personal_social_not_done = personal_social_not_done[0:3]
+    # Teeth
+    for data in teeth_list_query:
+        teeth_date_list.append(data.date_teeth.isoformat())
+        teeth_list.append(data.teeth)
+    c.update({'teeth_list': teeth_list, 'teeth_date_list': teeth_date_list})
 
-    # Checklist info (physical)
-    physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
-    physical_in_progress = list(GrossMotorMilestone.objects.all().filter(seven_five__lte=float(age),
-                                                                         finish__lte=float(age)))
-    physical_not_done = list(GrossMotorMilestone.objects.all())
-
-    c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
-              'physical_done_len': len(physical_done)})
-
-    str_physical_list = [str(x.uid_gm_milestone) for x in physical_done]
-    temp = []
-
-    for m in physical_not_done:
-        if m.gm_milestone in str_physical_list:
-            temp.append(m)
-    for t in temp:
-        physical_not_done.remove(t)
-    physical_not_done = physical_not_done[0:3]
-
-    c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
-              'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
-              'physical_not_done': physical_not_done, 'physical_done': physical_done})
+    # Head
+    for data in head_list_query:
+        head_date_list.append(data.date_head.isoformat())
+        head_list.append(data.head_size)
+    c.update({'head_list': head_list, 'head_date_list': head_date_list})
     return render_to_response('growth-detail.html', c)
