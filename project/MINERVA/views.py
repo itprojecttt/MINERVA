@@ -130,6 +130,7 @@ def gm_milestone_auth(request):
 
     gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
     gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
+    print(checklist)
 
     for id in checklist:
         m = GrossMotorMilestone.objects.get(id=id)
@@ -436,23 +437,23 @@ def physical_input_auth(request):
                 child.gender = gender
                 child.birthday = birthday
 
+                old_wh = WeightAndHeightData.objects.all().filter(uid_child=child)
+                old_teeth = TeethData.objects.all().filter(uid_child=child)
+                old_head = HeadData.objects.all().filter(uid_child=child)
+
+                # delete old data to be replaced by updated one
+                for o in old_wh:
+                    o.delete()
+
+                for o in old_teeth:
+                    o.delete()
+
+                for o in old_head:
+                    o.delete()
+
             except:
                 child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
                                                  gender=gender, birthday=birthday)
-
-            old_wh = WeightAndHeightData.objects.all().filter(uid_child=child)
-            old_teeth = TeethData.objects.all().filter(uid_child=child)
-            old_head = HeadData.objects.all().filter(uid_child=child)
-
-            # delete old data to be replaced by updated one
-            for o in old_wh:
-                o.delete()
-
-            for o in old_teeth:
-                o.delete()
-
-            for o in old_head:
-                o.delete()
 
             # Create multiple instances based on data
             for i in range(len(weight_list)):

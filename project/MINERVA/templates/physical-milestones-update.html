@@ -8,12 +8,57 @@
     <title>Physical Milestones - Registration</title>
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
 	<link rel="stylesheet" href="{% static 'css/milestones.css' %}">
+	<style type="text/css">
+		button.accordion {
+    background-color: #eee;
+    color: #444;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+button.accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 500px; /* Whatever you like, as long as its more than the height of the content (on all screen sizes) */
+}
+	</style>
   </head>
 
   <body class="bg-white">
 	<hr class="invisible">
     <div class="container">
-      <div class="card card-inverse card-social text-xs-center" style="border-radius: 5rem;">
+      <div class="card card-inverse card-social text-xs-center">
         <div class="card-block has-gradient" style="border-radius: 0.25rem;">
           <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
           <h3 class="card-title">{{ child.fullname }}</h3>
@@ -21,220 +66,195 @@
           <form action="/logout/">
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
+          <form action="/">
           <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" style="margin-bottom: 5px;">HOMEPAGE</button>
+          </form>
 
           <div class="row">
             <div class="col-md-4">
-              <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL DATA INPUT</button>
+              <form action="/physical-input-update/">
+                <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL DATA INPUT</button>
+              </form>
             </div>
             <div class="col-md-4">
+              <form action="/milestones/physical-update">
               <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem; background-color:white; color:#4e5aca;">PHYSICAL MILESTONE</button>
+              </form>
             </div>
             <div class="col-md-4">
-              <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
+              <form action="/milestones/personal-social-update/">
+                <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
 
+		<h5>Fill in the form within the corresponding age group of your child based on their <b>ABILITY</b>.</h5>
+	      Tip: if your child is 5 months old but he/she could exceeds the ability or capable to do something outside their list, you are allowed to tick the appropriate section outside your child's age group.<br><br>
 
-      <div class="row">
-        <div class="col-md-8 col-xl-8">
-			 <form action="/milestones-auth/physical-update/" method="post">{% csrf_token %}
-		<div class='agegroup'> <!-- Checklists per age group -->
-			<div class='agelabel'><b>0-3 months old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start < 4 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+	     <button class="accordion">0 - 3 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start < 4 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-			<div class='agelabel'><b>4-6 months old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start > 3 and m.start < 6 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-			  	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+		<button class="accordion">4 - 6 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start > 3 and m.start < 6 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-			<div class='agelabel'><b>7-9 months old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start > 6 and m.start < 10 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-			  	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+		<button class="accordion">7 - 9 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start > 6 and m.start < 10 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-			<div class='agelabel'><b>10-12 months old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start > 9 and m.start < 12 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-			  	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+		<button class="accordion">10 - 12 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start > 9 and m.start < 12 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-		<div class='agelabel'><b>1-1.5 years old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start > 11 and m.start < 18 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-			  	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+		<button class="accordion">1 - 1,5 years old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start > 11 and m.start < 18 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-		<div class='agelabel'><b>1.5-2 years old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start > 17 and m.start < 24 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-			  	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+		<button class="accordion">1,5 - 2 years old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start > 17 and m.start < 24 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-			<div class='agelabel'><b>above 2 years old</b></div> <!-- Age Description -->
-		{% for m in milestone_list %}
-			{% if m.start > 23 %}
-		  <div class="checkbox">
-				{% if m.gm_milestone in milestone_checklist %}
-			  	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-complete">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
-				{% elif m.seven_five <= age <= m.finish %}
-				<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-waiting-for">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
-				{% else %}
-		    	<button type="button" class="btn btn-lg btn-default checkbox-reg milestone-late">
-				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+		<button class="accordion">Above 2 years old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	{% for m in milestone_list %}
+				{% if m.start > 23 %}
+				  <div class="checkbox">
+					<button type="button" class="btn btn-lg btn-default checkbox-reg">
+						{% if m.gm_milestone in milestone_checklist %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+						{% else %}
+						<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+						{% endif %}
+							<h6><b>{{ m.gm_milestone }}</b> </h6>
+							<p>Description of milestone.</p></label>
+						</button>
+				  </div>
 				{% endif %}
-					<h6><b>{{ m.gm_milestone }}</b> </h6>
-					<p>Description of milestone.</p></label>
-				</button>
-		  </div>
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			  </p>
+			</div><br>
 
-		  </div>
-		</div>
           <hr class="invisible">
-        </div> <!-- End of age group checklist-->
-
-	</div>
-</form>
-        <div class="clearfix hidden-xl-up"></div>
-
-        <div class="col-md-4">
-
-         </div>
-         </div>
-         </div>
+ <!-- End of age group checklist-->
          <br><br>
-         <!-- DARK footer
-    ================================================== -->
 
-    <footer class="section-footer bg-inverse" role="contentinfo">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-5">
-            <div class="media">
-              <div class="media-left">
-                <span class="media-object icon-logo display-1"></span>
-              </div>
-              <small class="media-body media-bottom">
-                &copy; Land.io 2015. <br>
-                Designed by Peter Finlan, developed by Taty Grassini, exclusively for Codrops.
-              </small>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-7">
-            <ul class="nav nav-inline">
-              <li class="nav-item">
-                <a class="nav-link" href="./index-carousel.html"><small>NEW</small> Slides<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active"><a class="nav-link" href="ui-elements.html">UI Kit</a></li>
-              <li class="nav-item"><a class="nav-link" href="https://github.com/tatygrassini/landio-html" target="_blank">GitHub</a></li>
-              <li class="nav-item"><a class="nav-link scroll-top" href="#totop">Back to top <span class="icon-caret-up"></span></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+      <script type="text/javascript">
+		var acc = document.getElementsByClassName("accordion");
+		var i;
 
+		for (i = 0; i < acc.length; i++) {
+		    acc[i].onclick = function(){
+		        this.classList.toggle("active");
+		        this.nextElementSibling.classList.toggle("show");
+		    }
+		}
+       </script>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
