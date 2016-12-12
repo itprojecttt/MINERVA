@@ -578,6 +578,20 @@ def growth_detail(request):
 
     date = datetime.date.today()
 
+    # Child info
+    w_h_data = WeightAndHeightData.objects.filter(uid_child=child).order_by('-date_w_and_h')[0]
+    weight = int(w_h_data.weight)
+    height = int(w_h_data.height)
+    date = datetime.date.today()
+    age = re.match(r'([0-9])\w+', str((date - child.birthday)/30))
+
+    if age is None:
+        age = re.match(r'([0-9])', str((date - child.birthday)/30)).group()
+    else:
+        age = age.group()
+
+    c.update({'child': child, 'age': age, 'weight': weight, 'height': height})
+
     # Weight and height list for graph
     w_h_list_query = WeightAndHeightData.objects.filter(uid_child=child,
                                                         date_w_and_h__lte=date,
@@ -590,7 +604,13 @@ def growth_detail(request):
     # Head circumference data
     head_list_query = HeadData.objects.filter(uid_child=child, date_head__lte=date,
                                               date_head__gte=date - datetime.timedelta(6 * 365 / 12)).order_by('date_head')
-    w_h_date_list = w_list = h_list = teeth_date_list = teeth_list = head_date_list = head_list = []
+    w_h_date_list = []
+    w_list = []
+    h_list = []
+    teeth_date_list = []
+    teeth_list = []
+    head_date_list = []
+    head_list = []
 
     # Weight and height
     for datapoint in w_h_list_query:
@@ -602,12 +622,12 @@ def growth_detail(request):
     # Teeth
     for data in teeth_list_query:
         teeth_date_list.append(data.date_teeth.isoformat())
-        teeth_list.append(data.teeth)
+        teeth_list.append(int(data.teeth))
     c.update({'teeth_list': teeth_list, 'teeth_date_list': teeth_date_list})
 
     # Head
     for data in head_list_query:
         head_date_list.append(data.date_head.isoformat())
-        head_list.append(data.head_size)
+        head_list.append(int(data.head_size))
     c.update({'head_list': head_list, 'head_date_list': head_date_list})
     return render_to_response('growth-detail.html', c)
