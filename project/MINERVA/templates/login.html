@@ -8,10 +8,7 @@
         <title>MINERVA</title>
         <link rel="stylesheet" href="{% static 'css/landio.css' %}">
         <link rel="stylesheet" href="{% static 'css/component.css' %}">
-        <link rel="stylesheet" href="{% static 'css/landio.css' %}">
-    <link rel="stylesheet" href="{% static 'css/default.css' %}">
-    <link rel="stylesheet" href="{% static 'css/component.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
+        <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
@@ -84,12 +81,13 @@
                         
                         <div class="form-group has-icon-left form-control-password">
                             <label class="sr-only" for="inputPassword">Password</label>
-                            <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" autocomplete="off">
-                             <div style="margin: 7px 0 7px 0; cursor: pointer; color: grey;" class="md-trigger" data-modal="modal-13">Forget password?</div>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" autocomplete="off">                        
+
+                            <div style="margin: 7px 0 7px 0; cursor: pointer; color: grey;" class="md-trigger" data-modal="modal-13">Forget password?</div>
+                            <br>
                         <input type="submit" class=" btn btn-primary btn-block" value="LOGIN"></input>
-                        <!--
-                        <a style="float: right; text-align: right; margin-bottom: 12px" href="#"><br>Belum punya akun?</a> -->
                         </div>
+
                         <!-- Buttons
                             ================================================== -->
                         </form>
@@ -102,9 +100,15 @@
             <div class="md-modal md-effect-1" id="modal-13">
                   <div class="md-content">
 
-                    <h3>Reset New Password</h3>
+                    <h3>Reset Password</h3>
                     <div>
-                      <p>Are you sure you want to reset your password??</p>
+                      <p>Are you sure you want to reset your password?</p>
+
+                        <div class="form-group has-icon-left form-control-email">
+                            <label class="sr-only" for="email">E-Mail Address</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="E-Mail Address" autocomplete="off">
+                        </div>
+
                       <a href="physical-input-update"><button class="btn btn-primary btn-block md-close">Yes, give me the new one!</button></a>
                     </div>
                   </div>
