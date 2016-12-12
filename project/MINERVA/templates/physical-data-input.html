@@ -127,12 +127,11 @@
                   <th>Date</th>
                   <th></th>
                 </tr>
-                <!-- TO DO KITTO!!! -->
                 {% for d in weight_height_data %}
                 <tr>
-                  <td>{{d.weight}}<br><input type="hidden" class="form-control form-control-lg" name="inputWeight"></td>
-                  <td>{{d.height}}<br><input type="hidden" class="form-control form-control-lg" name="inputHeight"></td>
-                  <td>{{d.date_w_and_h}}<br><input type="hidden" class="form-control form-control-lg" name="inputWeightHeightDate"></td>
+                  <td>{{d.weight}}<br><input type="hidden" class="form-control form-control-lg" name="inputWeight" value="{{d.weight}}"></td>
+                  <td>{{d.height}}<br><input type="hidden" class="form-control form-control-lg" name="inputHeight" value="{{d.height}}"></td>
+                  <td>{{d.date_w_and_h}}<br><input type="hidden" class="form-control form-control-lg" name="inputWeightHeightDate" value="{{d.date_w_and_h}}"></td>
                   <td><input type="button" value="Delete" onclick="Javascript:deleteRowWeightHeight(this)"></td>
                 </tr>
                 {% endfor %}
@@ -177,6 +176,13 @@
                   <th>Date</th>
                   <th></th>
                 </tr>
+                {% for d in teeth_data %}
+                <tr>
+                  <td>{{d.teeth}}<br><input type="hidden" class="form-control form-control-lg" name="inputTeeth" value="{{d.teeth}}"></td>
+                  <td>{{d.date_teeth}}<br><input type="hidden" class="form-control form-control-lg" name="inputTeethDate" value="{{d.date_teeth}}"></td>
+                  <td><input type="button" value="Delete" onclick="Javascript:deleteRowTeeth(this)"></td>
+                </tr>
+                {% endfor %}
               </thead>
               <tbody>
               </tbody>
@@ -216,6 +222,13 @@
                     <th>Head Circumference</th>
                     <th>Date</th>
                   </tr>
+                {% for d in head_data %}
+                <tr>
+                  <td>{{d.head_size}}<br><input type="hidden" class="form-control form-control-lg" name="inputHead" value="{{d.head_size}}"></td>
+                  <td>{{d.date_head}}<br><input type="hidden" class="form-control form-control-lg" name="inputHeadDate" value="{{d.date_head}}"></td>
+                  <td><input type="button" value="Delete" onclick="Javascript:deleteRowHead(this)"></td>
+                </tr>
+                {% endfor %}
                 </thead>
                 <tbody>
                 </tbody>
