@@ -8,6 +8,51 @@
     <title>Physical Milestones - Registration</title>
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
 	<link rel="stylesheet" href="{% static 'css/milestones.css' %}">
+	<style type="text/css">
+		button.accordion {
+    background-color: #eee;
+    color: #444;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+button.accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 500px; /* Whatever you like, as long as its more than the height of the content (on all screen sizes) */
+}
+	</style>
   </head>
 
   <body class="bg-white">
@@ -22,7 +67,59 @@
 	      </div>
 	      <br>
 
-      <div class="row">
+	      <h5>Fill in the form within the corresponding age group of your child based on their <b>ABILITY</b>.</h5>
+	      Tip: if your child is 5 months old but he/she could exceeds the ability or capable to do something outside their list, you are allowed to tick the appropriate section outside your child's age group.<br><br>
+
+	     <button class="accordion">0 - 3 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+		<button class="accordion">4 - 6 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+		<button class="accordion">7 - 9 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+		<button class="accordion">10 - 12 months old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+		<button class="accordion">1 - 1,5 years old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+		<button class="accordion">1,5 - 2 years old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+		<button class="accordion">Above 2 years old</button>
+			<div class="panel">
+			  <p style="margin-top: 10px; font-size: 18px">
+			  	Isi disini ya
+			  </p>
+			</div><br>
+
+      
         <div class="col-md-8 col-xl-8">
 			 <form action="/milestones-auth/physical/" method="post">{% csrf_token %}
 		<div class='agegroup'> <!-- Checklists per age group -->
@@ -161,40 +258,20 @@
 
          </div>
          </div>
-         </div>
          <br><br>
-         <!-- DARK footer
-    ================================================== -->
 
-    <footer class="section-footer bg-inverse" role="contentinfo">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-5">
-            <div class="media">
-              <div class="media-left">
-                <span class="media-object icon-logo display-1"></span>
-              </div>
-              <small class="media-body media-bottom">
-                &copy; Land.io 2015. <br>
-                Designed by Peter Finlan, developed by Taty Grassini, exclusively for Codrops.
-              </small>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-7">
-            <ul class="nav nav-inline">
-              <li class="nav-item">
-                <a class="nav-link" href="./index-carousel.html"><small>NEW</small> Slides<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active"><a class="nav-link" href="ui-elements.html">UI Kit</a></li>
-              <li class="nav-item"><a class="nav-link" href="https://github.com/tatygrassini/landio-html" target="_blank">GitHub</a></li>
-              <li class="nav-item"><a class="nav-link scroll-top" href="#totop">Back to top <span class="icon-caret-up"></span></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+      <script type="text/javascript">
+		var acc = document.getElementsByClassName("accordion");
+		var i;
 
-        
+		for (i = 0; i < acc.length; i++) {
+		    acc[i].onclick = function(){
+		        this.classList.toggle("active");
+		        this.nextElementSibling.classList.toggle("show");
+		    }
+		}
+       </script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="{% static 'js/landio.min.js' %}"></script>
