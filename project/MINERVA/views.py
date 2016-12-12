@@ -401,7 +401,7 @@ def physical_input_view_update(request):
         pass
         print("lewat except")
 
-    return render_to_response('physical-data-input.html', c)
+    return render_to_response('physical-data-input-update.html', c)
 
 
 def physical_input_auth(request):
@@ -527,7 +527,7 @@ def physical_input_auth_update(request):
             for i in range(len(head_list)):
                 HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
-            return HttpResponseRedirect('/milestones/physical')
+            return HttpResponseRedirect('/milestones/physical-update')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
