@@ -35,7 +35,7 @@
           <form action="/logout/">
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
-          <button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button>
+          <a href="/"><button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button></a>
 
         </div>
         <div class="card-block container">
@@ -66,7 +66,7 @@
         <div class="col-md-6">
          <div class="btn3 btn-primary btn-block">WEIGHT GROWTH</div>
           <div class="card card-chart">
-            <div id="chart-holder" class="center-block" data-active="85%">
+            <div id="chart-holder" class="center-block">
               <canvas id="myChart4" class="center-block" width="150" height="150"></canvas>
             </div>
 
@@ -87,7 +87,7 @@
         <div class="col-md-6">
          <div class="btn3 btn-primary btn-block">HEAD CIRCUMFERENCE GROWTH</div>
           <div class="card card-chart">
-            <div id="chart-holder" class="center-block" data-active="85%">
+            <div id="chart-holder" class="center-block">
               <canvas id="myChart6" class="center-block" width="150" height="150"></canvas>
             </div>
 
@@ -138,7 +138,7 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: {{w_h_date_list|safe}},
           datasets: [
         {
             label: "CHILD'S GROWTH",
@@ -159,7 +159,7 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: {{h_list|safe}},
             spanGaps: false,
         }
     ]
@@ -174,7 +174,7 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: {{teeth_date_list|safe}},
           datasets: [
         {
             label: "CHILD'S GROWTH",
@@ -195,7 +195,7 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: {{teeth_list|safe}},
             spanGaps: false,
         }
     ]
@@ -210,7 +210,7 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: {{head_date_list|safe}},
           datasets: [
         {
             label: "CHILD'S GROWTH",
@@ -231,7 +231,7 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: {{head_list|safe}},
             spanGaps: false,
         }
     ]
@@ -244,7 +244,7 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: {{w_h_date_list|safe}},
           datasets: [
         {
             label: "CHILD'S GROWTH",
@@ -265,7 +265,7 @@
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: {{w_list|safe}},
             spanGaps: false,
         }
     ]
