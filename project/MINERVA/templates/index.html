@@ -85,7 +85,7 @@
 
       <div class="row">
         <div class="col-md-6">
-        <div class="btn3 btn-primary btn-block">PHYSICAL GROWTH</div>
+        <div class="btn3 btn-primary btn-block"><a href="growth-details" style="color: white">PHYSICAL GROWTH</a></div>
           <div class="card card-chart">
             <center><div class="label-index" style="margin-top: 1rem">
             WEIGHT GROWTH
@@ -109,7 +109,7 @@
 
 
          <div class="col-md-6">
-         <div class="btn3 btn-primary btn-block">MILESTONE PROGRESS</div>
+         <div class="btn3 btn-primary btn-block"><a href="milestone-details" style="color: white">MILESTONE PROGRESS</a></div>
           <div class="card card-chart">
             <center><div class="label-index" style="margin-top:1rem;">
             PHYSICAL MILESTONE
@@ -277,7 +277,7 @@
           datasets: [
         {
             label: "Weight in kg",
-            fill: false,
+            fill: true,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
             borderColor: "rgba(75,192,192,1)",
@@ -292,7 +292,7 @@
             pointHoverBackgroundColor: "rgba(75,192,192,1)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 3.5,
+            pointRadius: 4,
             pointHitRadius: 10,
          <!-- TODO: put corresponding data here -->
             data: {{w_list|safe}},
@@ -303,10 +303,11 @@
             options: {
         scales: {
           xAxes: [{
+            display: true,
             type: 'time',
             time: {
               displayFormats: {
-                'month': 'MMM'
+                'month': 'MMM',
               }
             }
           }],
@@ -325,7 +326,7 @@
           datasets: [
         {
             label: "Height in cm",
-            fill: true,
+            fill: false,
             lineTension: 0.05,
             backgroundColor: "rgba(75,192,192,0.4)",
             borderColor: "rgba(75,192,192,1)",
@@ -340,7 +341,7 @@
             pointHoverBackgroundColor: "rgba(75,192,192,1)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 3.5,
+            pointRadius: 4,
             pointHitRadius: 10,
           <!-- TODO: put corresponding data here -->
             data: {{h_list|safe}},
