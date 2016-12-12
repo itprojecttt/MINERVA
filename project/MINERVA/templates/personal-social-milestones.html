@@ -56,6 +56,7 @@ div.panel.show {
   </head>
 
   <body class="bg-white">
+<form action="/milestones-auth/personal-social/" method="post">{% csrf_token %}
 	<hr class="invisible">
     <div class="container">
 	      <center><h2>
@@ -70,7 +71,7 @@ div.panel.show {
 	      <h5>Fill in the form within the corresponding age group of your child based on their <b>????</b>.</h5>
 	      Tip: if your child is 5 months old but he/she could exceeds the ability or capable to do something outside their list, you are allowed to tick the appropriate section outside your child's age group.<br><br>
 
-	     <button class="accordion">0 - 3 months old</button>
+	     <button type="button" class="accordion">0 - 3 months old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -91,7 +92,7 @@ div.panel.show {
 			  </p>
 			</div><br>
 
-		<button class="accordion">4 - 6 months old</button>
+		<button type="button" class="accordion">4 - 6 months old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -112,7 +113,7 @@ div.panel.show {
 			  </p>
 			</div><br>
 
-		<button class="accordion">7 - 9 months old</button>
+		<button type="button" class="accordion">7 - 9 months old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -133,7 +134,7 @@ div.panel.show {
 			  </p>
 			</div><br>
 
-		<button class="accordion">10 - 12 months old</button>
+		<button type="button" class="accordion">10 - 12 months old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -154,7 +155,7 @@ div.panel.show {
 			  </p>
 			</div><br>
 
-		<button class="accordion">1 - 1,5 years old</button>
+		<button type="button" class="accordion">1 - 1,5 years old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -175,7 +176,7 @@ div.panel.show {
 			  </p>
 			</div><br>
 
-		<button class="accordion">1,5 - 2 years old</button>
+		<button type="button" class="accordion">1,5 - 2 years old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -196,7 +197,7 @@ div.panel.show {
 			  </p>
 			</div><br>
 
-		<button class="accordion">Above 2 years old</button>
+		<button type="button" class="accordion">Above 2 years old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
 			  	{% for m in milestone_list %}
@@ -226,17 +227,13 @@ div.panel.show {
         <div class="col-md-12">
         <div class="col-md-6">
         <div class='submitbutton'>
-			<form action="/milestones/physical/">
-          <button type="#" class="btn btn-primary-outline btn-block">PREVIOUS PAGE</button>
-			</form>
+          <button type="submit" formaction="/milestones/physical/" class="btn btn-primary-outline btn-block">PREVIOUS PAGE</button>
           <hr class="invisible">
 		</div>
 		</div>
 		<div class="col-md-6">
         <div class='submitbutton'>
-			<form action="/milestones-auth/personal-social/">
 			<button type='submit' class="btn btn-primary btn-block">NEXT PAGE</input>
-			</form>
 		</div>
 		</div>
 		</div>
