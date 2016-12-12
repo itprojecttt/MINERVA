@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{% static 'css/landio.css' %}">
     <link rel="stylesheet" href="{% static 'css/register-input.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/register-input.css' %}">
-
     <script type="text/javascript" src="{% static 'js/dynamic-table-t.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,13 +20,29 @@
 
 <!--MAIN BODY================================================== -->
     <form action="/physical-input-auth/" method="post">{% csrf_token %}
-  <div class="container">
-      <center>
-      <b><h1>Physical</h1></b><h3>Data Input</h3>
-      </center><br>
+    <div class="container">
       <!--HEADER-->
-      <div class="card_header card-inverse has-gradient card-register">
-        <div class="card-register-pic" style="height:100%; position: center;">
+      <div class="card card-inverse card-social text-xs-center">
+        <div class="card-block has-gradient" style="border-radius: 0.25rem;">
+          <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
+          <h3 class="card-title">{{ child.fullname }}</h3>
+          <h6 class="card-subtitle">{{ child.birthday }}</h6>
+          <form action="/logout/">
+            <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
+          </form>
+          <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" style="margin-bottom: 5px;">HOMEPAGE</button>
+
+          <div class="row">
+            <div class="col-md-4">
+              <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem; background-color:white; color:#4e5aca;">PHYSICAL DATA INPUT</button>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL MILESTONE</button>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
+            </div>
+          </div>
         </div>
       </div>
       <br>
@@ -127,12 +141,12 @@
                   <th>Date</th>
                   <th></th>
                 </tr>
-                <!-- TO DO KITTO!!! -->
                 {% for d in weight_height_data %}
                 <tr>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
+                  <td>{{d.weight}}<br><input type="hidden" class="form-control form-control-lg" name="inputWeight" value="{{d.weight}}"></td>
+                  <td>{{d.height}}<br><input type="hidden" class="form-control form-control-lg" name="inputHeight" value="{{d.height}}"></td>
+                  <td>{{d.date_w_and_h}}<br><input type="hidden" class="form-control form-control-lg" name="inputWeightHeightDate" value="{{d.date_w_and_h}}"></td>
+                  <td><input type="button" value="Delete" onclick="Javascript:deleteRowWeightHeight(this)"></td>
                 </tr>
                 {% endfor %}
               </thead>
@@ -176,6 +190,13 @@
                   <th>Date</th>
                   <th></th>
                 </tr>
+                {% for d in teeth_data %}
+                <tr>
+                  <td>{{d.teeth}}<br><input type="hidden" class="form-control form-control-lg" name="inputTeeth" value="{{d.teeth}}"></td>
+                  <td>{{d.date_teeth}}<br><input type="hidden" class="form-control form-control-lg" name="inputTeethDate" value="{{d.date_teeth}}"></td>
+                  <td><input type="button" value="Delete" onclick="Javascript:deleteRowTeeth(this)"></td>
+                </tr>
+                {% endfor %}
               </thead>
               <tbody>
               </tbody>
@@ -215,6 +236,13 @@
                     <th>Head Circumference</th>
                     <th>Date</th>
                   </tr>
+                  {% for d in head_data %}
+                <tr>
+                  <td>{{d.head_size}}<br><input type="hidden" class="form-control form-control-lg" name="inputHead" value="{{d.head_size}}"></td>
+                  <td>{{d.date_head}}<br><input type="hidden" class="form-control form-control-lg" name="inputHeadDate" value="{{d.date_head}}"></td>
+                  <td><input type="button" value="Delete" onclick="Javascript:deleteRowHead(this)"></td>
+                </tr>
+                {% endfor %}
                 </thead>
                 <tbody>
                 </tbody>
@@ -225,11 +253,6 @@
 
 
       <!--NEXT STEP BUTTON-->
-      <div class="row">
-        <div class="col-md-6 col-md-offset-6 col-xl-6 col-xl-offset-6">
-          <button type="submit" class="btn btn-primary btn-block"><span>NEXT STEP</span></button>
-        </div>
-      </div>
     </div>
       </form>
 
@@ -238,9 +261,7 @@
 <!-- DARK footer================================================== -->
 
     <footer class="section-footer bg-inverse" role="contentinfo">
-      <div class="container">
 
-      </div>
     </footer>
 
 
