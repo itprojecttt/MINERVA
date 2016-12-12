@@ -124,7 +124,7 @@ def gm_milestone_auth(request):
     if not request.user.is_authenticated():
         return render_to_response('redirect.html', {'tag': 'logout'})
 
-    checklist = request.POST.get('cl')
+    checklist = request.POST.getlist('checklist')
     print(checklist)
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
@@ -307,6 +307,7 @@ def ps_milestone_auth(request):
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
+    print(checklist)
 
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
     ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
@@ -422,11 +423,9 @@ def physical_input_auth(request):
 
         head_list = request.POST.getlist('inputHead')
         date_head_list = request.POST.getlist('inputHeadDate')
-        print(date_head_list)
 
         checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
                    date_teeth_list, head_list, date_head_list]
-        print(checker)
 
         if None or '' or [] in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
@@ -443,8 +442,6 @@ def physical_input_auth(request):
                 old_teeth = TeethData.objects.all().filter(uid_child=child)
                 old_head = HeadData.objects.all().filter(uid_child=child)
 
-                print("lewat old")
-
                 # delete old data to be replaced by updated one
                 for o in old_wh:
                     o.delete()
@@ -457,10 +454,8 @@ def physical_input_auth(request):
 
             except:
                 print("lewat except")
-                print("eaea")
                 child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
                                                  gender=gender, birthday=birthday)
-                print("lewat bikin child")
 
             # Create multiple instances based on data
             for i in range(len(weight_list)):

@@ -56,7 +56,7 @@ div.panel.show {
   </head>
 
   <body class="bg-white">
-      <form action="/milestones-auth/physical/" method="post">{% csrf_token %}<input type="hidden" value="1" name="checklist"></form>
+<form action="/milestones-auth/physical/" method="post">{% csrf_token %}
 		  <hr class="invisible">
 		  <div class="container">
 			  <center><h2><b>Physical</b><br>Milestones</h2></center><br>
@@ -225,18 +225,14 @@ div.panel.show {
 			<div class="col-md-12">
 			<div class="col-md-6">
 			<div class='submitbutton'>
-				<form action="/physical-input/">
-					<button type="#" class="btn btn-primary-outline btn-block">PREVIOUS PAGE</button>
-				</form>
+				<button type="submit" formaction="/physical-input/" class="btn btn-primary-outline btn-block">PREVIOUS PAGE</button>
 			  <hr class="invisible">
 			</div>
 			</div>
 			<div class="col-md-6">
 			<div class='submitbutton'>
-				<form action="/milestones-auth/physical/" method="post">{% csrf_token %}
-					<input type="hidden" value="1" name="checklist" id="checklist">
-					<button type="submit" class="btn btn-primary btn-block">NEXT PAGE</button>
-				</form>
+				<button type="submit" class="btn btn-primary btn-block">NEXT PAGE</button>
+</form>
 			</div>
 			</div>
 			</div>
