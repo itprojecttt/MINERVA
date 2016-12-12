@@ -25,16 +25,14 @@
       <div class="card card-inverse card-social text-xs-center">
         <div class="card-block has-gradient" style="border-radius: 0.25rem;">
           <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
-          <h3 class="card-title">{{ child.fullname }}</h3>
-          <h6 class="card-subtitle">{{ child.birthday }}</h6>
-          <form action="/logout/">
-            <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
-          </form>
-          <a href="/"><button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm">HOMEPAGE</button></a>
+          <h3 class="card-title">{{ child_data.fullname }}</h3>
+          <h6 class="card-subtitle">{{ child_data.birthday }}</h6>
+          <button formaction="/logout/" type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
+          <button type="submit" formaction="/" class="md-trigger btn2 btn-secondary-outline btn-sm">HOMEPAGE</button>
           <div>
-            <a href="/physical-input-update/"><button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem;  background-color:white; color:#4e5aca;">PHYSICAL DATA INPUT</button></a>
-            <a href="/milestones/physical-update/"><button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL MILESTONE</button></a>
-            <a href="/milestones/personal-social-update/"><button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button></a>
+            <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem;  background-color:white; color:#4e5aca;">PHYSICAL DATA INPUT</button>
+            <button type="submit" formaction="/milestones/physical-update/" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL MILESTONE</button>
+            <button type="submit" formaction="/milestones/personal-social-update/" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
 		  </div>
       </div>
       </div>
@@ -42,6 +40,7 @@
       <br>
 
       <!--DATA DIRI-->
+      <form action="/physical-input-auth-update/" method="post">{% csrf_token %}
       <div class="row">
           <div class="col-md-6 col-xl-6">
             <div class="form-group">
@@ -67,12 +66,12 @@
 
             <div class="form-group form-control-Gender">
                {% if child_data.gender == "M" %}
-               <input type="radio" checked="checked" value="male" name="gender"> Male<br>
-               <input type="radio" value="female" name="gender"> Female<br>
+               <input type="radio" checked="checked" value="M" name="gender"> Male<br>
+               <input type="radio" value="F" name="gender"> Female<br>
                <small id="genderHelp" class="form-text text-muted">Select gender</small>
                {% else %}
-               <input type="radio" value="male" name="gender"> Male<br>
-               <input type="radio" checked="checked" value="female" name="gender"> Female<br>
+               <input type="radio" value="M" name="gender"> Male<br>
+               <input type="radio" checked="checked" value="F" name="gender"> Female<br>
                <small id="genderHelp" class="form-text text-muted">Select gender</small>
                {% endif %}
             </div>

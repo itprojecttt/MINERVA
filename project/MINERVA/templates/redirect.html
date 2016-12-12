@@ -5,10 +5,12 @@
         <meta charset="UTF-8">
         <title>Invalid Request</title>
         <link rel="stylesheet" href="{% static 'css/landio.css' %}">
-        {% if tag == 'login' or tag == 'register' or tag == 'logout' %}
+        {% if tag == 'login' or tag == 'register' or tag == 'logout' or tag == 'user-exists' %}
         <meta http-equiv="refresh" content="3; url=/login/">
         {% elif tag == 'incomplete' or tag == 'no_child' %}
         <meta http-equiv="refresh" content="3; url=/physical-input/">
+        {% elif tag == 'incomplete-update' %}
+        <meta http-equiv="refresh" content="3; url=/physical-input-update/">
         {% endif %}
     </head>
     <body>
@@ -20,9 +22,17 @@
         <br><br>
         <center><h1><b>Register form incorrectly filled out!</b></h1>
         <h3>Redirecting you to the previous page...</h3></center>
+        {% elif tag == 'user-exists' %}
+        <br><br>
+        <center><h1><b>Sorry, username already exists!</b></h1>
+        <h3>Redirecting you to the previous page...</h3></center>
         {% elif tag == 'incomplete' %}
         <br><br>
         <center><h1><b>Form input incomplete!</b></h1>
+        <h3>Redirecting you to the previous page...</h3></center>
+        {% elif tag == 'incomplete-update' %}
+        <br><br>
+        <center><h1><b>Data cannot be empty!</b></h1>
         <h3>Redirecting you to the previous page...</h3></center>
         {% elif tag == 'no_child' %}
         <br><br>

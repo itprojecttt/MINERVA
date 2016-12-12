@@ -53,19 +53,22 @@ def register(request):
     password = request.POST.get('password_reg', '')
     password2 = request.POST.get('password2_reg', '')
 
-    send_mail("Welcome to MINERVA!", "You are registered to MINERVA, your personal child development tracker service."
-                                     "PLEASE DO NOT REPLY THIS E-MAIL", settings.EMAIL_HOST_USER, [email])
-
     checker = [first_name, last_name, username, email, password, password2]
 
     if '' in checker or password != password2:
         return render_to_response('redirect.html', {'tag': 'register'})
 
-    User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
-    user = auth.authenticate(username=username, password=password)
-    auth.login(request, user)
-    print(user)
-    return HttpResponseRedirect('/physical-input')
+    send_mail("Welcome to MINERVA!",
+              "You are registered to MINERVA, your personal child development tracker service. \n"
+              "PLEASE DO NOT REPLY THIS E-MAIL", settings.EMAIL_HOST_USER, [email])
+    try:
+        User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
+        user = auth.authenticate(username=username, password=password)
+        auth.login(request, user)
+        return HttpResponseRedirect('/physical-input')
+
+    except:
+        return render_to_response('redirect.html', {'tag': 'user-exists'})
 
 
 def gm_milestone_view(request):
@@ -115,7 +118,7 @@ def gm_milestone_view_update(request):
     else:
         age = age.group()
 
-    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': age})
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'child': child})
 
     return render_to_response('physical-milestones-update.html', c)
 
@@ -125,7 +128,6 @@ def gm_milestone_auth(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
     checklist = request.POST.getlist('checklist')
-    print(checklist)
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
 
@@ -145,20 +147,19 @@ def gm_milestone_auth_update(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
     checklist = request.POST.getlist('checklist')
-    print(checklist)
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
 
     gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
-    gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
+
+    for m in gross_motor_done:
+        m.delete()
 
     for id in checklist:
         m = GrossMotorMilestone.objects.get(id=id)
-        if str(m.gm_milestone) not in gm_done_id:
-            GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c,
-                                               timestamp=date)
+        GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c,timestamp=date)
 
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/milestones/physical-update')
 
 
 def index(request):
@@ -295,7 +296,8 @@ def ps_milestone_view_update(request):
     else:
         age = age.group()
 
-    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': float(age)})
+    c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': float(age),
+              'child': child})
 
     return render_to_response('personal-social-milestones-update.html', c)
 
@@ -328,13 +330,14 @@ def ps_milestone_auth_update(request):
     c = ChildData.objects.get(uid_user=request.user)
 
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
-    ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
+
+    for m in personal_social_done:
+        m.delete()
 
     for id in checklist:
         m = PersonalSocialMilestone.objects.get(id=id)
-        if str(m.ps_milestone) not in ps_done_id:
-            PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
-    return HttpResponseRedirect('/')
+        PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+    return HttpResponseRedirect('/milestones/personal-social-update')
 
 
 def physical_input_view(request):
@@ -494,7 +497,7 @@ def physical_input_auth_update(request):
         print(checker)
 
         if None or '' or [] in checker:
-            return render_to_response('redirect.html', {'tag': 'incomplete'})
+            return render_to_response('redirect.html', {'tag': 'incomplete-update'})
         else:
             # Check existing objects
             try:
@@ -504,23 +507,24 @@ def physical_input_auth_update(request):
                 child.gender = gender
                 child.birthday = birthday
 
+                old_wh = WeightAndHeightData.objects.all().filter(uid_child=child)
+                old_teeth = TeethData.objects.all().filter(uid_child=child)
+                old_head = HeadData.objects.all().filter(uid_child=child)
+
+                # delete old data to be replaced by updated one
+                for o in old_wh:
+                    o.delete()
+
+                for o in old_teeth:
+                    o.delete()
+
+                for o in old_head:
+                    o.delete()
+
             except:
+                print("lewat except")
                 child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
                                                  gender=gender, birthday=birthday)
-
-            old_wh = WeightAndHeightData.objects.all().filter(uid_child=child)
-            old_teeth = TeethData.objects.all().filter(uid_child=child)
-            old_head = HeadData.objects.all().filter(uid_child=child)
-
-            # delete old data to be replaced by updated one
-            for o in old_wh:
-                o.delete()
-
-            for o in old_teeth:
-                o.delete()
-
-            for o in old_head:
-                o.delete()
 
             # Create multiple instances based on data
             for i in range(len(weight_list)):
@@ -528,10 +532,11 @@ def physical_input_auth_update(request):
                                                    date_w_and_h=date_wh_list[i])
             for i in range(len(teeth_list)):
                 TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
+
             for i in range(len(head_list)):
                 HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/physical-input-update')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
