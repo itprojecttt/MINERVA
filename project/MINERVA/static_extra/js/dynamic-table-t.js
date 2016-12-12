@@ -6,7 +6,7 @@ function addRowWeightHeight() {
     var table = document.getElementById("WeightHeightTable");
 
     // Condition to ensure all values are filled before adding to table.
-    if(height.value == '' || weight.value == '' || date.value == ''){
+    if(height.value == '' || weight.value == '' || date.value == '' || isNaN(height.value) || isNaN(weight.value)){
         return;
     }
 
@@ -35,7 +35,7 @@ function addRowTeeth() {
     var table = document.getElementById("TeethTable");
 
     // Condition to ensure all values are filled before adding to table.
-    if(teeth.value == '' || date.value == ''){
+    if(teeth.value == '' || date.value == '' || isNaN(teeth.value)){
         return;
     }
     var rowCount = table.rows.length;
@@ -62,7 +62,7 @@ function addRowHead() {
     var table = document.getElementById("HeadTable");
 
     // Condition to ensure all values are filled before adding to table.
-    if(head.value == '' || date.value == ''){
+    if(head.value == '' || date.value == '' || isNaN(head.value)){
         return;
     }
 
