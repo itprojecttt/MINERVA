@@ -59,12 +59,16 @@
 
              <div class="form-group form-control-Gender">
                {% if child_data.gender == "M" %}
-               <input type="radio" checked="checked" value="male" name="gender"> Male<br>
-               <input type="radio" value="female" name="gender"> Female<br>
+               <input type="radio" checked="checked" value="M" name="gender"> Male<br>
+               <input type="radio" value="F" name="gender"> Female<br>
+               <small id="genderHelp" class="form-text text-muted">Select gender</small>
+               {% elif child_data.gender == "F" %}
+               <input type="radio" value="M" name="gender"> Male<br>
+               <input type="radio" checked="checked" value="F" name="gender"> Female<br>
                <small id="genderHelp" class="form-text text-muted">Select gender</small>
                {% else %}
-               <input type="radio" value="male" name="gender"> Male<br>
-               <input type="radio" checked="checked" value="female" name="gender"> Female<br>
+               <input type="radio" value="M" name="gender"> Male<br>
+               <input type="radio" value="F" name="gender"> Female<br>
                <small id="genderHelp" class="form-text text-muted">Select gender</small>
                {% endif %}
             </div>

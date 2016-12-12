@@ -124,13 +124,13 @@ def gm_milestone_auth(request):
     if not request.user.is_authenticated():
         return render_to_response('redirect.html', {'tag': 'logout'})
 
-    checklist = request.POST.getlist('checklist')
+    checklist = request.POST.get('cl')
+    print(checklist)
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
 
     gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
     gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
-    print(checklist)
 
     for id in checklist:
         m = GrossMotorMilestone.objects.get(id=id)
@@ -145,6 +145,7 @@ def gm_milestone_auth_update(request):
         return render_to_response('redirect.html', {'tag': 'logout'})
 
     checklist = request.POST.getlist('checklist')
+    print(checklist)
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
 
@@ -425,6 +426,7 @@ def physical_input_auth(request):
 
         checker = [fullname, nickname, gender, birthday, weight_list, height_list, date_wh_list, teeth_list,
                    date_teeth_list, head_list, date_head_list]
+        print(checker)
 
         if None or '' or [] in checker:
             return render_to_response('redirect.html', {'tag': 'incomplete'})
@@ -441,6 +443,8 @@ def physical_input_auth(request):
                 old_teeth = TeethData.objects.all().filter(uid_child=child)
                 old_head = HeadData.objects.all().filter(uid_child=child)
 
+                print("lewat old")
+
                 # delete old data to be replaced by updated one
                 for o in old_wh:
                     o.delete()
@@ -452,8 +456,11 @@ def physical_input_auth(request):
                     o.delete()
 
             except:
+                print("lewat except")
+                print("eaea")
                 child = ChildData.objects.create(uid_user=request.user, fullname=fullname, nickname=nickname,
                                                  gender=gender, birthday=birthday)
+                print("lewat bikin child")
 
             # Create multiple instances based on data
             for i in range(len(weight_list)):
@@ -461,6 +468,7 @@ def physical_input_auth(request):
                                                    date_w_and_h=date_wh_list[i])
             for i in range(len(teeth_list)):
                 TeethData.objects.create(uid_child=child, teeth=teeth_list[i], date_teeth=date_teeth_list[i])
+
             for i in range(len(head_list)):
                 HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
