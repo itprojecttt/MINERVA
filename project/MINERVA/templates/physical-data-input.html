@@ -57,21 +57,16 @@
               {% endif %}
             </div>
 
-            <div class="form-group">
-              <label class="sr-only" for="inputNick">Gender</label>
-              <select class="form-control form-control-lg" name="gender">
-                  {% if child_data.gender == "F" %}
-                  <option value="M">Male</option>
-                  <option value="F" selected>Female</option>
-                  {% elif child_data.gender == "M" %}
-                  <option value="M" selected>Male</option>
-                  <option value="F">Female</option>
-                  {% else %}
-                  <option>Please select your child's gender</option>
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
-                  {% endif %}
-              </select>
+             <div class="form-group form-control-Gender">
+               {% if child_data.gender == "M" %}
+               <input type="radio" checked="checked" value="male" name="gender"> Male<br>
+               <input type="radio" value="female" name="gender"> Female<br>
+               <small id="genderHelp" class="form-text text-muted">Select gender</small>
+               {% else %}
+               <input type="radio" value="male" name="gender"> Male<br>
+               <input type="radio" checked="checked" value="female" name="gender"> Female<br>
+               <small id="genderHelp" class="form-text text-muted">Select gender</small>
+               {% endif %}
             </div>
 
             <div class="form-group">

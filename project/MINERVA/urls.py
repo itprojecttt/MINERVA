@@ -19,7 +19,7 @@ from .views import login, auth_view, homepage, logout, redirect, register, gm_mi
     ps_milestone_view, ps_milestone_auth, physical_input_view, physical_input_auth, index, reset_password, \
     milestone_details_view, register_finish, send_email, homepage_pass_check, growth_detail, gm_milestone_view_update, \
     gm_milestone_auth_update, ps_milestone_view_update, ps_milestone_auth_update, physical_input_view_update, \
-    physical_input_auth_update
+    physical_input_auth_update, milestone_detail
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^milestones/personal-social-update/$', ps_milestone_view_update),
     url(r'^milestones-auth/personal-social-update/$', ps_milestone_auth_update),
     url(r'^growth-details/$', growth_detail),
+    url(r'^milestone-details/$', milestone_detail),
     url(r'^homepage-pass-check/$', homepage_pass_check),
     url(r'^physical-input/$', physical_input_view),
     url(r'^physical-input-auth/$', physical_input_auth),

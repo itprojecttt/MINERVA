@@ -35,7 +35,7 @@
           <form action="/logout/">
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
-          <button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button>
+          <a href="/"><button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button></a>
 
         </div>
         <div class="card-block container">
@@ -57,7 +57,7 @@
         <div class="col-md-6">
         <div class="btn3 btn-primary btn-block">PHYSICAL MILESTONE</div>
           <div class="card card-chart">
-            <div id="chart-holder" class="center-block">
+            <div id="chart-holder" class="center-block" data-active="{{ percentage_physical }}%">
               <canvas id="myChart3" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-danger" style="margin-top: 1rem;">
@@ -67,16 +67,16 @@
 
             <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+                <span class="label pull-xs-right">{{ physical_late.0.start }} - {{ physical_late.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_late.0 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+                <span class="label pull-xs-right">{{ physical_late.1.start }} - {{ physical_late.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_late.1 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+                <span class="label pull-xs-right">{{ physical_late.2.start }} - {{ physical_late.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_late.2 }}
               </li>
             </ul>
 
@@ -86,16 +86,16 @@
             </div></center>
              <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+                <span class="label pull-xs-right">{{ physical_in_progress.0.start }} - {{ physical_in_progress.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_in_progress.0 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+                <span class="label pull-xs-right">{{ physical_in_progress.1.start }} - {{ physical_in_progress.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_in_progress.1 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+                <span class="label pull-xs-right">{{ physical_in_progress.2.start }} - {{ physical_in_progress.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_in_progress.2 }}
               </li>
             </ul>
 
@@ -105,16 +105,16 @@
             </div></center>
              <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+                <span class="label pull-xs-right">{{ physical_done.0.start }} - {{ physical_done_milestone.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_done.0 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+                <span class="label pull-xs-right">{{ physical_done_milestone.1.start }} - {{ physical_done_milestone.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_done.1 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+                <span class="label pull-xs-right">{{ physical_done_milestone.2.start }} - {{ physical_done_milestone.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ physical_done.2 }}
               </li>
             </ul>
           </div>
@@ -124,7 +124,7 @@
          <div class="col-md-6">
          <div class="btn3 btn-primary btn-block">COGNITIVE MILESTONE</div>
           <div class="card card-chart">
-            <div id="chart-holder" class="center-block" data-active="85%">
+            <div id="chart-holder" class="center-block" data-active="{{ percentage_personal_social }}%">
               <canvas id="myChart" class="center-block" width="150" height="150"></canvas>
             </div>
             <center><div class="label-danger" style="margin-top: 1rem;">
@@ -153,16 +153,16 @@
             </div></center>
              <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+                <span class="label pull-xs-right">{{ personal_social_in_progress.0.start }} - {{ personal_social_in_progress.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_in_progress.0 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+                <span class="label pull-xs-right">{{ personal_social_in_progress.1.start }} - {{ personal_social_in_progress.1.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_in_progress.1 }}
               </li>
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+                <span class="label pull-xs-right">{{ personal_social_in_progress.2.start }} - {{ personal_social_in_progress.2.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_in_progress.2 }}
               </li>
             </ul>
 
@@ -172,16 +172,16 @@
             </div></center>
              <ul class="list-group">
               <li class="list-group-item complete">
-                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+                <span class="label pull-xs-right">{{ personal_social_done.0.start }} - {{ personal_social_done.0.finish }} months old</span>
+                <span class="icon-status"></span>{{ personal_social_done.0 }}
               </li>
               <li class="list-group-item">
                 <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
+                <span class="icon-status"></span>{{ personal_social_done.1 }}
               </li>
               <li class="list-group-item">
                 <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
+                <span class="icon-status"></span>{{ personal_social_done.2 }}
               </li>
             </ul>
           </div>
@@ -210,7 +210,7 @@
           ],
           datasets: [
               {
-                  data: [300, 50, 100],
+                  data: [parseInt("{{personal_social_done_len}}"), parseInt("{{personal_social_in_progress_len}}"), parseInt("{{personal_social_not_done_len}}")],
                   backgroundColor: [
                       "#18bc9c",
                       "#f4d10c",
@@ -309,7 +309,7 @@
           ],
           datasets: [
               {
-                  data: [300, 50, 100],
+                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), parseInt("{{physical_not_done_len}}")],
                   backgroundColor: [
                       "#18bc9c",
                       "#f4d10c",
