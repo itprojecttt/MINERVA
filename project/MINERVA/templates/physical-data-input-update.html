@@ -19,7 +19,7 @@
     <hr class="invisible">
 
 <!--MAIN BODY================================================== -->
-    <form action="/physical-input-auth/" method="post">{% csrf_token %}
+    <form action="/physical-input-auth-update/" method="post">{% csrf_token %}
     <div class="container">
       <!--HEADER-->
       <div class="card card-inverse card-social text-xs-center">
@@ -30,21 +30,30 @@
           <form action="/logout/">
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
+          <form action="/">
           <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" style="margin-bottom: 5px;">HOMEPAGE</button>
+          </form>
 
           <div class="row">
             <div class="col-md-4">
-              <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem; background-color:white; color:#4e5aca;">PHYSICAL DATA INPUT</button>
+              <form action="/physical-input-update/">
+                <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem; background-color:white; color:#4e5aca;">PHYSICAL DATA INPUT</button>
+              </form>
             </div>
             <div class="col-md-4">
+              <form action="/milestones/physical-update">
               <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL MILESTONE</button>
+              </form>
             </div>
             <div class="col-md-4">
-              <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
+              <form action="/milestones/personal-social-update/">
+                <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
       <br>
 
       <!--DATA DIRI-->
