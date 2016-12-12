@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MINERVA | Homepage</title>
+    <title>MINERVA | Milestone Details</title>
     <meta name="description" content="A free HTML template and UI Kit built on Bootstrap" />
     <meta name="keywords" content="free html template, bootstrap, ui kit, sass" />
     <meta name="author" content="Peter Finlan and Taty Grassini Codrops" />
@@ -36,8 +36,11 @@
             <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
           </form>
           <a href="/"><button type="submit" class="btn2 btn-secondary-outline btn-sm">HOMEPAGE</button></a>
-          <a href="/"><button type="submit" class="btn2 btn-secondary-outline btn-sm">UPDATE DATA</button></a>
-
+          
+          <div>
+          <a href="/"><button type="submit" class="btn2 btn-secondary-outline btn-sm">UPDATE PHYSICAL MILESTONE</button></a>
+          <a href="/"><button type="submit" class="btn2 btn-secondary-outline btn-sm">UPDATE COGNITIVE MILESTONE</button></a>
+          </div>
 
         </div>
         <div class="card-block container">
@@ -68,7 +71,7 @@
             </div></center>
 
             <ul class="list-group">
-              <li class="list-group-item complete">
+              <li class="list-group-item">
                 <span class="label pull-xs-right">{{ physical_late.0.start }} - {{ physical_late.0.finish }} months old</span>
                 <span class="icon-status"></span>{{ physical_late.0 }}
               </li>
@@ -87,7 +90,7 @@
             <br>
             </div></center>
              <ul class="list-group">
-              <li class="list-group-item complete">
+              <li class="list-group-item">
                 <span class="label pull-xs-right">{{ physical_in_progress.0.start }} - {{ physical_in_progress.0.finish }} months old</span>
                 <span class="icon-status"></span>{{ physical_in_progress.0 }}
               </li>
@@ -106,18 +109,12 @@
             <br>
             </div></center>
              <ul class="list-group">
-              <li class="list-group-item complete">
-                <span class="label pull-xs-right"></span>
-                <span class="icon-status"></span>{{ physical_done.0 }}
-              </li>
+             {% for i in physical_done %}
               <li class="list-group-item">
                 <span class="label pull-xs-right"></span>
-                <span class="icon-status"></span>{{ physical_done.1 }}
+                <span class="icon-status"></span>{{ i }}
               </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right"></span>
-                <span class="icon-status"></span>{{ physical_done.2 }}
-              </li>
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -135,7 +132,7 @@
             </div></center>
 
             <ul class="list-group">
-              <li class="list-group-item complete">
+              <li class="list-group-item">
                 <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
                 <span class="icon-status"></span>{{ personal_social_not_done.0 }}
               </li>
@@ -154,7 +151,7 @@
             <br>
             </div></center>
              <ul class="list-group">
-              <li class="list-group-item complete">
+              <li class="list-group-item">
                 <span class="label pull-xs-right">{{ personal_social_in_progress.0.start }} - {{ personal_social_in_progress.0.finish }} months old</span>
                 <span class="icon-status"></span>{{ personal_social_in_progress.0 }}
               </li>
@@ -173,18 +170,12 @@
             <br>
             </div></center>
              <ul class="list-group">
-              <li class="list-group-item complete">
-                <span class="label pull-xs-right"></span>
-                <span class="icon-status"></span>{{ personal_social_done.0 }}
-              </li>
+              {% for j in personal_social_done %}
               <li class="list-group-item">
                 <span class="label pull-xs-right"></span>
-                <span class="icon-status"></span>{{ personal_social_done.1 }}
+                <span class="icon-status"></span>{{ j }}
               </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right"></span>
-                <span class="icon-status"></span>{{ personal_social_done.2 }}
-              </li>
+              {% endfor %}
             </ul>
           </div>
 
