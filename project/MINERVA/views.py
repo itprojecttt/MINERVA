@@ -9,7 +9,6 @@ from .models import GrossMotorMilestone, GrossMotorChecklist, ChildData, WeightA
     PersonalSocialChecklist, PersonalSocialMilestone
 import datetime
 import re
-from json import dumps
 
 
 def login(request):
@@ -73,6 +72,8 @@ def gm_milestone_view(request):
     c = {}
     c.update(csrf(request))
     user_id = request.user
+    if not user_id.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
     milestone_list = GrossMotorMilestone.objects.raw('SELECT * FROM "MINERVA_grossmotormilestone"')
     mc = GrossMotorChecklist.objects.all()
@@ -83,16 +84,16 @@ def gm_milestone_view(request):
 
     c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
 
-    if request.user.is_authenticated():
-        return render_to_response('physical-milestones.html', c)
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return render_to_response('physical-milestones.html', c)
 
 
 def gm_milestone_view_update(request):
     c = {}
     c.update(csrf(request))
     user_id = request.user
+
+    if not user_id.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
     try:
         child = ChildData.objects.get(uid_user=request.user)
@@ -116,13 +117,13 @@ def gm_milestone_view_update(request):
 
     c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': age})
 
-    if request.user.is_authenticated():
-        return render_to_response('physical-milestones-update.html', c)
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return render_to_response('physical-milestones-update.html', c)
 
 
 def gm_milestone_auth(request):
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
@@ -130,18 +131,18 @@ def gm_milestone_auth(request):
     gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
     gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
 
-    if request.user.is_authenticated():
-        for id in checklist:
-            m = GrossMotorMilestone.objects.get(id=id)
-            if str(m.gm_milestone) not in gm_done_id:
-                GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+    for id in checklist:
+        m = GrossMotorMilestone.objects.get(id=id)
+        if str(m.gm_milestone) not in gm_done_id:
+            GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
 
-        return HttpResponseRedirect('/milestones/personal-social')
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return HttpResponseRedirect('/milestones/personal-social')
 
 
 def gm_milestone_auth_update(request):
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
@@ -149,16 +150,13 @@ def gm_milestone_auth_update(request):
     gross_motor_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
     gm_done_id = [str(x.uid_gm_milestone) for x in gross_motor_done]
 
-    if request.user.is_authenticated():
-        for id in checklist:
-            m = GrossMotorMilestone.objects.get(id=id)
-            if str(m.gm_milestone) not in gm_done_id:
-                GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c,
-                                                   timestamp=date)
+    for id in checklist:
+        m = GrossMotorMilestone.objects.get(id=id)
+        if str(m.gm_milestone) not in gm_done_id:
+            GrossMotorChecklist.objects.create(uid_gm_milestone=m, uid_user=request.user, uid_child=c,
+                                               timestamp=date)
 
-        return HttpResponseRedirect('/')
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return HttpResponseRedirect('/')
 
 
 def index(request):
@@ -244,6 +242,7 @@ def index(request):
     c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
               'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
               'physical_not_done': physical_not_done, 'physical_done': physical_done})
+
     return render_to_response('index.html', c)
 
 
@@ -251,6 +250,9 @@ def ps_milestone_view(request):
     c = {}
     c.update(csrf(request))
     user_id = request.user
+
+    if not user_id.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
 
     milestone_list = PersonalSocialMilestone.objects.raw('SELECT * FROM "MINERVA_personalsocialmilestone"')
     mc = PersonalSocialChecklist.objects.all()
@@ -261,10 +263,7 @@ def ps_milestone_view(request):
 
     c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist})
 
-    if request.user.is_authenticated():
-        return render_to_response('personal-social-milestones.html', c)
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return render_to_response('personal-social-milestones.html', c)
 
 
 def ps_milestone_view_update(request):
@@ -272,6 +271,8 @@ def ps_milestone_view_update(request):
     c.update(csrf(request))
     user_id = request.user
 
+    if not user_id.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
     try:
         child = ChildData.objects.get(uid_user=request.user)
     except ChildData.DoesNotExist:
@@ -294,13 +295,13 @@ def ps_milestone_view_update(request):
 
     c.update({'milestone_list': milestone_list, 'milestone_checklist': milestone_checklist, 'age': float(age)})
 
-    if request.user.is_authenticated():
-        return render_to_response('personal-social-milestones-update.html', c)
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return render_to_response('personal-social-milestones-update.html', c)
 
 
 def ps_milestone_auth(request):
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
@@ -308,17 +309,17 @@ def ps_milestone_auth(request):
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
     ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
 
-    if request.user.is_authenticated():
-        for id in checklist:
-            m = PersonalSocialMilestone.objects.get(id=id)
-            if str(m.ps_milestone) not in ps_done_id:
-                PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
-        return HttpResponseRedirect('/register-finish')
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    for id in checklist:
+        m = PersonalSocialMilestone.objects.get(id=id)
+        if str(m.ps_milestone) not in ps_done_id:
+            PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+    return HttpResponseRedirect('/register-finish')
 
 
 def ps_milestone_auth_update(request):
+    if not request.user.is_authenticated():
+        return render_to_response('redirect.html', {'tag': 'logout'})
+
     checklist = request.POST.getlist('checklist')
     date = datetime.datetime.now().strftime("%Y-%m-%d")
     c = ChildData.objects.get(uid_user=request.user)
@@ -326,20 +327,18 @@ def ps_milestone_auth_update(request):
     personal_social_done = list(PersonalSocialChecklist.objects.all().filter(uid_user=request.user.id))
     ps_done_id = [str(x.uid_ps_milestone) for x in personal_social_done]
 
-    if request.user.is_authenticated():
-        for id in checklist:
-            m = PersonalSocialMilestone.objects.get(id=id)
-            if str(m.ps_milestone) not in ps_done_id:
-                PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
-        return HttpResponseRedirect('/')
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    for id in checklist:
+        m = PersonalSocialMilestone.objects.get(id=id)
+        if str(m.ps_milestone) not in ps_done_id:
+            PersonalSocialChecklist.objects.create(uid_ps_milestone=m, uid_user=request.user, uid_child=c, timestamp=date)
+    return HttpResponseRedirect('/')
 
 
 def physical_input_view(request):
     c = {}
     c.update(csrf(request))
     user_id = request.user.id
+
     if not request.user.is_authenticated():
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -351,8 +350,6 @@ def physical_input_view(request):
         weight_height_data = list(WeightAndHeightData.objects.all().filter(uid_child=child_data))
         for l in range(len(weight_height_data)):
             wh_index.append(int(l))
-
-        print(wh_index)
 
         teeth_index = []
         teeth_data = list(TeethData.objects.all().filter(uid_child=child_data))
@@ -372,16 +369,14 @@ def physical_input_view(request):
         pass
         print("lewat except")
 
-    if request.user.is_authenticated():
-        return render_to_response('physical-data-input.html', c)
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return render_to_response('physical-data-input.html', c)
 
 
 def physical_input_view_update(request):
     c = {}
     c.update(csrf(request))
     user_id = request.user.id
+
     if not request.user.is_authenticated():
         return render_to_response('redirect.html', {'tag': 'logout'})
 
@@ -398,10 +393,7 @@ def physical_input_view_update(request):
         pass
         print("lewat except")
 
-    if request.user.is_authenticated():
-        return render_to_response('physical-data-input-update.html', c)
-    else:
-        return render_to_response('redirect.html', {'tag': 'logout'})
+    return render_to_response('physical-data-input-update.html', c)
 
 
 def physical_input_auth(request):
@@ -549,12 +541,14 @@ def register_finish(request):
 
 
 def send_email(request):
+    # Testing
     send_mail('MINERVA Email Test', 'Does it work?', settings.EMAIL_HOST_USER, ['kitto.adinatha@gmail.com'],
               fail_silently=False,)
     return HttpResponseRedirect('/')
 
 
 def homepage_pass_check(request):
+    # Testing
     password = request.POST.get('inputPasswordCheck')
     user_id = request.user.id
     print(user_id, password)
