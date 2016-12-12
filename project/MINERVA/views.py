@@ -531,7 +531,7 @@ def physical_input_auth_update(request):
             for i in range(len(head_list)):
                 HeadData.objects.create(uid_child=child, head_size=head_list[i], date_head=date_teeth_list[i])
 
-            return HttpResponseRedirect('/milestones/physical-update')
+            return HttpResponseRedirect('/')
     else:
         return render_to_response('redirect.html', {'tag': 'logout'})
 
