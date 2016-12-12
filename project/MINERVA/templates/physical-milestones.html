@@ -73,7 +73,21 @@ div.panel.show {
 	     <button class="accordion">0 - 3 months old</button>
 			<div class="panel">
 			  <p style="margin-top: 10px; font-size: 18px">
-			  	Isi disini ya
+			  		{% for m in milestone_list %}
+			{% if m.start < 4 %}
+		  <div class="checkbox">
+		    <button type="button" class="btn btn-lg btn-default checkbox-reg">
+				{% if m.gm_milestone in milestone_checklist %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist" checked>
+				{% else %}
+				<label><input type="checkbox" value="{{ m.id }}" name="checklist">
+				{% endif %}
+					<h6><b>{{ m.gm_milestone }}</b> </h6>
+					<p>Description of milestone.</p></label>
+				</button>
+		  </div>
+			{% endif %}
+		{% endfor %}
 			  </p>
 			</div><br>
 
