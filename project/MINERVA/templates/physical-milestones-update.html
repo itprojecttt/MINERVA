@@ -13,14 +13,30 @@
   <body class="bg-white">
 	<hr class="invisible">
     <div class="container">
-	      <center><h2>
-	      <b>Physical</b><br>Milestones</h2>
-	      </center><br>
-	      <div class="card_header card-inverse has-gradient card-register">
-	        <div class="card-register-pic2" style="height:100%; position: center;">
-	        </div>
-	      </div>
-	      <br>
+      <div class="card card-inverse card-social text-xs-center" style="border-radius: 5rem;">
+        <div class="card-block has-gradient" style="border-radius: 0.25rem;">
+          <img src="{% static 'img/minervaofficial/minervaofficial4.png' %}" height="120" width="150">
+          <h3 class="card-title">{{ child.fullname }}</h3>
+          <h6 class="card-subtitle">{{ child.birthday }}</h6>
+          <form action="/logout/">
+            <button type="submit" class="btn btn-secondary-outline btn-sm">Log Out</button>
+          </form>
+          <button type="submit" class="md-trigger btn2 btn-secondary-outline btn-sm" style="margin-bottom: 5px;">HOMEPAGE</button>
+
+          <div class="row">
+            <div class="col-md-4">
+              <button type="submit" class="btn2 btn-primary-outline btn-sm" style="padding:0.75rem 5rem;">PHYSICAL DATA INPUT</button>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem; background-color:white; color:#4e5aca;">PHYSICAL MILESTONE</button>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn2 btn-secondary-outline btn-sm" style="padding:0.75rem 5rem;">COGNITIVE MILESTONE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div class="row">
         <div class="col-md-8 col-xl-8">
