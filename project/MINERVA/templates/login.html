@@ -8,6 +8,16 @@
         <title>MINERVA</title>
         <link rel="stylesheet" href="{% static 'css/landio.css' %}">
         <link rel="stylesheet" href="{% static 'css/component.css' %}">
+        <link rel="stylesheet" href="{% static 'css/landio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/component.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pageloader.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
     </head>
     <body class="bg-white">
         <hr class="invisible">
@@ -75,7 +85,7 @@
                         <div class="form-group has-icon-left form-control-password">
                             <label class="sr-only" for="inputPassword">Password</label>
                             <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" autocomplete="off">
-                        <a style="float: left; text-align: right" href="#modal-13">Forget your password?</a>
+                             <div style="margin: 7px 0 7px 0; cursor: pointer; color: grey;" class="md-trigger" data-modal="modal-13">Forget password?</div>
                         <input type="submit" class=" btn btn-primary btn-block" value="LOGIN"></input>
                         <!--
                         <a style="float: right; text-align: right; margin-bottom: 12px" href="#"><br>Belum punya akun?</a> -->
@@ -87,6 +97,20 @@
                         <hr class="invisible">
                     </div>
                 </div>
+
+         
+            <div class="md-modal md-effect-1" id="modal-13">
+                  <div class="md-content">
+
+                    <h3>Reset New Password</h3>
+                    <div>
+                      <p>Are you sure you want to reset your password??</p>
+                      <a href="physical-input-update"><button class="btn btn-primary btn-block md-close">Yes, give me the new one!</button></a>
+                    </div>
+                  </div>
+                </div>
+
+    <div class="md-overlay"></div><!-- the overlay element -->
 
 
 
@@ -116,7 +140,19 @@
 
         <!-- DARK footer
             ================================================== -->
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{% static 'js/landio.min.js' %}"></script>
+    <script src="{% static 'js/classie.js' %}"></script>
+    <script src="{% static 'js/modalEffects.js' %}"></script>
 
+    <!-- for the blur effect -->
+    <!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+    <script>
+      // this is important for IEs
+      var polyfilter_scriptpath = '/js/';
+    </script>
+    <script src="js/cssParser.js"></script>
+    <script src="js/css-filters-polyfill.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="{% static 'js/landio.min.js' %}"></script>
     </body>
