@@ -71,18 +71,12 @@
             </div></center>
 
             <ul class="list-group">
+                {% for i in physical_late %}
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_late.0.start }} - {{ physical_late.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ physical_late.0 }}
+                <span class="label pull-xs-right">{{ i.start }} - {{ i.finish }} months old</span>
+                <span class="icon-status"></span>{{ i }}
               </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_late.1.start }} - {{ physical_late.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ physical_late.1 }}
-              </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_late.2.start }} - {{ physical_late.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ physical_late.2 }}
-              </li>
+                {% endfor %}
             </ul>
 
             <center><div class="label-warning" style="margin-top: 1rem;">
@@ -90,18 +84,12 @@
             <br>
             </div></center>
              <ul class="list-group">
+                 {% for i in physical_in_progress %}
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_in_progress.0.start }} - {{ physical_in_progress.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ physical_in_progress.0 }}
+                <span class="label pull-xs-right">{{ i.start }} - {{ i.finish }} months old</span>
+                <span class="icon-status"></span>{{ i }}
               </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_in_progress.1.start }} - {{ physical_in_progress.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ physical_in_progress.1 }}
-              </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ physical_in_progress.2.start }} - {{ physical_in_progress.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ physical_in_progress.2 }}
-              </li>
+                {% endfor %}
             </ul>
 
             <center><div class="label-success" style="margin-top: 1rem;">
@@ -132,18 +120,12 @@
             </div></center>
 
             <ul class="list-group">
+                {% for i in personal_social_not_done %}
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.0.start }} - {{ personal_social_not_done.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.0 }}
+                <span class="label pull-xs-right">{{ i.start }} - {{ i.finish }} months old</span>
+                <span class="icon-status"></span>{{ i }}
               </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.1.start }} - {{ personal_social_not_done.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.1 }}
-              </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_not_done.2.start }} - {{ personal_social_not_done.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_not_done.2 }}
-              </li>
+                {% endfor %}
             </ul>
 
             <center><div class="label-warning" style="margin-top: 1rem;">
@@ -151,18 +133,12 @@
             <br>
             </div></center>
              <ul class="list-group">
+                  {% for i in personal_social_in_progress %}
               <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_in_progress.0.start }} - {{ personal_social_in_progress.0.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_in_progress.0 }}
+                <span class="label pull-xs-right">{{ i.start }} - {{ i.finish }} months old</span>
+                <span class="icon-status"></span>{{ i }}
               </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_in_progress.1.start }} - {{ personal_social_in_progress.1.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_in_progress.1 }}
-              </li>
-              <li class="list-group-item">
-                <span class="label pull-xs-right">{{ personal_social_in_progress.2.start }} - {{ personal_social_in_progress.2.finish }} months old</span>
-                <span class="icon-status"></span>{{ personal_social_in_progress.2 }}
-              </li>
+                {% endfor %}
             </ul>
 
             <center><div class="label-success" style="margin-top: 1rem;">
