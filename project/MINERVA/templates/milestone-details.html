@@ -225,28 +225,28 @@
     <hr class="invisible">
 
     
-    <script type="text/javascript">
+     <script type="text/javascript">
       var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
+      var myChart3 = new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: [
-              "Late",
               "Completed",
-              "Ongoing"
+              "Ongoing",
+              "Late"
           ],
           datasets: [
               {
-                  data: [parseInt("{{personal_social_late_len}}"), parseInt("{{personal_social_done_len}}"), parseInt("{{personal_social_in_progress_len}}")],
+                  data: [parseInt("{{personal_social_done_len}}"), parseInt("{{personal_social_in_progress_len}}"), parseInt("{{personal_social_late_len}}")],
                   backgroundColor: [
-                      "#d9534f",
                       "#18bc9c",
-                      "#f4d10c"
+                      "#f4d10c",
+                      "#d9534f",
                   ],
                   hoverBackgroundColor: [
-                      "#d9534f",
                       "#2d8a78",
-                      "#f5bb4a"
+                      "#f5bb4a",
+                      "#ea645f",
                   ]
               }]
         }
@@ -330,22 +330,22 @@
         type: 'doughnut',
         data: {
           labels: [
-              "Late",
               "Completed",
-              "Ongoing"
+              "Ongoing",
+              "Late"
           ],
           datasets: [
               {
-                  data: [parseInt("{{physical_late_len}}"), parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}")],
+                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), parseInt("{{physical_late_len}}")],
                   backgroundColor: [
-                      "#d9534f",
                       "#18bc9c",
-                      "#f4d10c"
+                      "#f4d10c",
+                      "#d9534f",
                   ],
                   hoverBackgroundColor: [
-                      "#d9534f",
                       "#2d8a78",
-                      "#f5bb4a"
+                      "#f5bb4a",
+                      "#ea645f",
                   ]
               }]
         }
