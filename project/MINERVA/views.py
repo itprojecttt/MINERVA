@@ -537,6 +537,7 @@ def physical_input_auth_update(request):
                 child.nickname = nickname
                 child.gender = gender
                 child.birthday = birthday
+                child.save()
 
                 old_wh = WeightAndHeightData.objects.all().filter(uid_child=child)
                 old_teeth = TeethData.objects.all().filter(uid_child=child)
