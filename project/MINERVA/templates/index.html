@@ -377,11 +377,11 @@
           labels: [
               "Completed",
               "Progress",
-              "On Hold"
+              "Late"
           ],
           datasets: [
               {
-                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), onHold],
+                  data: [parseInt("{{physical_done_len}}"), parseInt("{{physical_in_progress_len}}"), parseInt("{{physical_late_len}}")],
                   backgroundColor: [
                       "#FF6384",
                       "#36A2EB",
@@ -411,11 +411,11 @@
           labels: [
               "Completed",
               "Progress",
-              "On Hold"
+              "Late"
           ],
           datasets: [
               {
-                  data: [parseInt("{{personal_social_done_len}}"), parseInt("{{personal_social_in_progress_len}}"), onHold],
+                  data: [parseInt("{{personal_social_done_len}}"), parseInt("{{personal_social_in_progress_len}}"), parseInt("{{personal_social_late_len}}")],
                   backgroundColor: [
                       "#FF6384",
                       "#36A2EB",

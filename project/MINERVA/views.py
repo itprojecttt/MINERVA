@@ -208,6 +208,8 @@ def index(request):
                                                                                     finish__lte=float(age)))
     personal_social_not_done = list(PersonalSocialMilestone.objects.all())
 
+    personal_social_late = list(PersonalSocialMilestone.objects.all().filter(finish__lte=float(age)))
+
     c.update({'personal_social_not_done_len': len(personal_social_not_done),
               'personal_social_in_progress_len': len(personal_social_in_progress),
               'personal_social_done_len': len(personal_social_done),
@@ -221,13 +223,27 @@ def index(request):
             temp.append(m)
     for t in temp:
         personal_social_not_done.remove(t)
-    personal_social_not_done = personal_social_not_done[0:3]
+
+    temp = []
+    for x in personal_social_in_progress:
+        if x.ps_milestone in str_personal_list:
+            temp.append(x)
+    for t in temp:
+        personal_social_in_progress.remove(t)
+
+    temp = []
+    for x in personal_social_late:
+        if x.ps_milestone in str_personal_list:
+            temp.append(x)
+    for t in temp:
+        personal_social_late.remove(t)
 
     # Checklist info (physical)
     physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
     physical_in_progress = list(GrossMotorMilestone.objects.all().filter(seven_five__lte=float(age),
                                                                          finish__lte=float(age)))
     physical_not_done = list(GrossMotorMilestone.objects.all())
+    physical_late = list(GrossMotorMilestone.objects.all().filter(finish__lte=float(age)))
 
     c.update({'physical_not_done_len': len(physical_not_done), 'physical_in_progress_len': len(physical_in_progress),
               'physical_done_len': len(physical_done), 'percentage_physical': int((len(physical_done)/len(physical_not_done))*100)})
@@ -240,11 +256,26 @@ def index(request):
             temp.append(m)
     for t in temp:
         physical_not_done.remove(t)
-    physical_not_done = physical_not_done[0:3]
+
+    temp = []
+    for x in physical_late:
+        if x.gm_milestone in str_physical_list:
+            temp.append(x)
+    for t in temp:
+        physical_late.remove(t)
+
+    temp = []
+    for x in physical_in_progress:
+        if x.gm_milestone in str_physical_list:
+            temp.append(x)
+    for t in temp:
+        physical_in_progress.remove(t)
 
     c.update({'child': child, 'age': age, 'weight': weight, 'height': height,
               'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
-              'physical_not_done': physical_not_done, 'physical_done': physical_done})
+              'physical_not_done': physical_not_done, 'physical_done': physical_done,
+              'personal_social_late': personal_social_late, 'personal_social_late_len': len(personal_social_late),
+              'physical_late': physical_late, 'physical_late_len': len(physical_late)})
 
     return render_to_response('index.html', c)
 
