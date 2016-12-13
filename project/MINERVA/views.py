@@ -688,6 +688,7 @@ def milestone_detail(request):
     personal_social_in_progress = list(PersonalSocialMilestone.objects.all().filter(seven_five__lte=float(age),
                                                                                     finish__lte=float(age)))
     personal_social_not_done = list(PersonalSocialMilestone.objects.all())
+    personal_social_late = list(PersonalSocialMilestone.objects.all().filter(finish__lte=float(age)))
 
     c.update({'personal_social_not_done_len': len(personal_social_not_done),
               'personal_social_in_progress_len': len(personal_social_in_progress),
@@ -709,6 +710,13 @@ def milestone_detail(request):
             temp.append(x)
     for t in temp:
         personal_social_in_progress.remove(t)
+
+    temp = []
+    for x in personal_social_late:
+        if x.ps_milestone in str_personal_list:
+            temp.append(x)
+    for t in temp:
+        personal_social_late.remove(t)
 
     # Checklist info (physical)
     physical_done = list(GrossMotorChecklist.objects.all().filter(uid_user=request.user.id))
@@ -749,5 +757,5 @@ def milestone_detail(request):
               'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
               'physical_not_done': physical_not_done, 'physical_done': physical_done, 'physical_late': physical_late,
               'physical_in_progress': physical_in_progress, 'personal_social_in_progress': personal_social_in_progress,
-              'physical_late_len': len(physical_late)})
+              'physical_late_len': len(physical_late), 'personal_social_late_len': len(personal_social_late)})
     return render_to_response('milestone-details.html', c)
