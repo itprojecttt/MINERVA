@@ -789,5 +789,6 @@ def milestone_detail(request):
               'personal_social_not_done': personal_social_not_done, 'personal_social_done': personal_social_done,
               'physical_not_done': physical_not_done, 'physical_done': physical_done, 'physical_late': physical_late,
               'physical_in_progress': physical_in_progress, 'personal_social_in_progress': personal_social_in_progress,
-              'physical_late_len': len(physical_late), 'personal_social_late_len': len(personal_social_late)})
+              'physical_late_len': len(physical_late), 'personal_social_late_len': len(personal_social_late),
+              'personal_social_late': personal_social_late})
     return render_to_response('milestone-details.html', c)
